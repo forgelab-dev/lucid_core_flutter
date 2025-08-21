@@ -1,0 +1,4 @@
+arb-dir: lib/l10n
+template-arb-file: intl_fr.arb
+output-localization-file: lucid_l10n.dart
+output-class: LucidL10n

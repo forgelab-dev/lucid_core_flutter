@@ -1,1 +1,1 @@
-abstract class LucidException implements Exception {}
+abstract class LucidAbstractException implements Exception {}

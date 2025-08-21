@@ -1,0 +1,1 @@
+class LucidApiClientResponse<T> {}

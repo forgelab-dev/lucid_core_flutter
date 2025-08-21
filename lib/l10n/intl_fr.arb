@@ -1,0 +1,2397 @@
+{
+  "@@locale": "fr",
+  "@@last_modified": "2025-08-21T12:49:42.185728Z",
+  "appName": "Lucid",
+  "@appName": {
+    "description": "Le nom de l'application"
+  },
+  "appDescription": "Une application Flutter puissante avec des fonctionnalités avancées",
+  "@appDescription": {
+    "description": "Brève description de l'application"
+  },
+  "ok": "OK",
+  "@ok": {
+    "description": "Translation for \"ok\"",
+    "context": "button",
+    "type": "text"
+  },
+  "cancel": "Annuler",
+  "@cancel": {
+    "description": "Translation for \"cancel\"",
+    "context": "dialog",
+    "type": "text"
+  },
+  "save": "Enregistrer",
+  "@save": {
+    "description": "Translation for \"save\"",
+    "context": "button",
+    "type": "text"
+  },
+  "delete": "Supprimer",
+  "@delete": {
+    "description": "Translation for \"delete\"",
+    "context": "dialog",
+    "type": "text"
+  },
+  "edit": "Modifier",
+  "@edit": {
+    "description": "Translation for \"edit\"",
+    "context": "button",
+    "type": "text"
+  },
+  "add": "Ajouter",
+  "@add": {
+    "description": "Translation for \"add\"",
+    "context": "button",
+    "type": "text"
+  },
+  "search": "Rechercher",
+  "@search": {
+    "description": "Translation for \"search\"",
+    "context": "button",
+    "type": "text"
+  },
+  "filter": "Filtrer",
+  "@filter": {
+    "description": "Translation for \"filter\"",
+    "context": "button",
+    "type": "text"
+  },
+  "sort": "Trier",
+  "@sort": {
+    "description": "Translation for \"sort\"",
+    "context": "button",
+    "type": "text"
+  },
+  "refresh": "Actualiser",
+  "@refresh": {
+    "description": "Translation for \"refresh\"",
+    "context": "button",
+    "type": "text"
+  },
+  "retry": "Réessayer",
+  "@retry": {
+    "description": "Translation for \"retry\"",
+    "context": "button",
+    "type": "text"
+  },
+  "back": "Retour",
+  "@back": {
+    "description": "Translation for \"back\"",
+    "context": "button",
+    "type": "text"
+  },
+  "next": "Suivant",
+  "@next": {
+    "description": "Translation for \"next\"",
+    "context": "button",
+    "type": "text"
+  },
+  "previous": "Précédent",
+  "@previous": {
+    "description": "Translation for \"previous\"",
+    "context": "button",
+    "type": "text"
+  },
+  "finish": "Terminer",
+  "@finish": {
+    "description": "Translation for \"finish\"",
+    "context": "button",
+    "type": "text"
+  },
+  "close": "Fermer",
+  "@close": {
+    "description": "Translation for \"close\"",
+    "context": "button",
+    "type": "text"
+  },
+  "open": "Ouvrir",
+  "@open": {
+    "description": "Translation for \"open\"",
+    "context": "button",
+    "type": "text"
+  },
+  "share": "Partager",
+  "@share": {
+    "description": "Translation for \"share\"",
+    "context": "button",
+    "type": "text"
+  },
+  "copy": "Copier",
+  "@copy": {
+    "description": "Translation for \"copy\"",
+    "context": "button",
+    "type": "text"
+  },
+  "paste": "Coller",
+  "@paste": {
+    "description": "Translation for \"paste\"",
+    "context": "button",
+    "type": "text"
+  },
+  "cut": "Couper",
+  "@cut": {
+    "description": "Translation for \"cut\"",
+    "context": "button",
+    "type": "text"
+  },
+  "undo": "Annuler",
+  "@undo": {
+    "description": "Translation for \"undo\"",
+    "context": "button",
+    "type": "text"
+  },
+  "redo": "Rétablir",
+  "@redo": {
+    "description": "Translation for \"redo\"",
+    "context": "button",
+    "type": "text"
+  },
+  "select": "Sélectionner",
+  "@select": {
+    "description": "Translation for \"select\"",
+    "context": "button",
+    "type": "text"
+  },
+  "selectAll": "Tout sélectionner",
+  "@selectAll": {
+    "description": "Translation for \"selectAll\"",
+    "context": "button",
+    "type": "text"
+  },
+  "clear": "Effacer",
+  "@clear": {
+    "description": "Translation for \"clear\"",
+    "context": "button",
+    "type": "text"
+  },
+  "reset": "Réinitialiser",
+  "@reset": {
+    "description": "Translation for \"reset\"",
+    "context": "button",
+    "type": "text"
+  },
+  "apply": "Appliquer",
+  "@apply": {
+    "description": "Translation for \"apply\"",
+    "context": "button",
+    "type": "text"
+  },
+  "confirm": "Confirmer",
+  "@confirm": {
+    "description": "Translation for \"confirm\"",
+    "context": "dialog",
+    "type": "text"
+  },
+  "submit": "Soumettre",
+  "@submit": {
+    "description": "Translation for \"submit\"",
+    "context": "button",
+    "type": "text"
+  },
+  "upload": "Télécharger",
+  "@upload": {
+    "description": "Translation for \"upload\"",
+    "context": "button",
+    "type": "text"
+  },
+  "download": "Télécharger",
+  "@download": {
+    "description": "Translation for \"download\"",
+    "context": "button",
+    "type": "text"
+  },
+  "import": "Importer",
+  "@import": {
+    "description": "Translation for \"import\"",
+    "context": "button",
+    "type": "text"
+  },
+  "export": "Exporter",
+  "@export": {
+    "description": "Translation for \"export\"",
+    "context": "button",
+    "type": "text"
+  },
+  "view": "Voir",
+  "@view": {
+    "description": "Translation for \"view\"",
+    "context": "button",
+    "type": "text"
+  },
+  "preview": "Aperçu",
+  "@preview": {
+    "description": "Translation for \"preview\"",
+    "context": "button",
+    "type": "text"
+  },
+  "send": "Envoyer",
+  "@send": {
+    "description": "Translation for \"send\"",
+    "context": "button",
+    "type": "text"
+  },
+  "receive": "Recevoir",
+  "@receive": {
+    "description": "Translation for \"receive\"",
+    "context": "button",
+    "type": "text"
+  },
+  "loading": "Chargement...",
+  "@loading": {
+    "description": "Translation for \"loading\"",
+    "context": "button",
+    "type": "text"
+  },
+  "success": "Succès",
+  "@success": {
+    "description": "Translation for \"success\"",
+    "context": "button",
+    "type": "text"
+  },
+  "error": "Erreur",
+  "@error": {
+    "description": "Translation for \"error\"",
+    "context": "error message",
+    "type": "text"
+  },
+  "warning": "Avertissement",
+  "@warning": {
+    "description": "Translation for \"warning\"",
+    "context": "button",
+    "type": "text"
+  },
+  "info": "Information",
+  "@info": {
+    "description": "Translation for \"info\"",
+    "context": "button",
+    "type": "text"
+  },
+  "completed": "Terminé",
+  "@completed": {
+    "description": "Translation for \"completed\"",
+    "context": "button",
+    "type": "text"
+  },
+  "pending": "En attente",
+  "@pending": {
+    "description": "Translation for \"pending\"",
+    "context": "button",
+    "type": "text"
+  },
+  "cancelled": "Annulé",
+  "@cancelled": {
+    "description": "Translation for \"cancelled\"",
+    "context": "dialog",
+    "type": "text"
+  },
+  "failed": "Échec",
+  "@failed": {
+    "description": "Translation for \"failed\"",
+    "context": "button",
+    "type": "text"
+  },
+  "processing": "Traitement en cours",
+  "@processing": {
+    "description": "Translation for \"processing\"",
+    "context": "button",
+    "type": "text"
+  },
+  "waiting": "En attente",
+  "@waiting": {
+    "description": "Translation for \"waiting\"",
+    "context": "button",
+    "type": "text"
+  },
+  "ready": "Prêt",
+  "@ready": {
+    "description": "Translation for \"ready\"",
+    "context": "button",
+    "type": "text"
+  },
+  "active": "Actif",
+  "@active": {
+    "description": "Translation for \"active\"",
+    "context": "button",
+    "type": "text"
+  },
+  "inactive": "Inactif",
+  "@inactive": {
+    "description": "Translation for \"inactive\"",
+    "context": "button",
+    "type": "text"
+  },
+  "enabled": "Activé",
+  "@enabled": {
+    "description": "Translation for \"enabled\"",
+    "context": "button",
+    "type": "text"
+  },
+  "disabled": "Désactivé",
+  "@disabled": {
+    "description": "Translation for \"disabled\"",
+    "context": "button",
+    "type": "text"
+  },
+  "online": "En ligne",
+  "@online": {
+    "description": "Translation for \"online\"",
+    "context": "button",
+    "type": "text"
+  },
+  "offline": "Hors ligne",
+  "@offline": {
+    "description": "Translation for \"offline\"",
+    "context": "button",
+    "type": "text"
+  },
+  "connected": "Connecté",
+  "@connected": {
+    "description": "Translation for \"connected\"",
+    "context": "button",
+    "type": "text"
+  },
+  "disconnected": "Déconnecté",
+  "@disconnected": {
+    "description": "Translation for \"disconnected\"",
+    "context": "button",
+    "type": "text"
+  },
+  "syncing": "Synchronisation",
+  "@syncing": {
+    "description": "Translation for \"syncing\"",
+    "context": "button",
+    "type": "text"
+  },
+  "synced": "Synchronisé",
+  "@synced": {
+    "description": "Translation for \"synced\"",
+    "context": "button",
+    "type": "text"
+  },
+  "expired": "Expiré",
+  "@expired": {
+    "description": "Translation for \"expired\"",
+    "context": "button",
+    "type": "text"
+  },
+  "valid": "Valide",
+  "@valid": {
+    "description": "Translation for \"valid\"",
+    "context": "button",
+    "type": "text"
+  },
+  "invalid": "Non valide",
+  "@invalid": {
+    "description": "Translation for \"invalid\"",
+    "context": "error message",
+    "type": "text"
+  },
+  "home": "Accueil",
+  "@home": {
+    "description": "Translation for \"home\"",
+    "context": "button",
+    "type": "text"
+  },
+  "profile": "Profil",
+  "@profile": {
+    "description": "Translation for \"profile\"",
+    "context": "button",
+    "type": "text"
+  },
+  "settings": "Paramètres",
+  "@settings": {
+    "description": "Translation for \"settings\"",
+    "context": "button",
+    "type": "text"
+  },
+  "help": "Aide",
+  "@help": {
+    "description": "Translation for \"help\"",
+    "context": "button",
+    "type": "text"
+  },
+  "about": "À propos",
+  "@about": {
+    "description": "Translation for \"about\"",
+    "context": "button",
+    "type": "text"
+  },
+  "contact": "Contact",
+  "@contact": {
+    "description": "Translation for \"contact\"",
+    "context": "button",
+    "type": "text"
+  },
+  "feedback": "Commentaires",
+  "@feedback": {
+    "description": "Translation for \"feedback\"",
+    "context": "button",
+    "type": "text"
+  },
+  "privacy": "Confidentialité",
+  "@privacy": {
+    "description": "Translation for \"privacy\"",
+    "context": "button",
+    "type": "text"
+  },
+  "terms": "Conditions",
+  "@terms": {
+    "description": "Translation for \"terms\"",
+    "context": "button",
+    "type": "text"
+  },
+  "version": "Version",
+  "@version": {
+    "description": "Translation for \"version\"",
+    "context": "button",
+    "type": "text"
+  },
+  "logout": "Déconnexion",
+  "@logout": {
+    "description": "Translation for \"logout\"",
+    "context": "button",
+    "type": "text"
+  },
+  "menu": "Menu",
+  "@menu": {
+    "description": "Translation for \"menu\"",
+    "context": "button",
+    "type": "text"
+  },
+  "notifications": "Notifications",
+  "@notifications": {
+    "description": "Translation for \"notifications\"",
+    "context": "button",
+    "type": "text"
+  },
+  "dashboard": "Tableau de bord",
+  "@dashboard": {
+    "description": "Translation for \"dashboard\"",
+    "context": "button",
+    "type": "text"
+  },
+  "overview": "Vue d'ensemble",
+  "@overview": {
+    "description": "Translation for \"overview\"",
+    "context": "button",
+    "type": "text"
+  },
+  "details": "Détails",
+  "@details": {
+    "description": "Translation for \"details\"",
+    "context": "button",
+    "type": "text"
+  },
+  "history": "Historique",
+  "@history": {
+    "description": "Translation for \"history\"",
+    "context": "button",
+    "type": "text"
+  },
+  "favorites": "Favoris",
+  "@favorites": {
+    "description": "Translation for \"favorites\"",
+    "context": "button",
+    "type": "text"
+  },
+  "bookmarks": "Signets",
+  "@bookmarks": {
+    "description": "Translation for \"bookmarks\"",
+    "context": "button",
+    "type": "text"
+  },
+  "recent": "Récent",
+  "@recent": {
+    "description": "Translation for \"recent\"",
+    "context": "button",
+    "type": "text"
+  },
+  "popular": "Populaire",
+  "@popular": {
+    "description": "Translation for \"popular\"",
+    "context": "button",
+    "type": "text"
+  },
+  "trending": "Tendance",
+  "@trending": {
+    "description": "Translation for \"trending\"",
+    "context": "button",
+    "type": "text"
+  },
+  "recommended": "Recommandé",
+  "@recommended": {
+    "description": "Translation for \"recommended\"",
+    "context": "button",
+    "type": "text"
+  },
+  "categories": "Catégories",
+  "@categories": {
+    "description": "Translation for \"categories\"",
+    "context": "button",
+    "type": "text"
+  },
+  "tags": "Étiquettes",
+  "@tags": {
+    "description": "Translation for \"tags\"",
+    "context": "button",
+    "type": "text"
+  },
+  "login": "Connexion",
+  "@login": {
+    "description": "Translation for \"login\"",
+    "context": "button",
+    "type": "text"
+  },
+  "register": "S'inscrire",
+  "@register": {
+    "description": "Translation for \"register\"",
+    "context": "button",
+    "type": "text"
+  },
+  "signup": "Créer un compte",
+  "@signup": {
+    "description": "Translation for \"signup\"",
+    "context": "button",
+    "type": "text"
+  },
+  "signin": "Se connecter",
+  "@signin": {
+    "description": "Translation for \"signin\"",
+    "context": "button",
+    "type": "text"
+  },
+  "signout": "Se déconnecter",
+  "@signout": {
+    "description": "Translation for \"signout\"",
+    "context": "button",
+    "type": "text"
+  },
+  "email": "Email",
+  "@email": {
+    "description": "Translation for \"email\"",
+    "context": "form field",
+    "type": "text"
+  },
+  "password": "Mot de passe",
+  "@password": {
+    "description": "Translation for \"password\"",
+    "context": "form field",
+    "type": "text"
+  },
+  "confirmPassword": "Confirmer le mot de passe",
+  "@confirmPassword": {
+    "description": "Translation for \"confirmPassword\"",
+    "context": "dialog",
+    "type": "text"
+  },
+  "username": "Nom d'utilisateur",
+  "@username": {
+    "description": "Translation for \"username\"",
+    "context": "button",
+    "type": "text"
+  },
+  "firstName": "Prénom",
+  "@firstName": {
+    "description": "Translation for \"firstName\"",
+    "context": "button",
+    "type": "text"
+  },
+  "lastName": "Nom de famille",
+  "@lastName": {
+    "description": "Translation for \"lastName\"",
+    "context": "button",
+    "type": "text"
+  },
+  "fullName": "Nom complet",
+  "@fullName": {
+    "description": "Translation for \"fullName\"",
+    "context": "button",
+    "type": "text"
+  },
+  "phoneNumber": "Numéro de téléphone",
+  "@phoneNumber": {
+    "description": "Translation for \"phoneNumber\"",
+    "context": "button",
+    "type": "text"
+  },
+  "dateOfBirth": "Date de naissance",
+  "@dateOfBirth": {
+    "description": "Translation for \"dateOfBirth\"",
+    "context": "button",
+    "type": "text"
+  },
+  "gender": "Sexe",
+  "@gender": {
+    "description": "Translation for \"gender\"",
+    "context": "button",
+    "type": "text"
+  },
+  "address": "Adresse",
+  "@address": {
+    "description": "Translation for \"address\"",
+    "context": "button",
+    "type": "text"
+  },
+  "city": "Ville",
+  "@city": {
+    "description": "Translation for \"city\"",
+    "context": "button",
+    "type": "text"
+  },
+  "country": "Pays",
+  "@country": {
+    "description": "Translation for \"country\"",
+    "context": "button",
+    "type": "text"
+  },
+  "forgotPassword": "Mot de passe oublié ?",
+  "@forgotPassword": {
+    "description": "Translation for \"forgotPassword\"",
+    "context": "form field",
+    "type": "text"
+  },
+  "resetPassword": "Réinitialiser le mot de passe",
+  "@resetPassword": {
+    "description": "Translation for \"resetPassword\"",
+    "context": "form field",
+    "type": "text"
+  },
+  "changePassword": "Changer le mot de passe",
+  "@changePassword": {
+    "description": "Translation for \"changePassword\"",
+    "context": "form field",
+    "type": "text"
+  },
+  "currentPassword": "Mot de passe actuel",
+  "@currentPassword": {
+    "description": "Translation for \"currentPassword\"",
+    "context": "form field",
+    "type": "text"
+  },
+  "newPassword": "Nouveau mot de passe",
+  "@newPassword": {
+    "description": "Translation for \"newPassword\"",
+    "context": "form field",
+    "type": "text"
+  },
+  "confirmNewPassword": "Confirmer le nouveau mot de passe",
+  "@confirmNewPassword": {
+    "description": "Translation for \"confirmNewPassword\"",
+    "context": "dialog",
+    "type": "text"
+  },
+  "rememberMe": "Se souvenir de moi",
+  "@rememberMe": {
+    "description": "Translation for \"rememberMe\"",
+    "context": "button",
+    "type": "text"
+  },
+  "stayLoggedIn": "Rester connecté",
+  "@stayLoggedIn": {
+    "description": "Translation for \"stayLoggedIn\"",
+    "context": "button",
+    "type": "text"
+  },
+  "createAccount": "Créer un compte",
+  "@createAccount": {
+    "description": "Translation for \"createAccount\"",
+    "context": "button",
+    "type": "text"
+  },
+  "alreadyHaveAccount": "Vous avez déjà un compte ?",
+  "@alreadyHaveAccount": {
+    "description": "Translation for \"alreadyHaveAccount\"",
+    "context": "button",
+    "type": "text"
+  },
+  "dontHaveAccount": "Vous n'avez pas de compte ?",
+  "@dontHaveAccount": {
+    "description": "Translation for \"dontHaveAccount\"",
+    "context": "button",
+    "type": "text"
+  },
+  "loginWithGoogle": "Se connecter avec Google",
+  "@loginWithGoogle": {
+    "description": "Translation for \"loginWithGoogle\"",
+    "context": "button",
+    "type": "text"
+  },
+  "loginWithFacebook": "Se connecter avec Facebook",
+  "@loginWithFacebook": {
+    "description": "Translation for \"loginWithFacebook\"",
+    "context": "button",
+    "type": "text"
+  },
+  "loginWithApple": "Se connecter avec Apple",
+  "@loginWithApple": {
+    "description": "Translation for \"loginWithApple\"",
+    "context": "button",
+    "type": "text"
+  },
+  "or": "Ou",
+  "@or": {
+    "description": "Translation for \"or\"",
+    "context": "button",
+    "type": "text"
+  },
+  "continueWith": "Continuer avec",
+  "@continueWith": {
+    "description": "Translation for \"continueWith\"",
+    "context": "button",
+    "type": "text"
+  },
+  "twoFactorAuth": "Authentification à deux facteurs",
+  "@twoFactorAuth": {
+    "description": "Translation for \"twoFactorAuth\"",
+    "context": "button",
+    "type": "text"
+  },
+  "verificationCode": "Code de vérification",
+  "@verificationCode": {
+    "description": "Translation for \"verificationCode\"",
+    "context": "button",
+    "type": "text"
+  },
+  "sendCode": "Envoyer le code",
+  "@sendCode": {
+    "description": "Translation for \"sendCode\"",
+    "context": "button",
+    "type": "text"
+  },
+  "resendCode": "Renvoyer le code",
+  "@resendCode": {
+    "description": "Translation for \"resendCode\"",
+    "context": "button",
+    "type": "text"
+  },
+  "verify": "Vérifier",
+  "@verify": {
+    "description": "Translation for \"verify\"",
+    "context": "button",
+    "type": "text"
+  },
+  "accountVerified": "Compte vérifié",
+  "@accountVerified": {
+    "description": "Translation for \"accountVerified\"",
+    "context": "button",
+    "type": "text"
+  },
+  "accountSuspended": "Compte suspendu",
+  "@accountSuspended": {
+    "description": "Translation for \"accountSuspended\"",
+    "context": "button",
+    "type": "text"
+  },
+  "accountLocked": "Compte verrouillé",
+  "@accountLocked": {
+    "description": "Translation for \"accountLocked\"",
+    "context": "button",
+    "type": "text"
+  },
+  "sessionExpired": "Session expirée",
+  "@sessionExpired": {
+    "description": "Translation for \"sessionExpired\"",
+    "context": "button",
+    "type": "text"
+  },
+  "validationError": "Erreur de validation",
+  "@validationError": {
+    "description": "Translation for \"validationError\"",
+    "context": "error message",
+    "type": "text"
+  },
+  "fieldRequired": "Ce champ est requis",
+  "@fieldRequired": {
+    "description": "Translation for \"fieldRequired\"",
+    "context": "form field",
+    "type": "text"
+  },
+  "invalidEmail": "Veuillez saisir une adresse email valide",
+  "@invalidEmail": {
+    "description": "Translation for \"invalidEmail\"",
+    "context": "error message",
+    "type": "text"
+  },
+  "invalidPassword": "Mot de passe invalide",
+  "@invalidPassword": {
+    "description": "Translation for \"invalidPassword\"",
+    "context": "error message",
+    "type": "text"
+  },
+  "passwordTooShort": "Le mot de passe est trop court",
+  "@passwordTooShort": {
+    "description": "Translation for \"passwordTooShort\"",
+    "context": "form field",
+    "type": "text"
+  },
+  "passwordTooWeak": "Le mot de passe est trop faible",
+  "@passwordTooWeak": {
+    "description": "Translation for \"passwordTooWeak\"",
+    "context": "form field",
+    "type": "text"
+  },
+  "passwordMismatch": "Les mots de passe ne correspondent pas",
+  "@passwordMismatch": {
+    "description": "Translation for \"passwordMismatch\"",
+    "context": "form field",
+    "type": "text"
+  },
+  "invalidPhoneNumber": "Veuillez saisir un numéro de téléphone valide",
+  "@invalidPhoneNumber": {
+    "description": "Translation for \"invalidPhoneNumber\"",
+    "context": "error message",
+    "type": "text"
+  },
+  "invalidUrl": "Veuillez saisir une URL valide",
+  "@invalidUrl": {
+    "description": "Translation for \"invalidUrl\"",
+    "context": "error message",
+    "type": "text"
+  },
+  "invalidFormat": "Format invalide",
+  "@invalidFormat": {
+    "description": "Translation for \"invalidFormat\"",
+    "context": "error message",
+    "type": "text"
+  },
+  "valueTooShort": "La valeur est trop courte",
+  "@valueTooShort": {
+    "description": "Translation for \"valueTooShort\"",
+    "context": "button",
+    "type": "text"
+  },
+  "valueTooLong": "La valeur est trop longue",
+  "@valueTooLong": {
+    "description": "Translation for \"valueTooLong\"",
+    "context": "button",
+    "type": "text"
+  },
+  "valueOutOfRange": "La valeur est hors limites",
+  "@valueOutOfRange": {
+    "description": "Translation for \"valueOutOfRange\"",
+    "context": "button",
+    "type": "text"
+  },
+  "fileTooBig": "Le fichier est trop volumineux",
+  "@fileTooBig": {
+    "description": "Translation for \"fileTooBig\"",
+    "context": "button",
+    "type": "text"
+  },
+  "unsupportedFileType": "Type de fichier non supporté",
+  "@unsupportedFileType": {
+    "description": "Translation for \"unsupportedFileType\"",
+    "context": "button",
+    "type": "text"
+  },
+  "networkError": "Erreur réseau",
+  "@networkError": {
+    "description": "Translation for \"networkError\"",
+    "context": "error message",
+    "type": "text"
+  },
+  "connectionTimeout": "Délai de connexion dépassé",
+  "@connectionTimeout": {
+    "description": "Translation for \"connectionTimeout\"",
+    "context": "button",
+    "type": "text"
+  },
+  "noInternetConnection": "Aucune connexion internet",
+  "@noInternetConnection": {
+    "description": "Translation for \"noInternetConnection\"",
+    "context": "button",
+    "type": "text"
+  },
+  "serverError": "Erreur serveur",
+  "@serverError": {
+    "description": "Translation for \"serverError\"",
+    "context": "error message",
+    "type": "text"
+  },
+  "notFound": "Non trouvé",
+  "@notFound": {
+    "description": "Translation for \"notFound\"",
+    "context": "button",
+    "type": "text"
+  },
+  "forbidden": "Accès interdit",
+  "@forbidden": {
+    "description": "Translation for \"forbidden\"",
+    "context": "button",
+    "type": "text"
+  },
+  "unauthorized": "Accès non autorisé",
+  "@unauthorized": {
+    "description": "Translation for \"unauthorized\"",
+    "context": "button",
+    "type": "text"
+  },
+  "serviceUnavailable": "Service indisponible",
+  "@serviceUnavailable": {
+    "description": "Translation for \"serviceUnavailable\"",
+    "context": "button",
+    "type": "text"
+  },
+  "maintenanceMode": "Service en maintenance",
+  "@maintenanceMode": {
+    "description": "Translation for \"maintenanceMode\"",
+    "context": "button",
+    "type": "text"
+  },
+  "somethingWentWrong": "Une erreur s'est produite",
+  "@somethingWentWrong": {
+    "description": "Translation for \"somethingWentWrong\"",
+    "context": "button",
+    "type": "text"
+  },
+  "tryAgainLater": "Veuillez réessayer plus tard",
+  "@tryAgainLater": {
+    "description": "Translation for \"tryAgainLater\"",
+    "context": "button",
+    "type": "text"
+  },
+  "contactSupport": "Contacter le support",
+  "@contactSupport": {
+    "description": "Translation for \"contactSupport\"",
+    "context": "button",
+    "type": "text"
+  },
+  "fieldMinLength": "Minimum {minLength} caractères requis",
+  "@fieldMinLength": {
+    "placeholders": {
+      "minLength": {
+        "type": "int"
+      }
+    }
+  },
+  "fieldMaxLength": "Maximum {maxLength} caractères autorisés",
+  "@fieldMaxLength": {
+    "placeholders": {
+      "maxLength": {
+        "type": "int"
+      }
+    }
+  },
+  "fieldExactLength": "Doit contenir exactement {length} caractères",
+  "@fieldExactLength": {
+    "placeholders": {
+      "length": {
+        "type": "int"
+      }
+    }
+  },
+  "fileSizeLimit": "La taille du fichier ne doit pas dépasser {maxSize}",
+  "@fileSizeLimit": {
+    "placeholders": {
+      "maxSize": {
+        "type": "String"
+      }
+    }
+  },
+  "characterLimit": "Limite de caractères : {limit}",
+  "@characterLimit": {
+    "placeholders": {
+      "limit": {
+        "type": "int"
+      }
+    }
+  },
+  "minimumAge": "Âge minimum : {age} ans",
+  "@minimumAge": {
+    "placeholders": {
+      "age": {
+        "type": "int"
+      }
+    }
+  },
+  "maximumValue": "Valeur maximale : {value}",
+  "@maximumValue": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "minimumValue": "Valeur minimale : {value}",
+  "@minimumValue": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "today": "Aujourd'hui",
+  "@today": {
+    "description": "Translation for \"today\"",
+    "context": "button",
+    "type": "text"
+  },
+  "yesterday": "Hier",
+  "@yesterday": {
+    "description": "Translation for \"yesterday\"",
+    "context": "button",
+    "type": "text"
+  },
+  "tomorrow": "Demain",
+  "@tomorrow": {
+    "description": "Translation for \"tomorrow\"",
+    "context": "button",
+    "type": "text"
+  },
+  "thisWeek": "Cette semaine",
+  "@thisWeek": {
+    "description": "Translation for \"thisWeek\"",
+    "context": "button",
+    "type": "text"
+  },
+  "lastWeek": "La semaine dernière",
+  "@lastWeek": {
+    "description": "Translation for \"lastWeek\"",
+    "context": "button",
+    "type": "text"
+  },
+  "nextWeek": "La semaine prochaine",
+  "@nextWeek": {
+    "description": "Translation for \"nextWeek\"",
+    "context": "button",
+    "type": "text"
+  },
+  "thisMonth": "Ce mois",
+  "@thisMonth": {
+    "description": "Translation for \"thisMonth\"",
+    "context": "button",
+    "type": "text"
+  },
+  "lastMonth": "Le mois dernier",
+  "@lastMonth": {
+    "description": "Translation for \"lastMonth\"",
+    "context": "button",
+    "type": "text"
+  },
+  "nextMonth": "Le mois prochain",
+  "@nextMonth": {
+    "description": "Translation for \"nextMonth\"",
+    "context": "button",
+    "type": "text"
+  },
+  "thisYear": "Cette année",
+  "@thisYear": {
+    "description": "Translation for \"thisYear\"",
+    "context": "button",
+    "type": "text"
+  },
+  "lastYear": "L'année dernière",
+  "@lastYear": {
+    "description": "Translation for \"lastYear\"",
+    "context": "button",
+    "type": "text"
+  },
+  "nextYear": "L'année prochaine",
+  "@nextYear": {
+    "description": "Translation for \"nextYear\"",
+    "context": "button",
+    "type": "text"
+  },
+  "now": "Maintenant",
+  "@now": {
+    "description": "Translation for \"now\"",
+    "context": "button",
+    "type": "text"
+  },
+  "older": "Plus ancien",
+  "@older": {
+    "description": "Translation for \"older\"",
+    "context": "button",
+    "type": "text"
+  },
+  "newer": "Plus récent",
+  "@newer": {
+    "description": "Translation for \"newer\"",
+    "context": "button",
+    "type": "text"
+  },
+  "latest": "Le plus récent",
+  "@latest": {
+    "description": "Translation for \"latest\"",
+    "context": "button",
+    "type": "text"
+  },
+  "earliest": "Le plus ancien",
+  "@earliest": {
+    "description": "Translation for \"earliest\"",
+    "context": "button",
+    "type": "text"
+  },
+  "second": "seconde",
+  "@second": {
+    "description": "Translation for \"second\"",
+    "context": "button",
+    "type": "text"
+  },
+  "seconds": "secondes",
+  "@seconds": {
+    "description": "Translation for \"seconds\"",
+    "context": "button",
+    "type": "text"
+  },
+  "minute": "minute",
+  "@minute": {
+    "description": "Translation for \"minute\"",
+    "context": "button",
+    "type": "text"
+  },
+  "minutes": "minutes",
+  "@minutes": {
+    "description": "Translation for \"minutes\"",
+    "context": "button",
+    "type": "text"
+  },
+  "hour": "heure",
+  "@hour": {
+    "description": "Translation for \"hour\"",
+    "context": "button",
+    "type": "text"
+  },
+  "hours": "heures",
+  "@hours": {
+    "description": "Translation for \"hours\"",
+    "context": "button",
+    "type": "text"
+  },
+  "day": "jour",
+  "@day": {
+    "description": "Translation for \"day\"",
+    "context": "button",
+    "type": "text"
+  },
+  "days": "jours",
+  "@days": {
+    "description": "Translation for \"days\"",
+    "context": "button",
+    "type": "text"
+  },
+  "week": "semaine",
+  "@week": {
+    "description": "Translation for \"week\"",
+    "context": "button",
+    "type": "text"
+  },
+  "weeks": "semaines",
+  "@weeks": {
+    "description": "Translation for \"weeks\"",
+    "context": "button",
+    "type": "text"
+  },
+  "month": "mois",
+  "@month": {
+    "description": "Translation for \"month\"",
+    "context": "button",
+    "type": "text"
+  },
+  "months": "mois",
+  "@months": {
+    "description": "Translation for \"months\"",
+    "context": "button",
+    "type": "text"
+  },
+  "year": "année",
+  "@year": {
+    "description": "Translation for \"year\"",
+    "context": "button",
+    "type": "text"
+  },
+  "years": "années",
+  "@years": {
+    "description": "Translation for \"years\"",
+    "context": "button",
+    "type": "text"
+  },
+  "timeAgo": "Il y a {count} {timeUnit}",
+  "@timeAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "timeUnit": {
+        "type": "String"
+      }
+    }
+  },
+  "timeFromNow": "dans {count} {timeUnit}",
+  "@timeFromNow": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "timeUnit": {
+        "type": "String"
+      }
+    }
+  },
+  "justNow": "À l'instant",
+  "@justNow": {
+    "description": "Translation for \"justNow\"",
+    "context": "button",
+    "type": "text"
+  },
+  "inAFewSeconds": "Dans quelques secondes",
+  "@inAFewSeconds": {
+    "description": "Translation for \"inAFewSeconds\"",
+    "context": "button",
+    "type": "text"
+  },
+  "aMomentAgo": "Il y a un instant",
+  "@aMomentAgo": {
+    "description": "Translation for \"aMomentAgo\"",
+    "context": "button",
+    "type": "text"
+  },
+  "monday": "Lundi",
+  "@monday": {
+    "description": "Translation for \"monday\"",
+    "context": "button",
+    "type": "text"
+  },
+  "tuesday": "Mardi",
+  "@tuesday": {
+    "description": "Translation for \"tuesday\"",
+    "context": "button",
+    "type": "text"
+  },
+  "wednesday": "Mercredi",
+  "@wednesday": {
+    "description": "Translation for \"wednesday\"",
+    "context": "button",
+    "type": "text"
+  },
+  "thursday": "Jeudi",
+  "@thursday": {
+    "description": "Translation for \"thursday\"",
+    "context": "button",
+    "type": "text"
+  },
+  "friday": "Vendredi",
+  "@friday": {
+    "description": "Translation for \"friday\"",
+    "context": "button",
+    "type": "text"
+  },
+  "saturday": "Samedi",
+  "@saturday": {
+    "description": "Translation for \"saturday\"",
+    "context": "button",
+    "type": "text"
+  },
+  "sunday": "Dimanche",
+  "@sunday": {
+    "description": "Translation for \"sunday\"",
+    "context": "button",
+    "type": "text"
+  },
+  "january": "Janvier",
+  "@january": {
+    "description": "Translation for \"january\"",
+    "context": "button",
+    "type": "text"
+  },
+  "february": "Février",
+  "@february": {
+    "description": "Translation for \"february\"",
+    "context": "button",
+    "type": "text"
+  },
+  "march": "Mars",
+  "@march": {
+    "description": "Translation for \"march\"",
+    "context": "button",
+    "type": "text"
+  },
+  "april": "Avril",
+  "@april": {
+    "description": "Translation for \"april\"",
+    "context": "button",
+    "type": "text"
+  },
+  "may": "Mai",
+  "@may": {
+    "description": "Translation for \"may\"",
+    "context": "button",
+    "type": "text"
+  },
+  "june": "Juin",
+  "@june": {
+    "description": "Translation for \"june\"",
+    "context": "button",
+    "type": "text"
+  },
+  "july": "Juillet",
+  "@july": {
+    "description": "Translation for \"july\"",
+    "context": "button",
+    "type": "text"
+  },
+  "august": "Août",
+  "@august": {
+    "description": "Translation for \"august\"",
+    "context": "button",
+    "type": "text"
+  },
+  "september": "Septembre",
+  "@september": {
+    "description": "Translation for \"september\"",
+    "context": "button",
+    "type": "text"
+  },
+  "october": "Octobre",
+  "@october": {
+    "description": "Translation for \"october\"",
+    "context": "button",
+    "type": "text"
+  },
+  "november": "Novembre",
+  "@november": {
+    "description": "Translation for \"november\"",
+    "context": "button",
+    "type": "text"
+  },
+  "december": "Décembre",
+  "@december": {
+    "description": "Translation for \"december\"",
+    "context": "button",
+    "type": "text"
+  },
+  "zero": "zéro",
+  "@zero": {
+    "description": "Translation for \"zero\"",
+    "context": "button",
+    "type": "text"
+  },
+  "one": "un",
+  "@one": {
+    "description": "Translation for \"one\"",
+    "context": "button",
+    "type": "text"
+  },
+  "two": "deux",
+  "@two": {
+    "description": "Translation for \"two\"",
+    "context": "button",
+    "type": "text"
+  },
+  "few": "quelques",
+  "@few": {
+    "description": "Translation for \"few\"",
+    "context": "button",
+    "type": "text"
+  },
+  "many": "plusieurs",
+  "@many": {
+    "description": "Translation for \"many\"",
+    "context": "button",
+    "type": "text"
+  },
+  "other": "autres",
+  "@other": {
+    "description": "Translation for \"other\"",
+    "context": "button",
+    "type": "text"
+  },
+  "itemCount": "{count, plural, =0{Aucun élément} =1{1 élément} other{{count} éléments}}",
+  "@itemCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "selectedCount": "{count, plural, =0{Aucune sélection} =1{1 sélectionné} other{{count} sélectionnés}}",
+  "@selectedCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "totalItems": "Total : {total} éléments",
+  "@totalItems": {
+    "placeholders": {
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "showingResults": "Affichage {start}-{end} sur {total}",
+  "@showingResults": {
+    "placeholders": {
+      "start": {
+        "type": "int"
+      },
+      "end": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "pageInfo": "Page {current} sur {total}",
+  "@pageInfo": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "language": "Langue",
+  "@language": {
+    "description": "Translation for \"language\"",
+    "context": "button",
+    "type": "text"
+  },
+  "theme": "Thème",
+  "@theme": {
+    "description": "Translation for \"theme\"",
+    "context": "button",
+    "type": "text"
+  },
+  "lightTheme": "Thème clair",
+  "@lightTheme": {
+    "description": "Translation for \"lightTheme\"",
+    "context": "button",
+    "type": "text"
+  },
+  "darkTheme": "Thème sombre",
+  "@darkTheme": {
+    "description": "Translation for \"darkTheme\"",
+    "context": "button",
+    "type": "text"
+  },
+  "systemTheme": "Thème système",
+  "@systemTheme": {
+    "description": "Translation for \"systemTheme\"",
+    "context": "button",
+    "type": "text"
+  },
+  "pushNotifications": "Notifications push",
+  "@pushNotifications": {
+    "description": "Translation for \"pushNotifications\"",
+    "context": "button",
+    "type": "text"
+  },
+  "emailNotifications": "Notifications email",
+  "@emailNotifications": {
+    "description": "Translation for \"emailNotifications\"",
+    "context": "form field",
+    "type": "text"
+  },
+  "soundEnabled": "Son activé",
+  "@soundEnabled": {
+    "description": "Translation for \"soundEnabled\"",
+    "context": "button",
+    "type": "text"
+  },
+  "vibrationEnabled": "Vibration activée",
+  "@vibrationEnabled": {
+    "description": "Translation for \"vibrationEnabled\"",
+    "context": "button",
+    "type": "text"
+  },
+  "autoSync": "Synchronisation automatique",
+  "@autoSync": {
+    "description": "Translation for \"autoSync\"",
+    "context": "button",
+    "type": "text"
+  },
+  "dataUsage": "Utilisation des données",
+  "@dataUsage": {
+    "description": "Translation for \"dataUsage\"",
+    "context": "button",
+    "type": "text"
+  },
+  "storage": "Stockage",
+  "@storage": {
+    "description": "Translation for \"storage\"",
+    "context": "button",
+    "type": "text"
+  },
+  "cache": "Cache",
+  "@cache": {
+    "description": "Translation for \"cache\"",
+    "context": "button",
+    "type": "text"
+  },
+  "clearCache": "Vider le cache",
+  "@clearCache": {
+    "description": "Translation for \"clearCache\"",
+    "context": "button",
+    "type": "text"
+  },
+  "fontSize": "Taille de police",
+  "@fontSize": {
+    "description": "Translation for \"fontSize\"",
+    "context": "button",
+    "type": "text"
+  },
+  "accessibility": "Accessibilité",
+  "@accessibility": {
+    "description": "Translation for \"accessibility\"",
+    "context": "button",
+    "type": "text"
+  },
+  "highContrast": "Contraste élevé",
+  "@highContrast": {
+    "description": "Translation for \"highContrast\"",
+    "context": "button",
+    "type": "text"
+  },
+  "screenReader": "Lecteur d'écran",
+  "@screenReader": {
+    "description": "Translation for \"screenReader\"",
+    "context": "button",
+    "type": "text"
+  },
+  "reduceMotion": "Réduire les mouvements",
+  "@reduceMotion": {
+    "description": "Translation for \"reduceMotion\"",
+    "context": "button",
+    "type": "text"
+  },
+  "security": "Sécurité",
+  "@security": {
+    "description": "Translation for \"security\"",
+    "context": "button",
+    "type": "text"
+  },
+  "biometric": "Biométrie",
+  "@biometric": {
+    "description": "Translation for \"biometric\"",
+    "context": "button",
+    "type": "text"
+  },
+  "fingerprint": "Empreinte digitale",
+  "@fingerprint": {
+    "description": "Translation for \"fingerprint\"",
+    "context": "button",
+    "type": "text"
+  },
+  "faceId": "Face ID",
+  "@faceId": {
+    "description": "Translation for \"faceId\"",
+    "context": "button",
+    "type": "text"
+  },
+  "pinCode": "Code PIN",
+  "@pinCode": {
+    "description": "Translation for \"pinCode\"",
+    "context": "button",
+    "type": "text"
+  },
+  "autoLock": "Verrouillage automatique",
+  "@autoLock": {
+    "description": "Translation for \"autoLock\"",
+    "context": "button",
+    "type": "text"
+  },
+  "backup": "Sauvegarde",
+  "@backup": {
+    "description": "Translation for \"backup\"",
+    "context": "button",
+    "type": "text"
+  },
+  "restore": "Restaurer",
+  "@restore": {
+    "description": "Translation for \"restore\"",
+    "context": "button",
+    "type": "text"
+  },
+  "sync": "Synchroniser",
+  "@sync": {
+    "description": "Translation for \"sync\"",
+    "context": "button",
+    "type": "text"
+  },
+  "resetSettings": "Réinitialiser les paramètres",
+  "@resetSettings": {
+    "description": "Translation for \"resetSettings\"",
+    "context": "button",
+    "type": "text"
+  },
+  "defaultSettings": "Paramètres par défaut",
+  "@defaultSettings": {
+    "description": "Translation for \"defaultSettings\"",
+    "context": "button",
+    "type": "text"
+  },
+  "photo": "Photo",
+  "@photo": {
+    "description": "Translation for \"photo\"",
+    "context": "button",
+    "type": "image"
+  },
+  "photos": "Photos",
+  "@photos": {
+    "description": "Translation for \"photos\"",
+    "context": "button",
+    "type": "image"
+  },
+  "image": "Image",
+  "@image": {
+    "description": "Translation for \"image\"",
+    "context": "button",
+    "type": "image"
+  },
+  "images": "Images",
+  "@images": {
+    "description": "Translation for \"images\"",
+    "context": "button",
+    "type": "image"
+  },
+  "video": "Vidéo",
+  "@video": {
+    "description": "Translation for \"video\"",
+    "context": "button",
+    "type": "text"
+  },
+  "videos": "Vidéos",
+  "@videos": {
+    "description": "Translation for \"videos\"",
+    "context": "button",
+    "type": "text"
+  },
+  "audio": "Audio",
+  "@audio": {
+    "description": "Translation for \"audio\"",
+    "context": "button",
+    "type": "text"
+  },
+  "document": "Document",
+  "@document": {
+    "description": "Translation for \"document\"",
+    "context": "button",
+    "type": "text"
+  },
+  "documents": "Documents",
+  "@documents": {
+    "description": "Translation for \"documents\"",
+    "context": "button",
+    "type": "text"
+  },
+  "file": "Fichier",
+  "@file": {
+    "description": "Translation for \"file\"",
+    "context": "button",
+    "type": "text"
+  },
+  "files": "Fichiers",
+  "@files": {
+    "description": "Translation for \"files\"",
+    "context": "button",
+    "type": "text"
+  },
+  "folder": "Dossier",
+  "@folder": {
+    "description": "Translation for \"folder\"",
+    "context": "button",
+    "type": "text"
+  },
+  "folders": "Dossiers",
+  "@folders": {
+    "description": "Translation for \"folders\"",
+    "context": "button",
+    "type": "text"
+  },
+  "gallery": "Galerie",
+  "@gallery": {
+    "description": "Translation for \"gallery\"",
+    "context": "button",
+    "type": "text"
+  },
+  "camera": "Caméra",
+  "@camera": {
+    "description": "Translation for \"camera\"",
+    "context": "button",
+    "type": "text"
+  },
+  "microphone": "Microphone",
+  "@microphone": {
+    "description": "Translation for \"microphone\"",
+    "context": "button",
+    "type": "text"
+  },
+  "recording": "Enregistrement",
+  "@recording": {
+    "description": "Translation for \"recording\"",
+    "context": "button",
+    "type": "text"
+  },
+  "playback": "Lecture",
+  "@playback": {
+    "description": "Translation for \"playback\"",
+    "context": "button",
+    "type": "text"
+  },
+  "duration": "Durée",
+  "@duration": {
+    "description": "Translation for \"duration\"",
+    "context": "button",
+    "type": "text"
+  },
+  "size": "Taille",
+  "@size": {
+    "description": "Translation for \"size\"",
+    "context": "button",
+    "type": "text"
+  },
+  "format": "Format",
+  "@format": {
+    "description": "Translation for \"format\"",
+    "context": "button",
+    "type": "text"
+  },
+  "quality": "Qualité",
+  "@quality": {
+    "description": "Translation for \"quality\"",
+    "context": "button",
+    "type": "text"
+  },
+  "resolution": "Résolution",
+  "@resolution": {
+    "description": "Translation for \"resolution\"",
+    "context": "button",
+    "type": "text"
+  },
+  "takePhoto": "Prendre une photo",
+  "@takePhoto": {
+    "description": "Translation for \"takePhoto\"",
+    "context": "button",
+    "type": "image"
+  },
+  "recordVideo": "Enregistrer une vidéo",
+  "@recordVideo": {
+    "description": "Translation for \"recordVideo\"",
+    "context": "button",
+    "type": "text"
+  },
+  "selectFromGallery": "Sélectionner depuis la galerie",
+  "@selectFromGallery": {
+    "description": "Translation for \"selectFromGallery\"",
+    "context": "button",
+    "type": "text"
+  },
+  "chooseFile": "Choisir un fichier",
+  "@chooseFile": {
+    "description": "Translation for \"chooseFile\"",
+    "context": "button",
+    "type": "text"
+  },
+  "uploadFile": "Télécharger un fichier",
+  "@uploadFile": {
+    "description": "Translation for \"uploadFile\"",
+    "context": "button",
+    "type": "text"
+  },
+  "downloadFile": "Télécharger le fichier",
+  "@downloadFile": {
+    "description": "Translation for \"downloadFile\"",
+    "context": "button",
+    "type": "text"
+  },
+  "deleteFile": "Supprimer le fichier",
+  "@deleteFile": {
+    "description": "Translation for \"deleteFile\"",
+    "context": "dialog",
+    "type": "text"
+  },
+  "renameFile": "Renommer le fichier",
+  "@renameFile": {
+    "description": "Translation for \"renameFile\"",
+    "context": "button",
+    "type": "text"
+  },
+  "moveFile": "Déplacer le fichier",
+  "@moveFile": {
+    "description": "Translation for \"moveFile\"",
+    "context": "button",
+    "type": "text"
+  },
+  "copyFile": "Copier le fichier",
+  "@copyFile": {
+    "description": "Translation for \"copyFile\"",
+    "context": "button",
+    "type": "text"
+  },
+  "shareFile": "Partager le fichier",
+  "@shareFile": {
+    "description": "Translation for \"shareFile\"",
+    "context": "button",
+    "type": "text"
+  },
+  "confirmAction": "Confirmer l'action",
+  "@confirmAction": {
+    "description": "Translation for \"confirmAction\"",
+    "context": "dialog",
+    "type": "text"
+  },
+  "areYouSure": "Êtes-vous sûr ?",
+  "@areYouSure": {
+    "description": "Translation for \"areYouSure\"",
+    "context": "button",
+    "type": "text"
+  },
+  "thisActionCannotBeUndone": "Cette action ne peut pas être annulée",
+  "@thisActionCannotBeUndone": {
+    "description": "Translation for \"thisActionCannotBeUndone\"",
+    "context": "button",
+    "type": "text"
+  },
+  "confirmDelete": "Confirmer la suppression",
+  "@confirmDelete": {
+    "description": "Translation for \"confirmDelete\"",
+    "context": "dialog",
+    "type": "text"
+  },
+  "confirmLogout": "Confirmer la déconnexion",
+  "@confirmLogout": {
+    "description": "Translation for \"confirmLogout\"",
+    "context": "dialog",
+    "type": "text"
+  },
+  "confirmExit": "Confirmer la sortie",
+  "@confirmExit": {
+    "description": "Translation for \"confirmExit\"",
+    "context": "dialog",
+    "type": "text"
+  },
+  "confirmCancel": "Confirmer l'annulation",
+  "@confirmCancel": {
+    "description": "Translation for \"confirmCancel\"",
+    "context": "dialog",
+    "type": "text"
+  },
+  "confirmClear": "Confirmer l'effacement",
+  "@confirmClear": {
+    "description": "Translation for \"confirmClear\"",
+    "context": "dialog",
+    "type": "text"
+  },
+  "confirmReset": "Confirmer la réinitialisation",
+  "@confirmReset": {
+    "description": "Translation for \"confirmReset\"",
+    "context": "dialog",
+    "type": "text"
+  },
+  "confirmOverwrite": "Confirmer l'écrasement",
+  "@confirmOverwrite": {
+    "description": "Translation for \"confirmOverwrite\"",
+    "context": "dialog",
+    "type": "text"
+  },
+  "confirmDiscard": "Confirmer l'abandon",
+  "@confirmDiscard": {
+    "description": "Translation for \"confirmDiscard\"",
+    "context": "dialog",
+    "type": "text"
+  },
+  "unsavedChanges": "Modifications non enregistrées",
+  "@unsavedChanges": {
+    "description": "Translation for \"unsavedChanges\"",
+    "context": "button",
+    "type": "text"
+  },
+  "saveChanges": "Enregistrer les modifications",
+  "@saveChanges": {
+    "description": "Translation for \"saveChanges\"",
+    "context": "button",
+    "type": "text"
+  },
+  "discardChanges": "Abandonner les modifications",
+  "@discardChanges": {
+    "description": "Translation for \"discardChanges\"",
+    "context": "button",
+    "type": "text"
+  },
+  "keepEditing": "Continuer l'édition",
+  "@keepEditing": {
+    "description": "Translation for \"keepEditing\"",
+    "context": "button",
+    "type": "text"
+  },
+  "exitWithoutSaving": "Quitter sans enregistrer",
+  "@exitWithoutSaving": {
+    "description": "Translation for \"exitWithoutSaving\"",
+    "context": "button",
+    "type": "text"
+  },
+  "confirmDeleteItem": "Êtes-vous sûr de vouloir supprimer \"{itemName}\" ?",
+  "@confirmDeleteItem": {
+    "placeholders": {
+      "itemName": {
+        "type": "String"
+      }
+    }
+  },
+  "confirmDeleteItems": "Êtes-vous sûr de vouloir supprimer {count} éléments ?",
+  "@confirmDeleteItems": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "searchHint": "Rechercher...",
+  "@searchHint": {
+    "description": "Translation for \"searchHint\"",
+    "context": "hint text",
+    "type": "text"
+  },
+  "searchResults": "Résultats de recherche",
+  "@searchResults": {
+    "description": "Translation for \"searchResults\"",
+    "context": "button",
+    "type": "text"
+  },
+  "noResults": "Aucun résultat",
+  "@noResults": {
+    "description": "Translation for \"noResults\"",
+    "context": "button",
+    "type": "text"
+  },
+  "noResultsFound": "Aucun résultat trouvé",
+  "@noResultsFound": {
+    "description": "Translation for \"noResultsFound\"",
+    "context": "button",
+    "type": "text"
+  },
+  "searchSuggestions": "Suggestions de recherche",
+  "@searchSuggestions": {
+    "description": "Translation for \"searchSuggestions\"",
+    "context": "button",
+    "type": "text"
+  },
+  "recentSearches": "Recherches récentes",
+  "@recentSearches": {
+    "description": "Translation for \"recentSearches\"",
+    "context": "button",
+    "type": "text"
+  },
+  "clearSearchHistory": "Effacer l'historique de recherche",
+  "@clearSearchHistory": {
+    "description": "Translation for \"clearSearchHistory\"",
+    "context": "button",
+    "type": "text"
+  },
+  "advancedSearch": "Recherche avancée",
+  "@advancedSearch": {
+    "description": "Translation for \"advancedSearch\"",
+    "context": "button",
+    "type": "text"
+  },
+  "filterBy": "Filtrer par",
+  "@filterBy": {
+    "description": "Translation for \"filterBy\"",
+    "context": "button",
+    "type": "text"
+  },
+  "sortBy": "Trier par",
+  "@sortBy": {
+    "description": "Translation for \"sortBy\"",
+    "context": "button",
+    "type": "text"
+  },
+  "ascending": "Croissant",
+  "@ascending": {
+    "description": "Translation for \"ascending\"",
+    "context": "button",
+    "type": "text"
+  },
+  "descending": "Décroissant",
+  "@descending": {
+    "description": "Translation for \"descending\"",
+    "context": "button",
+    "type": "text"
+  },
+  "relevance": "Pertinence",
+  "@relevance": {
+    "description": "Translation for \"relevance\"",
+    "context": "button",
+    "type": "text"
+  },
+  "popularity": "Popularité",
+  "@popularity": {
+    "description": "Translation for \"popularity\"",
+    "context": "button",
+    "type": "text"
+  },
+  "alphabetical": "Alphabétique",
+  "@alphabetical": {
+    "description": "Translation for \"alphabetical\"",
+    "context": "button",
+    "type": "text"
+  },
+  "chronological": "Chronologique",
+  "@chronological": {
+    "description": "Translation for \"chronological\"",
+    "context": "button",
+    "type": "text"
+  },
+  "applyFilters": "Appliquer les filtres",
+  "@applyFilters": {
+    "description": "Translation for \"applyFilters\"",
+    "context": "button",
+    "type": "text"
+  },
+  "clearFilters": "Effacer les filtres",
+  "@clearFilters": {
+    "description": "Translation for \"clearFilters\"",
+    "context": "button",
+    "type": "text"
+  },
+  "showAll": "Tout afficher",
+  "@showAll": {
+    "description": "Translation for \"showAll\"",
+    "context": "button",
+    "type": "text"
+  },
+  "hideFilters": "Masquer les filtres",
+  "@hideFilters": {
+    "description": "Translation for \"hideFilters\"",
+    "context": "button",
+    "type": "text"
+  },
+  "moreFilters": "Plus de filtres",
+  "@moreFilters": {
+    "description": "Translation for \"moreFilters\"",
+    "context": "button",
+    "type": "text"
+  },
+  "searchResultsCount": "{count, plural, =0{Aucun résultat} =1{1 résultat} other{{count} résultats}}",
+  "@searchResultsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "searchResultsFor": "Résultats de recherche pour \"{query}\"",
+  "@searchResultsFor": {
+    "placeholders": {
+      "query": {
+        "type": "String"
+      }
+    }
+  },
+  "checkingConnection": "Vérification de la connexion...",
+  "@checkingConnection": {
+    "description": "Translation for \"checkingConnection\"",
+    "context": "button",
+    "type": "text"
+  },
+  "connectingToServer": "Connexion au serveur...",
+  "@connectingToServer": {
+    "description": "Translation for \"connectingToServer\"",
+    "context": "button",
+    "type": "text"
+  },
+  "connectionEstablished": "Connexion établie",
+  "@connectionEstablished": {
+    "description": "Translation for \"connectionEstablished\"",
+    "context": "button",
+    "type": "text"
+  },
+  "connectionLost": "Connexion perdue",
+  "@connectionLost": {
+    "description": "Translation for \"connectionLost\"",
+    "context": "button",
+    "type": "text"
+  },
+  "reconnecting": "Reconnexion...",
+  "@reconnecting": {
+    "description": "Translation for \"reconnecting\"",
+    "context": "button",
+    "type": "text"
+  },
+  "syncInProgress": "Synchronisation en cours...",
+  "@syncInProgress": {
+    "description": "Translation for \"syncInProgress\"",
+    "context": "button",
+    "type": "text"
+  },
+  "syncCompleted": "Synchronisation terminée",
+  "@syncCompleted": {
+    "description": "Translation for \"syncCompleted\"",
+    "context": "button",
+    "type": "text"
+  },
+  "syncFailed": "Échec de la synchronisation",
+  "@syncFailed": {
+    "description": "Translation for \"syncFailed\"",
+    "context": "button",
+    "type": "text"
+  },
+  "lastSyncAt": "Dernière synchronisation à",
+  "@lastSyncAt": {
+    "description": "Translation for \"lastSyncAt\"",
+    "context": "button",
+    "type": "text"
+  },
+  "neverSynced": "Jamais synchronisé",
+  "@neverSynced": {
+    "description": "Translation for \"neverSynced\"",
+    "context": "button",
+    "type": "text"
+  },
+  "manualSync": "Synchronisation manuelle",
+  "@manualSync": {
+    "description": "Translation for \"manualSync\"",
+    "context": "button",
+    "type": "text"
+  },
+  "autoSyncEnabled": "Synchronisation automatique activée",
+  "@autoSyncEnabled": {
+    "description": "Translation for \"autoSyncEnabled\"",
+    "context": "button",
+    "type": "text"
+  },
+  "autoSyncDisabled": "Synchronisation automatique désactivée",
+  "@autoSyncDisabled": {
+    "description": "Translation for \"autoSyncDisabled\"",
+    "context": "button",
+    "type": "text"
+  },
+  "offlineMode": "Mode hors ligne",
+  "@offlineMode": {
+    "description": "Translation for \"offlineMode\"",
+    "context": "button",
+    "type": "text"
+  },
+  "onlineMode": "Mode en ligne",
+  "@onlineMode": {
+    "description": "Translation for \"onlineMode\"",
+    "context": "button",
+    "type": "text"
+  },
+  "dataWillSyncWhenOnline": "Les données se synchroniseront en ligne",
+  "@dataWillSyncWhenOnline": {
+    "description": "Translation for \"dataWillSyncWhenOnline\"",
+    "context": "button",
+    "type": "text"
+  },
+  "lastSyncTime": "Dernière synchronisation : {time}",
+  "@lastSyncTime": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "optimizing": "Optimisation...",
+  "@optimizing": {
+    "description": "Translation for \"optimizing\"",
+    "context": "button",
+    "type": "text"
+  },
+  "optimizationComplete": "Optimisation terminée",
+  "@optimizationComplete": {
+    "description": "Translation for \"optimizationComplete\"",
+    "context": "button",
+    "type": "text"
+  },
+  "lowMemoryWarning": "Avertissement mémoire faible",
+  "@lowMemoryWarning": {
+    "description": "Translation for \"lowMemoryWarning\"",
+    "context": "button",
+    "type": "text"
+  },
+  "diskSpaceWarning": "Avertissement espace disque faible",
+  "@diskSpaceWarning": {
+    "description": "Translation for \"diskSpaceWarning\"",
+    "context": "button",
+    "type": "text"
+  },
+  "improvingPerformance": "Amélioration des performances...",
+  "@improvingPerformance": {
+    "description": "Translation for \"improvingPerformance\"",
+    "context": "button",
+    "type": "text"
+  },
+  "reducingDataUsage": "Réduction de l'utilisation des données...",
+  "@reducingDataUsage": {
+    "description": "Translation for \"reducingDataUsage\"",
+    "context": "button",
+    "type": "text"
+  },
+  "enableDataSaver": "Activer l'économiseur de données",
+  "@enableDataSaver": {
+    "description": "Translation for \"enableDataSaver\"",
+    "context": "button",
+    "type": "text"
+  },
+  "highQualityMode": "Mode haute qualité",
+  "@highQualityMode": {
+    "description": "Translation for \"highQualityMode\"",
+    "context": "button",
+    "type": "text"
+  },
+  "batteryOptimization": "Optimisation de la batterie",
+  "@batteryOptimization": {
+    "description": "Translation for \"batteryOptimization\"",
+    "context": "button",
+    "type": "text"
+  },
+  "powerSavingMode": "Mode économie d'énergie",
+  "@powerSavingMode": {
+    "description": "Translation for \"powerSavingMode\"",
+    "context": "button",
+    "type": "text"
+  },
+  "performanceMode": "Mode performance",
+  "@performanceMode": {
+    "description": "Translation for \"performanceMode\"",
+    "context": "button",
+    "type": "text"
+  },
+  "closeButton": "Bouton fermer",
+  "@closeButton": {
+    "description": "Translation for \"closeButton\"",
+    "context": "button",
+    "type": "text"
+  },
+  "backButton": "Bouton retour",
+  "@backButton": {
+    "description": "Translation for \"backButton\"",
+    "context": "button",
+    "type": "text"
+  },
+  "menuButton": "Bouton menu",
+  "@menuButton": {
+    "description": "Translation for \"menuButton\"",
+    "context": "button",
+    "type": "text"
+  },
+  "searchButton": "Bouton recherche",
+  "@searchButton": {
+    "description": "Translation for \"searchButton\"",
+    "context": "button",
+    "type": "text"
+  },
+  "refreshButton": "Bouton actualiser",
+  "@refreshButton": {
+    "description": "Translation for \"refreshButton\"",
+    "context": "button",
+    "type": "text"
+  },
+  "loadingIndicator": "Indicateur de chargement",
+  "@loadingIndicator": {
+    "description": "Translation for \"loadingIndicator\"",
+    "context": "button",
+    "type": "text"
+  },
+  "errorMessage": "Message d'erreur",
+  "@errorMessage": {
+    "description": "Translation for \"errorMessage\"",
+    "context": "error message",
+    "type": "text"
+  },
+  "successMessage": "Message de succès",
+  "@successMessage": {
+    "description": "Translation for \"successMessage\"",
+    "context": "button",
+    "type": "text"
+  },
+  "warningMessage": "Message d'avertissement",
+  "@warningMessage": {
+    "description": "Translation for \"warningMessage\"",
+    "context": "button",
+    "type": "text"
+  },
+  "infoMessage": "Message d'information",
+  "@infoMessage": {
+    "description": "Translation for \"infoMessage\"",
+    "context": "button",
+    "type": "text"
+  },
+  "expandButton": "Bouton développer",
+  "@expandButton": {
+    "description": "Translation for \"expandButton\"",
+    "context": "button",
+    "type": "text"
+  },
+  "collapseButton": "Bouton réduire",
+  "@collapseButton": {
+    "description": "Translation for \"collapseButton\"",
+    "context": "button",
+    "type": "text"
+  },
+  "showMore": "Afficher plus",
+  "@showMore": {
+    "description": "Translation for \"showMore\"",
+    "context": "button",
+    "type": "text"
+  },
+  "showLess": "Afficher moins",
+  "@showLess": {
+    "description": "Translation for \"showLess\"",
+    "context": "button",
+    "type": "text"
+  },
+  "toggleVisibility": "Basculer la visibilité",
+  "@toggleVisibility": {
+    "description": "Translation for \"toggleVisibility\"",
+    "context": "button",
+    "type": "text"
+  },
+  "openInNewTab": "Ouvrir dans un nouvel onglet",
+  "@openInNewTab": {
+    "description": "Translation for \"openInNewTab\"",
+    "context": "button",
+    "type": "text"
+  },
+  "copyToClipboard": "Copier dans le presse-papiers",
+  "@copyToClipboard": {
+    "description": "Translation for \"copyToClipboard\"",
+    "context": "button",
+    "type": "text"
+  },
+  "copiedToClipboard": "Copié dans le presse-papiers",
+  "@copiedToClipboard": {
+    "description": "Translation for \"copiedToClipboard\"",
+    "context": "button",
+    "type": "text"
+  },
+  "buttonDescription": "Bouton {buttonName}",
+  "@buttonDescription": {
+    "placeholders": {
+      "buttonName": {
+        "type": "String"
+      }
+    }
+  },
+  "inputFieldDescription": "Champ de saisie {fieldName}",
+  "@inputFieldDescription": {
+    "placeholders": {
+      "fieldName": {
+        "type": "String"
+      }
+    }
+  },
+  "selectedOption": "{option} sélectionné",
+  "@selectedOption": {
+    "placeholders": {
+      "option": {
+        "type": "String"
+      }
+    }
+  },
+  "optionUnavailable": "{option} indisponible",
+  "@optionUnavailable": {
+    "placeholders": {
+      "option": {
+        "type": "String"
+      }
+    }
+  }
+}
