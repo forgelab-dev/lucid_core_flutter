@@ -2,8 +2,8 @@ import 'dart:io' show Platform;
 
 import 'package:device_info_plus/device_info_plus.dart';
 
-class LucidDeviceInfo {
-  const LucidDeviceInfo._({
+class LucidDeviceInfoUtils {
+  const LucidDeviceInfoUtils._({
     required this.platform,
     required this.osVersion,
     required this.model,
@@ -30,16 +30,16 @@ class LucidDeviceInfo {
 
   final IosDeviceInfo? iosInfo;
 
-  static LucidDeviceInfo? _instance;
+  static LucidDeviceInfoUtils? _instance;
 
-  static Future<LucidDeviceInfo> getInstance() async {
+  static Future<LucidDeviceInfoUtils> getInstance() async {
     if (_instance != null) return _instance!;
 
     final deviceInfo = DeviceInfoPlugin();
 
     if (Platform.isAndroid) {
       final androidInfo = await deviceInfo.androidInfo;
-      _instance = LucidDeviceInfo._(
+      _instance = LucidDeviceInfoUtils._(
         platform: 'Android',
         osVersion: 'Android ${androidInfo.version.release}',
         model: androidInfo.model,
@@ -50,7 +50,7 @@ class LucidDeviceInfo {
       );
     } else if (Platform.isIOS) {
       final iosInfo = await deviceInfo.iosInfo;
-      _instance = LucidDeviceInfo._(
+      _instance = LucidDeviceInfoUtils._(
         platform: 'iOS',
         osVersion: '${iosInfo.systemName} ${iosInfo.systemVersion}',
         model: iosInfo.model,
@@ -60,7 +60,7 @@ class LucidDeviceInfo {
         iosInfo: iosInfo,
       );
     } else {
-      _instance = const LucidDeviceInfo._(
+      _instance = const LucidDeviceInfoUtils._(
         platform: 'Unknown',
         osVersion: 'Unknown',
         model: 'Unknown',
@@ -85,7 +85,7 @@ class LucidDeviceInfo {
 
   @override
   String toString() {
-    return 'LucidDeviceInfo('
+    return 'LucidDeviceInfoUtils('
         'platform: $platform, '
         'model: $model, '
         'osVersion: $osVersion, '

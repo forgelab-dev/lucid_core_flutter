@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
-class LucidAppInfo {
-  const LucidAppInfo._({
+class LucidAppInfoUtils {
+  const LucidAppInfoUtils._({
     required this.appName,
     required this.packageName,
     required this.version,
@@ -23,14 +23,14 @@ class LucidAppInfo {
 
   final String? installerStore;
 
-  static LucidAppInfo? _instance;
+  static LucidAppInfoUtils? _instance;
 
-  static Future<LucidAppInfo> getInstance() async {
+  static Future<LucidAppInfoUtils> getInstance() async {
     if (_instance != null) return _instance!;
 
     final packageInfo = await PackageInfo.fromPlatform();
 
-    _instance = LucidAppInfo._(
+    _instance = LucidAppInfoUtils._(
       appName: packageInfo.appName,
       packageName: packageInfo.packageName,
       version: packageInfo.version,

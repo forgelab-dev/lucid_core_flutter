@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 
 import '../../core/core.dart'
-    show LucidLogFormatter, LucidLogConfig, LucidLogEntry, LucidAbstractLogAppender, LucidLogLevel;
+    show LucidLogFormatterUtils, LucidLogConfig, LucidLogEntry, LucidAbstractLogAppender, LucidLogLevel;
 
 class LucidConsoleAppender implements LucidAbstractLogAppender {
   final LucidLogConfig config;
@@ -101,14 +101,14 @@ class LucidLogger {
 
   LucidLogConfig _config = const LucidLogConfig();
   final List<LucidAbstractLogAppender> _appenders = [];
-  late LucidLogFormatter _formatter;
+  late LucidLogFormatterUtils _formatter;
 
   LucidLogger._() {
     _init();
   }
 
   void _init() {
-    _formatter = LucidLogFormatter(_config);
+    _formatter = LucidLogFormatterUtils(_config);
     _appenders.clear();
     _appenders.add(LucidConsoleAppender(_config));
     if (_config.enableFileLogging) {

@@ -4,15 +4,15 @@ import 'package:flutter/foundation.dart';
 
 import '../constants/constants.dart';
 import '../models/models.dart';
-import 'lucid_app_info.dart';
-import 'lucid_device_info.dart';
+import 'lucid_app_info_utils.dart';
+import 'lucid_device_info_utils.dart';
 
-class LucidSystemInfo {
-  LucidSystemInfo._();
+class LucidSystemInfoUtils {
+  LucidSystemInfoUtils._();
 
   static Future<LucidJsonMap> getSystemInfo() async {
-    final appInfo = await LucidAppInfo.getInstance();
-    final deviceInfo = await LucidDeviceInfo.getInstance();
+    final appInfo = await LucidAppInfoUtils.getInstance();
+    final deviceInfo = await LucidDeviceInfoUtils.getInstance();
     final envConfig = LucidEnvironmentConfig.current;
 
     return {
@@ -43,16 +43,16 @@ class LucidSystemInfo {
   }
 
   static Future<String> getUserAgent() async {
-    final appInfo = await LucidAppInfo.getInstance();
-    final deviceInfo = await LucidDeviceInfo.getInstance();
+    final appInfo = await LucidAppInfoUtils.getInstance();
+    final deviceInfo = await LucidDeviceInfoUtils.getInstance();
 
     return '${appInfo.appName}/${appInfo.version} '
         '(${deviceInfo.platform}; ${deviceInfo.osVersion}; ${deviceInfo.model})';
   }
 
   static Future<String> getInstallationId() async {
-    final deviceInfo = await LucidDeviceInfo.getInstance();
-    final appInfo = await LucidAppInfo.getInstance();
+    final deviceInfo = await LucidDeviceInfoUtils.getInstance();
+    final appInfo = await LucidAppInfoUtils.getInstance();
 
     final data = '${deviceInfo.deviceId}_${appInfo.packageName}_${appInfo.version}';
     return data.hashCode.toString();

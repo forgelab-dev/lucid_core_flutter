@@ -6,9 +6,11 @@ enum LucidEvictionPolicy { lru, lra, fifo, ttl, priority }
 
 enum LucidCacheStorageType { memory, secure, preferences, hybrid }
 
-enum AuthProvider { firebase, supabase, jwt }
+enum LucidAuthProvider { firebase, supabase, jwt }
 
-enum AuthState { initial, loading, authenticated, unauthenticated, error, requiresTwoFactor, requiresVerification }
+enum LucidAuthState { initial, loading, authenticated, unauthenticated, error, requiresTwoFactor, requiresVerification }
+
+enum LucidRoundingMode { round, floor, ceil, truncate }
 
 enum LucidLogLevel {
   trace(0, 'TRACE', '\x1B[37m'), // Blanc

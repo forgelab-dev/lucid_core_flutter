@@ -3,10 +3,10 @@ import 'dart:convert';
 import '../models/lucid_log_config.dart';
 import '../models/lucid_log_entry.dart';
 
-class LucidLogFormatter {
+class LucidLogFormatterUtils {
   final LucidLogConfig config;
 
-  LucidLogFormatter(this.config);
+  LucidLogFormatterUtils(this.config);
 
   String format(LucidLogEntry entry) {
     final buffer = StringBuffer();
