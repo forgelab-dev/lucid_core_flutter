@@ -1,4 +1,50 @@
 include: package:flutter_lints/flutter.yaml
 
-# Additional information about this file can be found at
-# https://dart.dev/guides/language/analysis-options
+analyzer:
+  language:
+    strict-casts: true
+    strict-inference: true
+    strict-raw-types: true
+  errors:
+    unused_import: error
+    unused_local_variable: error
+    dead_code: warning
+
+linter:
+  rules:
+    - always_declare_return_types
+    - avoid_dynamic_calls
+    - avoid_empty_else
+    - avoid_print
+    - avoid_relative_lib_imports
+    - avoid_renaming_method_parameters
+    - avoid_single_cascade_in_expression_statements
+    - camel_case_types
+    - cancel_subscriptions
+    - constant_identifier_names
+    - control_flow_in_finally
+    - directives_ordering
+    - empty_catches
+    - empty_constructor_bodies
+    - library_names
+    - library_prefixes
+    - no_duplicate_case_values
+    - null_check_on_nullable_type_parameter
+    - prefer_const_constructors
+    - prefer_const_declarations
+    - prefer_final_fields
+    - prefer_final_locals
+    - prefer_relative_imports
+    - prefer_null_aware_operators
+    - require_trailing_commas
+    - type_init_formals
+    - unawaited_futures
+    - unnecessary_brace_in_string_interps
+    - unnecessary_getters_setters
+    - unnecessary_lambdas
+    - use_build_context_synchronously
+    - use_key_in_widget_constructors
+    - use_rethrow_when_possible
+    - use_setters_to_change_properties
+    - use_string_buffers
+    - valid_regexps

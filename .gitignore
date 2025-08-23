@@ -33,4 +33,4 @@ example/
 .flutter-plugins-dependencies
 build/
 lib/scripts
-lib/example
+lib/sample
