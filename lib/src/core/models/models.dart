@@ -1,10 +1,14 @@
 export 'lucid_api_client_config.dart';
 export 'lucid_api_client_response.dart';
+export 'lucid_auth_credentials.dart';
+export 'lucid_auth_result.dart';
+export 'lucid_auth_user.dart';
 export 'lucid_cache_cleanup_result.dart';
 export 'lucid_cache_config.dart';
 export 'lucid_cache_item.dart';
 export 'lucid_cache_manager_config.dart';
 export 'lucid_cache_manager_stats.dart';
 export 'lucid_cache_stats.dart';
+export 'lucid_environment_config.dart';
 export 'lucid_log_config.dart';
 export 'lucid_log_entry.dart';
