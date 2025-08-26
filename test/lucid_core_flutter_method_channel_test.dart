@@ -5,16 +5,15 @@ import 'package:lucid_core_flutter/lucid_core_flutter_method_channel.dart';
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  MethodChannelLucidCoreFlutter platform = MethodChannelLucidCoreFlutter();
+  final MethodChannelLucidCoreFlutter platform = MethodChannelLucidCoreFlutter();
   const MethodChannel channel = MethodChannel('lucid_core_flutter');
 
   setUp(() {
-    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(
-      channel,
-      (MethodCall methodCall) async {
-        return '42';
-      },
-    );
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(channel, (
+      MethodCall methodCall,
+    ) async {
+      return '42';
+    });
   });
 
   tearDown(() {
