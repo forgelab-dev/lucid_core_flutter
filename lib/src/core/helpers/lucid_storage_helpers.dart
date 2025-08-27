@@ -1,471 +1,331 @@
-import 'dart:convert';
-import 'dart:typed_data';
-
-import '../../services/storage/storage.dart';
+import '../../services/manager/manager.dart' show LucidStorageManager;
 import '../constants/constants.dart';
 import '../models/models.dart';
 import 'lucid_config_helpers.dart';
 
-class LucidStorageHelpers {
-  LucidStorageHelpers._();
+class LucidCacheHelper {
+  LucidCacheHelper._();
 
-  static LucidStorageHelpers? _instance;
-  static LucidConfigHelpers? _helperConfig;
+  static LucidStorageManager? _manager;
 
-  LucidCacheStorage? _mainCache;
-  LucidSecureStorage? _secureStorage;
-  LucidSharedPreferencesStorage? _prefsStorage;
-  LucidCacheManagerConfig? _config;
-
-  static Future<LucidStorageHelpers> getInstance({
-    LucidCacheManagerConfig? config,
-    LucidConfigHelpers? helperConfig,
-  }) async {
-    _helperConfig = helperConfig ?? LucidGlobalConfig.current;
-    _instance ??= LucidStorageHelpers._();
-    await _instance!._initialize(config ?? const LucidCacheManagerConfig());
-    return _instance!;
+  static Future<void> initialize({LucidCacheManagerConfig? config}) async {
+    _manager = await LucidStorageManager.getInstance(config: config);
   }
 
-  Future<void> _initialize(LucidCacheManagerConfig config) async {
-    _config = config;
+  static LucidStorageManager get manager {
+    if (_manager == null) {
+      throw StateError('LucidCacheHelper non initialisé. Appelez LucidCacheHelper.initialize() d\'abord.');
+    }
+    return _manager!;
+  }
 
-    try {
-      if (config.enableMemoryCache) {
-        _mainCache = await LucidCacheStorage.getInstance(config: config.memoryCacheConfig);
-      }
+  static Future<void> cache<T>(String key, T value, {Duration? ttl}) async {
+    await manager.put(key, value, ttl: ttl);
+  }
 
-      if (config.enableSecureStorage) {
-        _secureStorage = LucidSecureStorage.getInstance();
-      }
+  static Future<T?> retrieve<T>(String key, {T? defaultValue}) async {
+    return await manager.get<T>(key, defaultValue: defaultValue);
+  }
 
-      if (config.enablePrefsStorage) {
-        _prefsStorage = await LucidSharedPreferencesStorage.getInstance();
-      }
+  static Future<T> cacheOrGet<T>(String key, Future<T> Function() factory, {Duration? ttl}) async {
+    return await manager.getOrPut<T>(key, factory, ttl: ttl);
+  }
 
-      if (config.autoMigration) {
-        await _performMigration();
-      }
-    } catch (e) {
-      throw CacheException('Erreur lors de l\'initialisation du CacheManager: $e');
+  static Future<bool> remove(String key) async {
+    return await manager.delete(key);
+  }
+
+  static Future<bool> exists(String key) async {
+    return await manager.containsKey(key);
+  }
+
+  static Future<void> cleanup() async {
+    await manager.cleanup();
+  }
+
+  static Future<String> stats() async {
+    final stats = await manager.getStats();
+    return stats.toString();
+  }
+
+  static ImageLucidCacheHelper get images => ImageLucidCacheHelper._(manager);
+
+  static ApiLucidCacheHelper get api => ApiLucidCacheHelper._(manager);
+
+  static PreferencesLucidCacheHelper get preferences => PreferencesLucidCacheHelper._(manager);
+
+  static SecureLucidCacheHelper get secure => SecureLucidCacheHelper._(manager);
+
+  static SessionLucidCacheHelper get session => SessionLucidCacheHelper._(manager);
+}
+
+class ImageLucidCacheHelper {
+  const ImageLucidCacheHelper._(this._manager);
+
+  final LucidStorageManager _manager;
+
+  static const String _prefix = 'image_';
+  static const Duration _defaultTtl = Duration(days: 7);
+
+  Future<void> cacheImageData(String imageUrl, String base64Data) async {
+    await _manager.put('${_prefix}data_${imageUrl.hashCode}', base64Data, ttl: _defaultTtl, tags: ['image', 'asset']);
+  }
+
+  Future<String?> getImageData(String imageUrl) async {
+    return await _manager.get<String>('${_prefix}data_${imageUrl.hashCode}');
+  }
+
+  Future<void> cacheImageMetadata(String imageUrl, Map<String, dynamic> metadata) async {
+    await _manager.putJson('${_prefix}meta_${imageUrl.hashCode}', metadata, ttl: _defaultTtl);
+  }
+
+  Future<Map<String, dynamic>?> getImageMetadata(String imageUrl) async {
+    return await _manager.getJson('${_prefix}meta_${imageUrl.hashCode}');
+  }
+
+  Future<void> clearImageCache() async {
+    await _manager.deleteByTag('image');
+  }
+}
+
+class ApiLucidCacheHelper {
+  const ApiLucidCacheHelper._(this._manager);
+
+  final LucidStorageManager _manager;
+
+  static const String _prefix = 'api_';
+  static const Duration _defaultTtl = Duration(minutes: 15);
+
+  Future<void> cacheResponse(String endpoint, Map<String, dynamic> response, {Duration? ttl, String? version}) async {
+    final key = '$_prefix${endpoint.hashCode}${version != null ? '_$version' : ''}';
+    await _manager.putJson(key, {
+      'data': response,
+      'cachedAt': DateTime.now().toIso8601String(),
+      'endpoint': endpoint,
+      'version': version,
+    }, ttl: ttl ?? _defaultTtl);
+  }
+
+  Future<Map<String, dynamic>?> getResponse(String endpoint, {String? version}) async {
+    final key = '$_prefix${endpoint.hashCode}${version != null ? '_$version' : ''}';
+    final cached = await _manager.getJson(key);
+    return cached?['data'] as Map<String, dynamic>?;
+  }
+
+  Future<void> invalidateEndpoint(String endpoint) async {
+    final allKeys = await _getAllApiKeys();
+    final keysToDelete = allKeys.where((key) => key.contains('${endpoint.hashCode}'));
+
+    for (final key in keysToDelete) {
+      await _manager.delete(key);
     }
   }
 
-  Future<void> put<T>(
-    String key,
-    T value, {
-    LucidCacheStorageType? storageType,
-    Duration? ttl,
-    LucidDataList<String> tags = const [],
-    LucidCachePriority priority = LucidCachePriority.normal,
-    bool isSecure = false,
-  }) async {
-    final storage = storageType ?? _determineStorageType(key, value, isSecure);
-
-    switch (storage) {
-      case LucidCacheStorageType.memory:
-        await _putInMemory(key, value, ttl: ttl, tags: tags, priority: priority);
-        break;
-      case LucidCacheStorageType.secure:
-        await _putInSecure(key, value);
-        break;
-      case LucidCacheStorageType.preferences:
-        await _putInPrefs(key, value);
-        break;
-      case LucidCacheStorageType.hybrid:
-        await _putInHybrid(key, value, ttl: ttl, tags: tags, priority: priority);
-        break;
-    }
+  Future<void> clearApiCache() async {
+    await _manager.deleteByTag('api');
   }
 
-  Future<T?> get<T>(String key, {LucidCacheStorageType? storageType, T? defaultValue}) async {
-    if (storageType != null) {
-      return await _getFromStorage<T>(key, storageType) ?? defaultValue;
-    }
+  Future<List<String>> _getAllApiKeys() async {
+    // TODO: Simulation - dans la vraie implémentation, il faudrait une méthode pour lister les clés
+    return [];
+  }
+}
 
-    for (final storage in [
-      LucidCacheStorageType.memory,
-      LucidCacheStorageType.preferences,
-      LucidCacheStorageType.secure,
-    ]) {
-      final value = await _getFromStorage<T>(key, storage);
-      if (value != null) return value;
-    }
+class PreferencesLucidCacheHelper {
+  PreferencesLucidCacheHelper._(this._manager, [LucidConfigHelpers? config])
+    : _config = config ?? LucidGlobalConfig.current;
 
-    return defaultValue;
+  final LucidStorageManager _manager;
+  final LucidConfigHelpers _config;
+
+  Future<void> setTheme(String theme) async {
+    await _manager.saveUserPreference('theme', theme);
   }
 
-  Future<T> getOrPut<T>(
-    String key,
-    LucidAsyncValueCallBack<T> factory, {
-    LucidCacheStorageType? storageType,
-    Duration? ttl,
-    LucidDataList<String> tags = const [],
-    bool isSecure = false,
-  }) async {
-    final cached = await get<T>(key, storageType: storageType);
-    if (cached != null) return cached;
-
-    final value = await factory();
-    await put(key, value, storageType: storageType, ttl: ttl, tags: tags, isSecure: isSecure);
-    return value;
+  Future<String?> getTheme() async {
+    return await _manager.getUserPreference<String>('theme');
   }
 
-  Future<bool> containsKey(String key, {LucidCacheStorageType? storageType}) async {
-    if (storageType != null) {
-      return await _containsKeyInStorage(key, storageType);
-    }
-
-    for (final storage in LucidCacheStorageType.values) {
-      if (await _containsKeyInStorage(key, storage)) return true;
-    }
-
-    return false;
+  Future<void> setLocale(String locale) async {
+    await _manager.saveUserPreference('locale', locale);
   }
 
-  Future<bool> delete(String key, {LucidCacheStorageType? storageType}) async {
-    bool deleted = false;
-
-    if (storageType != null) {
-      return await _deleteFromStorage(key, storageType);
-    }
-
-    for (final storage in LucidCacheStorageType.values) {
-      if (await _deleteFromStorage(key, storage)) deleted = true;
-    }
-
-    return deleted;
+  Future<String?> getLocale() async {
+    return await _manager.getUserPreference<String>('locale', defaultValue: _config.appLocale);
   }
 
-  Future<void> clear({LucidCacheStorageType? storageType}) async {
-    if (storageType != null) {
-      await _clearStorage(storageType);
-      return;
-    }
-
-    final futures = <Future<void>>[];
-    for (final storage in LucidCacheStorageType.values) {
-      futures.add(_clearStorage(storage));
-    }
-    await Future.wait(futures);
+  Future<void> setFirstLaunch(bool isFirstLaunch) async {
+    await _manager.saveUserPreference('first_launch', isFirstLaunch);
   }
 
-  Future<void> putAll<T>(
-    LucidEntriesMap<T> entries, {
-    LucidCacheStorageType? storageType,
-    Duration? ttl,
-    LucidDataList<String> tags = const [],
-  }) async {
-    final futures = entries.entries.map(
-      (entry) => put(entry.key, entry.value, storageType: storageType, ttl: ttl, tags: tags),
-    );
-    await Future.wait(futures);
+  Future<bool> isFirstLaunch() async {
+    return await _manager.getUserPreference<bool>('first_launch', defaultValue: true) ?? true;
   }
 
-  Future<Map<String, T?>> getAll<T>(LucidDataList<String> keys, {LucidCacheStorageType? storageType}) async {
-    final result = <String, T?>{};
-    final futures = keys.map((key) async {
-      final value = await get<T>(key, storageType: storageType);
-      return MapEntry(key, value);
-    });
-
-    final entries = await Future.wait(futures);
-    for (final entry in entries) {
-      result[entry.key] = entry.value;
-    }
-
-    return result;
+  Future<void> setAnalyticsConsent(bool consent) async {
+    await _manager.saveUserPreference('analytics_consent', consent);
   }
 
-  Future<LucidJsonMap> getByTag(String tag) async {
-    if (_mainCache == null) return {};
-    return await _mainCache!.getByTag(tag);
+  Future<bool?> getAnalyticsConsent() async {
+    return await _manager.getUserPreference<bool>('analytics_consent');
   }
 
-  Future<int> deleteByTag(String tag) async {
-    if (_mainCache == null) return 0;
-    return await _mainCache!.deleteByTag(tag);
+  Future<void> setCustomSetting<T>(String key, T value) async {
+    await _manager.saveUserPreference('custom_$key', value);
   }
 
-  Future<void> putJson(
-    String key,
-    LucidJsonMap json, {
-    LucidCacheStorageType storageType = LucidCacheStorageType.memory,
-    Duration? ttl,
-  }) async {
-    await put(key, json, storageType: storageType, ttl: ttl);
+  Future<T?> getCustomSetting<T>(String key, {T? defaultValue}) async {
+    return await _manager.getUserPreference<T>('custom_$key', defaultValue: defaultValue);
+  }
+}
+
+class SecureLucidCacheHelper {
+  const SecureLucidCacheHelper._(this._manager);
+
+  final LucidStorageManager _manager;
+
+  Future<void> saveCredential(String key, String value) async {
+    await _manager.put(key, value, storageType: LucidCacheStorageType.secure, isSecure: true);
   }
 
-  Future<LucidJsonMap?> getJson(String key, {LucidCacheStorageType? storageType}) async {
-    return await get<LucidJsonMap>(key, storageType: storageType);
-  }
-
-  Future<void> putList<T>(
-    String key,
-    List<T> list, {
-    LucidCacheStorageType storageType = LucidCacheStorageType.memory,
-    Duration? ttl,
-  }) async {
-    await put(key, list, storageType: storageType, ttl: ttl);
-  }
-
-  Future<List<T>?> getList<T>(String key, {LucidCacheStorageType? storageType}) async {
-    final result = await get<List<dynamic>>(key, storageType: storageType);
-    return result?.cast<T>();
-  }
-
-  Future<void> putBytes(
-    String key,
-    Uint8List bytes, {
-    LucidCacheStorageType storageType = LucidCacheStorageType.memory,
-    Duration? ttl,
-  }) async {
-    final base64String = base64Encode(bytes);
-    await put(key, base64String, storageType: storageType, ttl: ttl);
-  }
-
-  Future<Uint8List?> getBytes(String key, {LucidCacheStorageType? storageType}) async {
-    final base64String = await get<String>(key, storageType: storageType);
-    if (base64String == null) return null;
-
-    try {
-      return base64Decode(base64String);
-    } catch (e) {
-      return null;
-    }
-  }
-
-  Future<LucidCacheManagerStats> getStats() async {
-    final memoryStats = _mainCache != null ? await _mainCache!.getStats() : null;
-    final secureKeys = _secureStorage != null ? await _secureStorage!.getKeys() : <String>{};
-    final prefsKeys = _prefsStorage != null ? await _prefsStorage!.getKeys() : <String>{};
-
-    return LucidCacheManagerStats(
-      memoryStats: memoryStats,
-      secureKeysCount: secureKeys.length,
-      prefsKeysCount: prefsKeys.length,
-      totalKeys: (memoryStats?.totalItems ?? 0) + secureKeys.length + prefsKeys.length,
-    );
-  }
-
-  Future<LucidCacheCleanupResult> cleanup({
-    bool removeExpired = true,
-    bool compactStorage = true,
-    Duration? olderThan,
-  }) async {
-    int removedItems = 0;
-    int freedBytes = 0;
-
-    if (_mainCache != null && removeExpired) {
-      final statsBefore = await _mainCache!.getStats();
-      final statsAfter = await _mainCache!.getStats();
-      removedItems += statsBefore.expiredItems;
-      freedBytes += statsBefore.totalSize - statsAfter.totalSize;
-    }
-
-    return LucidCacheCleanupResult(removedItems: removedItems, freedBytes: freedBytes, duration: Duration.zero);
-  }
-
-  Future<void> exportCache(String filePath, {LucidCacheStorageType? storageType}) async {
-    if (storageType == null || storageType == LucidCacheStorageType.memory) {
-      await _mainCache?.exportToFile(filePath);
-    }
-  }
-
-  Future<void> importCache(String filePath, {bool clearExisting = false}) async {
-    await _mainCache?.importFromFile(filePath, clearExisting: clearExisting);
+  Future<String?> getCredential(String key) async {
+    return await _manager.get<String>(key, storageType: LucidCacheStorageType.secure);
   }
 
   Future<void> saveAuthToken(String token) async {
-    await _secureStorage?.saveAuthToken(token);
+    await _manager.saveAuthToken(token);
   }
 
   Future<String?> getAuthToken() async {
-    return await _secureStorage?.getAuthToken();
+    return await _manager.getAuthToken();
   }
 
-  Future<void> saveRefreshToken(String refreshToken) async {
-    await _secureStorage?.saveRefreshToken(refreshToken);
+  Future<void> saveRefreshToken(String token) async {
+    await _manager.saveRefreshToken(token);
   }
 
   Future<String?> getRefreshToken() async {
-    return await _secureStorage?.getRefreshToken();
+    return await _manager.getRefreshToken();
   }
 
-  Future<void> clearAuthTokens() async {
-    await _secureStorage?.clearAuthTokens();
+  Future<void> clearAllSecureData() async {
+    await _manager.clearAuthTokens();
+    await _manager.clear(storageType: LucidCacheStorageType.secure);
   }
 
-  Future<void> saveUserPreference<T>(String key, T value) async {
-    await put('${_helperConfig?.storageUserPrefsKey}_$key', value, storageType: LucidCacheStorageType.preferences);
+  Future<void> saveEncryptedData<T>(String key, T data) async {
+    await _manager.put(key, data, storageType: LucidCacheStorageType.secure, isSecure: true);
   }
 
-  Future<T?> getUserPreference<T>(String key, {T? defaultValue}) async {
-    return await get<T>(
-      '${_helperConfig?.storageUserPrefsKey}_$key',
-      storageType: LucidCacheStorageType.preferences,
-      defaultValue: defaultValue,
+  Future<T?> getEncryptedData<T>(String key) async {
+    return await _manager.get<T>(key, storageType: LucidCacheStorageType.secure);
+  }
+}
+
+class SessionLucidCacheHelper {
+  const SessionLucidCacheHelper._(this._manager);
+
+  final LucidStorageManager _manager;
+
+  static const Duration _sessionTtl = Duration(minutes: 30);
+  static const String _prefix = 'session_';
+
+  Future<void> startSession(String userId, Map<String, dynamic> sessionData) async {
+    await _manager.put(
+      '${_prefix}user_$userId',
+      sessionData,
+      ttl: _sessionTtl,
+      priority: LucidCachePriority.high,
+      tags: ['session', 'user'],
     );
   }
 
-  LucidCacheStorageType _determineStorageType<T>(String key, T value, bool isSecure) {
-    if (isSecure || _isSecurityRelatedKey(key)) {
-      return LucidCacheStorageType.secure;
-    }
-
-    if (_isUserPreferenceKey(key)) {
-      return LucidCacheStorageType.preferences;
-    }
-
-    return _config?.defaultStorageType ?? LucidCacheStorageType.memory;
+  Future<Map<String, dynamic>?> getSession(String userId) async {
+    return await _manager.get<Map<String, dynamic>>('${_prefix}user_$userId');
   }
 
-  bool _isSecurityRelatedKey(String key) {
-    const securityKeys = ['token', 'auth', 'password', 'secret', 'key', 'credential'];
-    return securityKeys.any((secKey) => key.toLowerCase().contains(secKey));
+  Future<void> updateSession(String userId, Map<String, dynamic> updates) async {
+    final existing = await getSession(userId) ?? <String, dynamic>{};
+    existing.addAll(updates);
+    await startSession(userId, existing);
   }
 
-  bool _isUserPreferenceKey(String key) {
-    const prefKeys = ['theme', 'locale', 'setting', 'preference', 'config'];
-    return prefKeys.any((prefKey) => key.toLowerCase().contains(prefKey));
+  Future<void> endSession(String userId) async {
+    await _manager.delete('${_prefix}user_$userId');
   }
 
-  Future<void> _putInMemory<T>(
-    String key,
-    T value, {
-    Duration? ttl,
-    LucidDataList<String> tags = const [],
-    LucidCachePriority priority = LucidCachePriority.normal,
-  }) async {
-    await _mainCache?.put(key, value, ttl: ttl, tags: tags, priority: priority);
-  }
-
-  Future<void> _putInSecure<T>(String key, T value) async {
-    if (_secureStorage == null) return;
-    final serialized = _serializeValue(value);
-    await _secureStorage!.write(key, serialized);
-  }
-
-  Future<void> _putInPrefs<T>(String key, T value) async {
-    if (_prefsStorage == null) return;
-    final serialized = _serializeValue(value);
-    await _prefsStorage!.write(key, serialized);
-  }
-
-  Future<void> _putInHybrid<T>(
-    String key,
-    T value, {
-    Duration? ttl,
-    LucidDataList<String> tags = const [],
-    LucidCachePriority priority = LucidCachePriority.normal,
-  }) async {
-    await _putInMemory(key, value, ttl: ttl, tags: tags, priority: priority);
-
-    await _putInPrefs('backup_$key', value);
-  }
-
-  Future<T?> _getFromStorage<T>(String key, LucidCacheStorageType storageType) async {
-    switch (storageType) {
-      case LucidCacheStorageType.memory:
-        return await _mainCache?.get<T>(key);
-      case LucidCacheStorageType.secure:
-        if (_secureStorage == null) return null;
-        final serialized = await _secureStorage!.read(key);
-        return serialized != null ? _deserializeValue<T>(serialized) : null;
-      case LucidCacheStorageType.preferences:
-        if (_prefsStorage == null) return null;
-        final serialized = await _prefsStorage!.read(key);
-        return serialized != null ? _deserializeValue<T>(serialized) : null;
-      case LucidCacheStorageType.hybrid:
-        final memoryValue = await _mainCache?.get<T>(key);
-        if (memoryValue != null) return memoryValue;
-        return await _getFromStorage<T>('backup_$key', LucidCacheStorageType.preferences);
+  Future<void> extendSession(String userId) async {
+    final sessionData = await getSession(userId);
+    if (sessionData != null) {
+      await startSession(userId, sessionData);
     }
   }
 
-  Future<bool> _containsKeyInStorage(String key, LucidCacheStorageType storageType) async {
-    switch (storageType) {
-      case LucidCacheStorageType.memory:
-        return await _mainCache?.containsKey(key) ?? false;
-      case LucidCacheStorageType.secure:
-        return await _secureStorage?.containsKey(key) ?? false;
-      case LucidCacheStorageType.preferences:
-        return await _prefsStorage?.containsKey(key) ?? false;
-      case LucidCacheStorageType.hybrid:
-        return await _containsKeyInStorage(key, LucidCacheStorageType.memory) ||
-            await _containsKeyInStorage('backup_$key', LucidCacheStorageType.preferences);
-    }
+  Future<bool> isSessionActive(String userId) async {
+    return await _manager.containsKey('${_prefix}user_$userId');
   }
 
-  Future<bool> _deleteFromStorage(String key, LucidCacheStorageType storageType) async {
-    switch (storageType) {
-      case LucidCacheStorageType.memory:
-        return await _mainCache?.delete(key) ?? false;
-      case LucidCacheStorageType.secure:
-        try {
-          await _secureStorage?.delete(key);
-          return true;
-        } catch (e) {
-          return false;
-        }
-      case LucidCacheStorageType.preferences:
-        try {
-          await _prefsStorage?.delete(key);
-          return true;
-        } catch (e) {
-          return false;
-        }
-      case LucidCacheStorageType.hybrid:
-        final deleted1 = await _deleteFromStorage(key, LucidCacheStorageType.memory);
-        final deleted2 = await _deleteFromStorage('backup_$key', LucidCacheStorageType.preferences);
-        return deleted1 || deleted2;
-    }
+  Future<void> clearAllSessions() async {
+    await _manager.deleteByTag('session');
+  }
+}
+
+class LucidCacheMethodDecorator<T> {
+  const LucidCacheMethodDecorator({
+    this.ttl = const Duration(minutes: 15),
+    this.key,
+    this.tags = const [],
+    this.storageType = LucidCacheStorageType.memory,
+  });
+
+  final Duration ttl;
+  final String? key;
+  final List<String> tags;
+  final LucidCacheStorageType storageType;
+
+  Future<T> execute(String methodName, Future<T> Function() method, {List<dynamic> args = const []}) async {
+    final cacheKey = key ?? _generateCacheKey(methodName, args);
+
+    return await LucidCacheHelper.manager.getOrPut<T>(cacheKey, method, ttl: ttl, tags: tags, storageType: storageType);
   }
 
-  Future<void> _clearStorage(LucidCacheStorageType storageType) async {
-    switch (storageType) {
-      case LucidCacheStorageType.memory:
-        await _mainCache?.clear();
-        break;
-      case LucidCacheStorageType.secure:
-        await _secureStorage?.clear();
-        break;
-      case LucidCacheStorageType.preferences:
-        await _prefsStorage?.clear();
-        break;
-      case LucidCacheStorageType.hybrid:
-        await _clearStorage(LucidCacheStorageType.memory);
-        await _clearStorage(LucidCacheStorageType.preferences);
-        break;
-    }
+  String _generateCacheKey(String methodName, List<dynamic> args) {
+    final argsHash = args.isNotEmpty ? args.map((e) => e.hashCode).join('_') : '';
+    return 'method_${methodName}_$argsHash';
+  }
+}
+
+class LucidCacheKeyBuilder {
+  LucidCacheKeyBuilder._(this._segments);
+
+  factory LucidCacheKeyBuilder() => LucidCacheKeyBuilder._([]);
+
+  factory LucidCacheKeyBuilder.withPrefix(String prefix) => LucidCacheKeyBuilder._([prefix]);
+
+  final List<String> _segments;
+
+  LucidCacheKeyBuilder add(String segment) {
+    return LucidCacheKeyBuilder._([..._segments, segment]);
   }
 
-  String _serializeValue<T>(T value) {
-    try {
-      if (value is String) return value;
-      return jsonEncode(value);
-    } catch (e) {
-      throw CacheException('Impossible de sérialiser la valeur: $e');
-    }
+  LucidCacheKeyBuilder addAll(List<String> segments) {
+    return LucidCacheKeyBuilder._([..._segments, ...segments]);
   }
 
-  T? _deserializeValue<T>(String value) {
-    try {
-      if (T == String) return value as T;
-      final decoded = jsonDecode(value);
-      return decoded as T;
-    } catch (e) {
-      if (T == String) return value as T;
-      return null;
-    }
+  LucidCacheKeyBuilder withVersion(String version) {
+    return add('v$version');
   }
 
-  Future<void> _performMigration() async {
-    // TODO: Logique de migration entre versions
+  LucidCacheKeyBuilder withUserId(String userId) {
+    return add('user_$userId');
   }
 
-  Future<void> dispose() async {
-    await _mainCache?.dispose();
-    _instance = null;
+  LucidCacheKeyBuilder withTimestamp() {
+    return add('ts_${DateTime.now().millisecondsSinceEpoch}');
   }
+
+  String build() => _segments.join('_');
+
+  @override
+  String toString() => build();
 }

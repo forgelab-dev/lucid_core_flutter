@@ -60,3 +60,26 @@ enum LucidErrorSeverity {
 
   final String icon;
 }
+
+enum LucidThemeMode {
+  light,
+  dark,
+  system;
+
+  bool get isDark => this == LucidThemeMode.dark;
+
+  bool get isLight => this == LucidThemeMode.light;
+
+  bool get isSystem => this == LucidThemeMode.system;
+
+  String get displayName {
+    switch (this) {
+      case LucidThemeMode.light:
+        return 'Clair';
+      case LucidThemeMode.dark:
+        return 'Sombre';
+      case LucidThemeMode.system:
+        return 'Système';
+    }
+  }
+}

@@ -5,6 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 
+import '../../provider/provider.dart' show LucidThemeProvider;
+import '../models/models.dart' show LucidAppTheme;
+import '../themes/themes.dart' show LucidThemeNotifier;
 import 'lucid_enums.dart' show LucidScreenSize;
 
 extension LucidStringExtensions on String {
@@ -40,7 +43,7 @@ extension LucidStringExtensions on String {
 
   bool get isValidPhoneNumber {
     const pattern = r'^\+?[1-9]\d{1,14}$';
-    return RegExp(pattern).hasMatch(replaceAll(RegExp(r'[\s\-\(\)]'), ''));
+    return RegExp(pattern).hasMatch(replaceAll(RegExp(r'[\s\-()]'), ''));
   }
 
   bool get isValidUrl {
@@ -305,6 +308,13 @@ extension LucidDateTimeExtensions on DateTime {
 }
 
 extension LucidBuildContextExtensions on BuildContext {
+  LucidThemeNotifier get themeNotifier => LucidThemeProvider.of(this);
+
+  LucidAppTheme get currentTheme {
+    final brightness = MediaQuery.platformBrightnessOf(this);
+    return themeNotifier.getCurrentTheme(brightness);
+  }
+
   ThemeData get theme => Theme.of(this);
 
   ColorScheme get colors => theme.colorScheme;

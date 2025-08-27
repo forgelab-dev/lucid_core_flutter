@@ -1,5 +1,6 @@
 export 'lucid_api_client_config.dart';
 export 'lucid_api_client_response.dart';
+export 'lucid_app_theme.dart';
 export 'lucid_auth_credentials.dart';
 export 'lucid_auth_result.dart';
 export 'lucid_auth_user.dart';
