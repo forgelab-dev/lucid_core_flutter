@@ -1,16 +1,16 @@
 import '../constants/constants.dart' show LucidNumExtensions;
 
 class LucidCacheCleanupResult {
-  final int removeItems;
-  final int freeBytes;
+  final int removedItems;
+  final int freedBytes;
   final Duration duration;
 
-  LucidCacheCleanupResult({required this.removeItems, required this.freeBytes, required this.duration});
+  LucidCacheCleanupResult({required this.removedItems, required this.freedBytes, required this.duration});
 
   @override
   String toString() {
-    return 'LucidCacheCleanupResult{removeItems: $removeItems, freeBytes: $freeBytes, duration: $duration}';
+    return 'LucidCacheCleanupResult{removedItems: $removedItems, freedBytes: $freedBytes, duration: $duration}';
   }
 
-  String get formattedFreeSize => freeBytes.asFileSize;
+  String get formattedFreeSize => freedBytes.asFileSize;
 }
