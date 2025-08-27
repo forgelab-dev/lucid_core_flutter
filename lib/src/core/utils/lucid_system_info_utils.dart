@@ -2,10 +2,10 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 
-import '../constants/constants.dart';
-import '../models/models.dart';
-import 'lucid_app_info_utils.dart';
-import 'lucid_device_info_utils.dart';
+import '../constants/constants.dart' show LucidJsonMap;
+import '../models/models.dart' show LucidEnvironmentConfig;
+import 'lucid_app_info_utils.dart' show LucidAppInfoUtils;
+import 'lucid_device_info_utils.dart' show LucidDeviceInfoUtils;
 
 class LucidSystemInfoUtils {
   LucidSystemInfoUtils._();

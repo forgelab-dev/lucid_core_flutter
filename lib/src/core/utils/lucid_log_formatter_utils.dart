@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import '../models/lucid_log_config.dart';
-import '../models/lucid_log_entry.dart';
+import '../models/lucid_log_config.dart' show LucidLogConfig;
+import '../models/lucid_log_entry.dart' show LucidLogEntry;
 
 class LucidLogFormatterUtils {
   final LucidLogConfig config;

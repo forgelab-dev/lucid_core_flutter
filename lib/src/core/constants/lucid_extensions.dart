@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 
-import 'lucid_enums.dart';
+import 'lucid_enums.dart' show LucidScreenSize;
 
 extension LucidStringExtensions on String {
   bool get isValidEmail {

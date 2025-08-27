@@ -1,4 +1,4 @@
-import '../constants/constants.dart';
+import '../constants/constants.dart' show LucidErrorSeverity, LucidJsonMap;
 
 abstract class LucidAbstractException implements Exception {
   const LucidAbstractException(

@@ -1,6 +1,6 @@
 import 'dart:math' as math;
 
-import '../constants/constants.dart';
+import '../constants/constants.dart' show LucidRoundingMode;
 
 class LucidMathUtils {
   LucidMathUtils._();

@@ -1,4 +1,4 @@
-import 'lucid_cache_stats.dart';
+import 'lucid_cache_stats.dart' show LucidCacheStats;
 
 class LucidCacheManagerStats {
   final LucidCacheStats? memoryStats;

@@ -1,5 +1,5 @@
-import '../constants/constants.dart';
-import 'lucid_cache_config.dart';
+import '../constants/constants.dart' show LucidCacheStorageType;
+import 'lucid_cache_config.dart' show LucidCacheConfig;
 
 class LucidCacheManagerConfig {
   final bool enableMemoryCache;

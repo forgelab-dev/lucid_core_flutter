@@ -1,4 +1,4 @@
-import '../constants/constants.dart';
+import '../constants/constants.dart' show LucidJsonMap;
 
 class LucidAuthUser {
   final String id;

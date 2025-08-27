@@ -1,7 +1,7 @@
-import '../abstracts/abstracts.dart';
-import 'lucid_constants.dart';
-import 'lucid_enums.dart';
-import 'lucid_typedefs.dart';
+import '../abstracts/abstracts.dart' show LucidAbstractException;
+import 'lucid_constants.dart' show LucidErrorCodes;
+import 'lucid_enums.dart' show LucidErrorSeverity, LucidStorageOperation;
+import 'lucid_typedefs.dart' show LucidJsonMap;
 
 class AuthenticationException extends LucidAbstractException {
   const AuthenticationException(

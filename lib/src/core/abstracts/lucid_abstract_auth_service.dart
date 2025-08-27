@@ -1,4 +1,4 @@
-import '../models/models.dart';
+import '../models/models.dart' show LucidAuthCredentials, LucidAuthResult, LucidAuthUser;
 
 abstract class LucidAbstractAuthService {
   Future<void> initialize();
