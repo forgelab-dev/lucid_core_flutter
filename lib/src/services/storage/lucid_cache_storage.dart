@@ -5,8 +5,8 @@ import 'dart:io';
 import 'package:crypto/crypto.dart';
 import 'package:path_provider/path_provider.dart';
 
+import '../../../scripts/logger/logger.dart';
 import '../../core/core.dart';
-import '../../services/logger/logger.dart';
 
 class LucidCacheStorage {
   LucidCacheStorage._({required this.config});
@@ -25,8 +25,12 @@ class LucidCacheStorage {
   int _hitCount = 0;
   int _missCount = 0;
 
-  static Future<LucidCacheStorage> getInstance({LucidCacheConfig? config}) async {
-    _instance ??= LucidCacheStorage._(config: config ?? const LucidCacheConfig());
+  static Future<LucidCacheStorage> getInstance({
+    LucidCacheConfig? config,
+  }) async {
+    _instance ??= LucidCacheStorage._(
+      config: config ?? const LucidCacheConfig(),
+    );
     await _instance!._initialize();
     return _instance!;
   }
@@ -64,7 +68,9 @@ class LucidCacheStorage {
     if (_cacheDirectory == null) return;
 
     try {
-      final files = _cacheDirectory!.listSync().whereType<File>().where((file) => file.path.endsWith('.cache'));
+      final files = _cacheDirectory!.listSync().whereType<File>().where(
+        (file) => file.path.endsWith('.cache'),
+      );
 
       for (final file in files) {
         try {
@@ -166,7 +172,8 @@ class LucidCacheStorage {
       final item = entry.value;
       final remainingTtl = item.timeUntilExpiry;
 
-      if (remainingTtl != null && (shortestTtl == null || remainingTtl < shortestTtl)) {
+      if (remainingTtl != null &&
+          (shortestTtl == null || remainingTtl < shortestTtl)) {
         shortestTtl = remainingTtl;
         keyToEvict = entry.key;
       }
@@ -182,7 +189,8 @@ class LucidCacheStorage {
     for (final entry in _memoryCache.entries) {
       final item = entry.value;
       if (item.priority != LucidCachePriority.critical &&
-          (lowestPriority == null || item.priority.value < lowestPriority.value)) {
+          (lowestPriority == null ||
+              item.priority.value < lowestPriority.value)) {
         lowestPriority = item.priority;
         keyToEvict = entry.key;
       }
@@ -192,7 +200,10 @@ class LucidCacheStorage {
   }
 
   int _getCurrentSize() {
-    return _memoryCache.values.fold<int>(0, (sum, item) => sum + item.sizeInBytes);
+    return _memoryCache.values.fold<int>(
+      0,
+      (sum, item) => sum + item.sizeInBytes,
+    );
   }
 
   double _calculateHitRate() {
@@ -204,7 +215,10 @@ class LucidCacheStorage {
   Duration _calculateAverageAge() {
     if (_memoryCache.isEmpty) return Duration.zero;
 
-    final totalAge = _memoryCache.values.fold<int>(0, (sum, item) => sum + item.age.inMilliseconds);
+    final totalAge = _memoryCache.values.fold<int>(
+      0,
+      (sum, item) => sum + item.age.inMilliseconds,
+    );
 
     return Duration(milliseconds: totalAge ~/ _memoryCache.length);
   }
@@ -403,7 +417,9 @@ class LucidCacheStorage {
     _accessLog.clear();
 
     if (config.persistToDisk && _cacheDirectory != null) {
-      final files = _cacheDirectory!.listSync().whereType<File>().where((file) => file.path.endsWith('.cache'));
+      final files = _cacheDirectory!.listSync().whereType<File>().where(
+        (file) => file.path.endsWith('.cache'),
+      );
 
       for (final file in files) {
         await file.delete();
@@ -465,13 +481,20 @@ class LucidCacheStorage {
     await _performCleanup();
 
     final totalItems = _memoryCache.length;
-    final totalSize = _memoryCache.values.fold<int>(0, (sum, item) => sum + item.sizeInBytes);
+    final totalSize = _memoryCache.values.fold<int>(
+      0,
+      (sum, item) => sum + item.sizeInBytes,
+    );
 
-    final expiredCount = _memoryCache.values.where((item) => item.isExpired).length;
+    final expiredCount = _memoryCache.values
+        .where((item) => item.isExpired)
+        .length;
 
     final priorityCount = <LucidCachePriority, int>{};
     for (final priority in LucidCachePriority.values) {
-      priorityCount[priority] = _memoryCache.values.where((item) => item.priority == priority).length;
+      priorityCount[priority] = _memoryCache.values
+          .where((item) => item.priority == priority)
+          .length;
     }
 
     final tagCount = <String, int>{};
@@ -512,7 +535,10 @@ class LucidCacheStorage {
     await file.writeAsString(jsonEncode(exportData));
   }
 
-  Future<void> importFromFile(String filePath, {bool clearExisting = false}) async {
+  Future<void> importFromFile(
+    String filePath, {
+    bool clearExisting = false,
+  }) async {
     _ensureInitialized();
 
     if (clearExisting) {

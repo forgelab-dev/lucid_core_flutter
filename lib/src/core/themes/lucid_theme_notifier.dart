@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-import '../../services/services.dart';
+import '../../../scripts/logger/logger.dart';
 import '../constants/constants.dart';
 import '../helpers/helpers.dart';
 import '../models/models.dart';
@@ -56,7 +56,9 @@ class LucidThemeNotifier extends ChangeNotifier {
       case LucidThemeMode.dark:
         return _currentDarkTheme;
       case LucidThemeMode.system:
-        return systemBrightness == Brightness.dark ? _currentDarkTheme : _currentLightTheme;
+        return systemBrightness == Brightness.dark
+            ? _currentDarkTheme
+            : _currentLightTheme;
     }
   }
 
@@ -129,7 +131,9 @@ class LucidThemeNotifier extends ChangeNotifier {
     try {
       _customTheme = theme;
       await _saveThemeToCache();
-      logger.warn('Thème personnalisé ${theme != null ? 'appliqué: ${theme.name}' : 'supprimé'}');
+      logger.warn(
+        'Thème personnalisé ${theme != null ? 'appliqué: ${theme.name}' : 'supprimé'}',
+      );
     } catch (e) {
       _setError = 'Erreur lors de l\'application du thème personnalisé: $e';
     }
@@ -168,36 +172,48 @@ class LucidThemeNotifier extends ChangeNotifier {
     if (_themeMode != LucidThemeMode.system) return;
 
     try {
-      _lastSystemBrightness = WidgetsBinding.instance.platformDispatcher.platformBrightness;
+      _lastSystemBrightness =
+          WidgetsBinding.instance.platformDispatcher.platformBrightness;
 
-      WidgetsBinding.instance.platformDispatcher.onPlatformBrightnessChanged = _checkSystemBrightnessChange;
+      WidgetsBinding.instance.platformDispatcher.onPlatformBrightnessChanged =
+          _checkSystemBrightnessChange;
 
       logger.warn('Listener du thème système configuré');
     } catch (e) {
-      logger.warn('Erreur lors de la configuration du listener système: $e', tag: 'THEME_ERROR');
+      logger.warn(
+        'Erreur lors de la configuration du listener système: $e',
+        tag: 'THEME_ERROR',
+      );
     }
   }
 
   void _checkSystemBrightnessChange() {
     try {
-      final currentBrightness = WidgetsBinding.instance.platformDispatcher.platformBrightness;
+      final currentBrightness =
+          WidgetsBinding.instance.platformDispatcher.platformBrightness;
 
       if (_lastSystemBrightness != currentBrightness) {
         _lastSystemBrightness = currentBrightness;
 
         if (_themeMode == LucidThemeMode.system) {
-          logger.warn('Changement de luminosité système détecté: ${currentBrightness.name}');
+          logger.warn(
+            'Changement de luminosité système détecté: ${currentBrightness.name}',
+          );
           notifyListeners();
         }
       }
     } catch (e) {
-      logger.warn('Erreur lors de la vérification de la luminosité: $e', tag: 'THEME_ERROR');
+      logger.warn(
+        'Erreur lors de la vérification de la luminosité: $e',
+        tag: 'THEME_ERROR',
+      );
     }
   }
 
   void _cleanupSystemThemeListener() {
     // Plus besoin de Stream ni Timer.
-    WidgetsBinding.instance.platformDispatcher.onPlatformBrightnessChanged = null;
+    WidgetsBinding.instance.platformDispatcher.onPlatformBrightnessChanged =
+        null;
   }
 
   void checkSystemBrightness() => _checkSystemBrightnessChange();
@@ -220,7 +236,8 @@ class LucidThemeNotifier extends ChangeNotifier {
 
   Future<void> _loadSavedTheme() async {
     try {
-      final savedMode = await LucidCacheHelper.preferences.getCustomSetting<String>('theme_mode');
+      final savedMode = await LucidCacheHelper.preferences
+          .getCustomSetting<String>('theme_mode');
       if (savedMode != null) {
         _themeMode = LucidThemeMode.values.firstWhere(
           (mode) => mode.name == savedMode,
@@ -228,24 +245,30 @@ class LucidThemeNotifier extends ChangeNotifier {
         );
       }
 
-      final savedLightTheme = await LucidCacheHelper.preferences.getCustomSetting<LucidJsonMap>('light_theme');
+      final savedLightTheme = await LucidCacheHelper.preferences
+          .getCustomSetting<LucidJsonMap>('light_theme');
       if (savedLightTheme != null) {
         _currentLightTheme = LucidAppTheme.fromJson(savedLightTheme);
       }
 
-      final savedDarkTheme = await LucidCacheHelper.preferences.getCustomSetting<LucidJsonMap>('dark_theme');
+      final savedDarkTheme = await LucidCacheHelper.preferences
+          .getCustomSetting<LucidJsonMap>('dark_theme');
       if (savedDarkTheme != null) {
         _currentDarkTheme = LucidAppTheme.fromJson(savedDarkTheme);
       }
 
-      final savedCustomTheme = await LucidCacheHelper.preferences.getCustomSetting<LucidJsonMap>('custom_theme');
+      final savedCustomTheme = await LucidCacheHelper.preferences
+          .getCustomSetting<LucidJsonMap>('custom_theme');
       if (savedCustomTheme != null) {
         _customTheme = LucidAppTheme.fromJson(savedCustomTheme);
       }
 
       logger.warn('Thèmes chargés depuis le cache');
     } catch (e) {
-      logger.warn('Erreur lors du chargement des thèmes: $e', tag: 'THEME_ERROR');
+      logger.warn(
+        'Erreur lors du chargement des thèmes: $e',
+        tag: 'THEME_ERROR',
+      );
       _setError = 'Erreur lors du chargement des thèmes sauvegardés';
     }
 
@@ -254,19 +277,37 @@ class LucidThemeNotifier extends ChangeNotifier {
 
   Future<void> _saveThemeToCache() async {
     try {
-      await LucidCacheHelper.preferences.setCustomSetting('theme_mode', _themeMode.name);
-      await LucidCacheHelper.preferences.setCustomSetting('light_theme', _currentLightTheme.toJson());
-      await LucidCacheHelper.preferences.setCustomSetting('dark_theme', _currentDarkTheme.toJson());
+      await LucidCacheHelper.preferences.setCustomSetting(
+        'theme_mode',
+        _themeMode.name,
+      );
+      await LucidCacheHelper.preferences.setCustomSetting(
+        'light_theme',
+        _currentLightTheme.toJson(),
+      );
+      await LucidCacheHelper.preferences.setCustomSetting(
+        'dark_theme',
+        _currentDarkTheme.toJson(),
+      );
 
       if (_customTheme != null) {
-        await LucidCacheHelper.preferences.setCustomSetting('custom_theme', _customTheme!.toJson());
+        await LucidCacheHelper.preferences.setCustomSetting(
+          'custom_theme',
+          _customTheme!.toJson(),
+        );
       } else {
-        await LucidCacheHelper.preferences.setCustomSetting('custom_theme', null);
+        await LucidCacheHelper.preferences.setCustomSetting(
+          'custom_theme',
+          null,
+        );
       }
 
       logger.warn('Thèmes sauvegardés dans le cache');
     } catch (e) {
-      logger.warn('Erreur lors de la sauvegarde des thèmes: $e', tag: 'THEME_ERROR');
+      logger.warn(
+        'Erreur lors de la sauvegarde des thèmes: $e',
+        tag: 'THEME_ERROR',
+      );
       throw Exception('Impossible de sauvegarder les préférences de thème');
     }
   }

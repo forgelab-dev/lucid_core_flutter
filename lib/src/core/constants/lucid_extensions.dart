@@ -643,6 +643,16 @@ extension LucidMapExtensions<K, V> on Map<K, V> {
   }
 }
 
+extension LucidNullableMapExtensions<K, V> on Map<K, V>? {
+  bool get isNullOrEmpty => this?.isEmpty ?? true;
+
+  bool get isNotNullOrEmpty => !isNullOrEmpty;
+
+  int get lengthOrZero => this?.length ?? 0;
+
+  Map<K, V> orEmpty() => this ?? {};
+}
+
 extension LucidSetExtensions<T> on Set<T> {
   Set<T> unionWith(Set<T> other) => {...this, ...other};
 

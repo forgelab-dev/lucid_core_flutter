@@ -17,6 +17,8 @@ mixin LucidAppConfigMixin {
 }
 
 mixin LucidNetworkConfigMixin {
+  String get networkApiUrl => LucidConstants.defaultApiUrl;
+
   String get networkApiVersion => LucidConstants.defaultApiVersion;
 
   String get networkContentType => LucidConstants.defaultContentType;

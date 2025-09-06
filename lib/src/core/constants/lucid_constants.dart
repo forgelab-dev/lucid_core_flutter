@@ -10,6 +10,7 @@ class LucidConstants {
   // ─────────────────────────────────────────────────────────────
   // API & Réseau
   // ─────────────────────────────────────────────────────────────
+  static const String defaultApiUrl = "api.$defaultAppUrl";
   static const String defaultApiVersion = "1.0.0";
   static const Duration defaultTimeOut = Duration(seconds: 60);
   static const Duration defaultCacheTimeout = Duration(minutes: 5);
