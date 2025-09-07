@@ -75,11 +75,11 @@ class ImageLucidCacheHelper {
     return await _manager.get<String>('${_prefix}data_${imageUrl.hashCode}');
   }
 
-  Future<void> cacheImageMetadata(String imageUrl, Map<String, dynamic> metadata) async {
+  Future<void> cacheImageMetadata(String imageUrl, LucidJsonMap metadata) async {
     await _manager.putJson('${_prefix}meta_${imageUrl.hashCode}', metadata, ttl: _defaultTtl);
   }
 
-  Future<Map<String, dynamic>?> getImageMetadata(String imageUrl) async {
+  Future<LucidJsonMap?> getImageMetadata(String imageUrl) async {
     return await _manager.getJson('${_prefix}meta_${imageUrl.hashCode}');
   }
 
@@ -96,7 +96,7 @@ class ApiLucidCacheHelper {
   static const String _prefix = 'api_';
   static const Duration _defaultTtl = Duration(minutes: 15);
 
-  Future<void> cacheResponse(String endpoint, Map<String, dynamic> response, {Duration? ttl, String? version}) async {
+  Future<void> cacheResponse(String endpoint, LucidJsonMap response, {Duration? ttl, String? version}) async {
     final key = '$_prefix${endpoint.hashCode}${version != null ? '_$version' : ''}';
     await _manager.putJson(key, {
       'data': response,
@@ -106,10 +106,10 @@ class ApiLucidCacheHelper {
     }, ttl: ttl ?? _defaultTtl);
   }
 
-  Future<Map<String, dynamic>?> getResponse(String endpoint, {String? version}) async {
+  Future<LucidJsonMap?> getResponse(String endpoint, {String? version}) async {
     final key = '$_prefix${endpoint.hashCode}${version != null ? '_$version' : ''}';
     final cached = await _manager.getJson(key);
-    return cached?['data'] as Map<String, dynamic>?;
+    return cached?['data'] as LucidJsonMap?;
   }
 
   Future<void> invalidateEndpoint(String endpoint) async {
@@ -230,7 +230,7 @@ class SessionLucidCacheHelper {
   static const Duration _sessionTtl = Duration(minutes: 30);
   static const String _prefix = 'session_';
 
-  Future<void> startSession(String userId, Map<String, dynamic> sessionData) async {
+  Future<void> startSession(String userId, LucidJsonMap sessionData) async {
     await _manager.put(
       '${_prefix}user_$userId',
       sessionData,
@@ -240,11 +240,11 @@ class SessionLucidCacheHelper {
     );
   }
 
-  Future<Map<String, dynamic>?> getSession(String userId) async {
-    return await _manager.get<Map<String, dynamic>>('${_prefix}user_$userId');
+  Future<LucidJsonMap?> getSession(String userId) async {
+    return await _manager.get<LucidJsonMap>('${_prefix}user_$userId');
   }
 
-  Future<void> updateSession(String userId, Map<String, dynamic> updates) async {
+  Future<void> updateSession(String userId, LucidJsonMap updates) async {
     final existing = await getSession(userId) ?? <String, dynamic>{};
     existing.addAll(updates);
     await startSession(userId, existing);

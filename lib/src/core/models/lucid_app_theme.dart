@@ -332,7 +332,7 @@ class LucidAppTheme {
     );
   }
 
-  Map<String, dynamic> toJson() {
+  LucidJsonMap toJson() {
     return {
       'name': name,
       'mode': mode.name,
@@ -364,7 +364,7 @@ class LucidAppTheme {
     };
   }
 
-  factory LucidAppTheme.fromJson(Map<String, dynamic> json) {
+  factory LucidAppTheme.fromJson(LucidJsonMap json) {
     return LucidAppTheme(
       name: json['name'] as String,
       mode: LucidThemeMode.values.firstWhere((m) => m.name == json['mode'], orElse: () => LucidThemeMode.system),

@@ -13,6 +13,7 @@ import '../../mixins/mixins.dart'
         LucidSecurityConfigMixin,
         LucidStorageConfigMixin,
         LucidUIConfigMixin;
+import '../constants/constants.dart';
 
 class LucidConfigHelpers
     with
@@ -51,7 +52,7 @@ class LucidGlobalConfig {
 class LucidOverrideConfig extends LucidConfigHelpers {
   LucidOverrideConfig() : super._internal();
 
-  final Map<String, dynamic> _overrides = {};
+  final LucidJsonMap _overrides = {};
 
   void overrides<T>(String key, T value) {
     _overrides[key] = value;
@@ -71,13 +72,13 @@ class LucidOverrideConfig extends LucidConfigHelpers {
     _overrides.clear();
   }
 
-  static LucidOverrideConfig createWithOverrides(Map<String, dynamic> overrides) {
+  static LucidOverrideConfig createWithOverrides(LucidJsonMap overrides) {
     final config = LucidOverrideConfig();
     config._overrides.addAll(overrides);
     return config;
   }
 
-  void addAll(Map<String, dynamic> overrides) {
+  void addAll(LucidJsonMap overrides) {
     _overrides.addAll(overrides);
   }
 
@@ -123,7 +124,7 @@ class LucidOverrideConfig extends LucidConfigHelpers {
 }
 
 class LucidConfigBuilder {
-  final Map<String, dynamic> _config = {};
+  final LucidJsonMap _config = {};
 
   LucidConfigBuilder set<T>(String key, T value) {
     _config[key] = value;
@@ -135,7 +136,7 @@ class LucidConfigBuilder {
     return value is T ? value : null;
   }
 
-  LucidConfigBuilder setAll(Map<String, dynamic> config) {
+  LucidConfigBuilder setAll(LucidJsonMap config) {
     _config.addAll(config);
     return this;
   }
@@ -184,7 +185,7 @@ class LucidConfigBuilder {
     return LucidOverrideConfig.createWithOverrides(_config);
   }
 
-  Map<String, dynamic> getConfig() => Map.unmodifiable(_config);
+  LucidJsonMap getConfig() => Map.unmodifiable(_config);
 
   bool hasKey(String key) => _config.containsKey(key);
 

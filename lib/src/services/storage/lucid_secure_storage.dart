@@ -1,12 +1,7 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-import '../../../scripts/logger/logger.dart';
-import '../../core/core.dart'
-    show
-        LucidAbstractStorageService,
-        LucidConfigHelpers,
-        LucidGlobalConfig,
-        StorageException;
+import '../../core/core.dart' show LucidAbstractStorageService, LucidConfigHelpers, LucidGlobalConfig, StorageException;
+import '../../functions/functions.dart';
 
 class LucidSecureStorage implements LucidAbstractStorageService {
   static LucidSecureStorage? _instance;
@@ -15,7 +10,7 @@ class LucidSecureStorage implements LucidAbstractStorageService {
 
   final LucidConfigHelpers _config;
 
-  final logger = LucidLogger.instance;
+  final logger = LucidLogger();
 
   static LucidSecureStorage getInstance([LucidConfigHelpers? config]) {
     final configToUse = config ?? LucidGlobalConfig.current;
@@ -34,10 +29,7 @@ class LucidSecureStorage implements LucidAbstractStorageService {
         sharedPreferencesName: _config.storageSecureStorageKey,
         preferencesKeyPrefix: _config.storagePrefixKey,
       ),
-      iOptions: IOSOptions(
-        groupId: _config.storageGroupName,
-        accountName: _config.appName,
-      ),
+      iOptions: IOSOptions(groupId: _config.storageGroupName, accountName: _config.appName),
     );
   }
 

@@ -2,11 +2,11 @@ import 'dart:typed_data';
 
 import 'package:dio/dio.dart';
 
-import '../../../scripts/logger/logger.dart';
 import '../../core/core.dart';
+import '../../functions/functions.dart';
 import '../../mixins/mixins.dart';
 
-final _logger = LucidLogger.instance;
+final _logger = LucidLogger();
 
 class CacheHelper {
   String generateCacheKey(String method, String endpoint, LucidQueryParams? queryParameters) {

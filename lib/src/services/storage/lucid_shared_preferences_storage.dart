@@ -1,15 +1,15 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../scripts/logger/logger.dart';
 import '../../core/abstracts/abstracts.dart';
 import '../../core/constants/constants.dart';
+import '../../functions/functions.dart';
 
 class LucidSharedPreferencesStorage implements LucidAbstractStorageService {
   LucidSharedPreferencesStorage._();
 
   static LucidSharedPreferencesStorage? _instance;
 
-  final logger = LucidLogger.instance;
+  final logger = LucidLogger();
 
   SharedPreferences? _prefs;
 

@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
 
-import '../../../../scripts/logger/logger.dart';
+import '../../../functions/functions.dart';
 
-final logger = LucidLogger.instance;
+final logger = LucidLogger();
 
 class LoginInterceptor extends Interceptor {
   @override
@@ -15,21 +15,14 @@ class LoginInterceptor extends Interceptor {
   }
 
   @override
-  void onResponse(
-    Response<dynamic> response,
-    ResponseInterceptorHandler handler,
-  ) {
-    logger.info(
-      '✅ RESPONSE: ${response.statusCode} ${response.requestOptions.uri}',
-    );
+  void onResponse(Response<dynamic> response, ResponseInterceptorHandler handler) {
+    logger.info('✅ RESPONSE: ${response.statusCode} ${response.requestOptions.uri}');
     handler.next(response);
   }
 
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) {
-    logger.warn(
-      '❌ ERROR: ${err.response?.statusCode} ${err.requestOptions.uri}',
-    );
+    logger.warn('❌ ERROR: ${err.response?.statusCode} ${err.requestOptions.uri}');
     logger.error('💥 MESSAGE: ${err.message}');
     handler.next(err);
   }

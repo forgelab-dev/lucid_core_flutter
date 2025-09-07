@@ -12,6 +12,10 @@ enum LucidAuthState { initial, loading, authenticated, unauthenticated, error, r
 
 enum LucidRoundingMode { round, floor, ceil, truncate }
 
+enum LucidLogOutput { console, file, remote, all }
+
+enum LucidLogFormat { simple, json, detailed, custom }
+
 enum LucidLogLevel {
   trace(0, 'TRACE', '\x1B[37m'), // Blanc
   debug(1, 'DEBUG', '\x1B[36m'), // Cyan
