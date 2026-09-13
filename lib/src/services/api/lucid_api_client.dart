@@ -1,101 +1,172 @@
-import 'dart:typed_data';
-
 import 'package:dio/dio.dart';
 
 import '../../core/core.dart';
-import '../../functions/functions.dart';
 import '../../mixins/mixins.dart';
+import 'handler/handler.dart';
+import 'interceptors/interceptors.dart';
+import 'lucid_api_helpers.dart';
 
-final _logger = LucidLogger();
+export 'lucid_api_helpers.dart';
 
-class CacheHelper {
-  String generateCacheKey(String method, String endpoint, LucidQueryParams? queryParameters) {
-    final buffer = StringBuffer("${method}_$endpoint");
-    if (queryParameters?.isNotNullOrEmpty ?? false) {
-      buffer.write('_${queryParameters?.entries.map((e) => '${e.key}=${e.value}').join('&')}');
+/// Client HTTP haut niveau construit sur Dio.
+///
+/// Fournit : cache automatique des GET (via [LucidCacheMixin]), retry sur
+/// erreurs transitoires, mapping des erreurs vers la taxonomie
+/// [LucidAbstractException], upload multipart, et gestion du token d'auth.
+class LucidApiClient with LucidCacheMixin {
+  LucidApiClient(this.config, {LucidVoidCallBack? onUnauthorized}) : dio = Dio(_buildBaseOptions(config)) {
+    _configureInterceptors(onUnauthorized);
+  }
+
+  final LucidApiClientConfig config;
+  final Dio dio;
+  final CacheHelper _cacheKeyHelper = CacheHelper();
+
+  static BaseOptions _buildBaseOptions(LucidApiClientConfig config) {
+    return BaseOptions(
+      baseUrl: config.baseUrl,
+      connectTimeout: config.timeout,
+      sendTimeout: config.timeout,
+      receiveTimeout: config.timeout,
+      headers: {'Content-Type': LucidConstants.defaultContentType, 'User-Agent': LucidConstants.defaultUserAgent, ...config.headers},
+    );
+  }
+
+  void _configureInterceptors(LucidVoidCallBack? onUnauthorized) {
+    if (config.enableLogging) {
+      dio.interceptors.add(LucidLoggingInterceptor());
     }
-    return buffer.toString();
-  }
-}
-
-class HeadersHelper {
-  static LucidHttpHeaders extractHeaders(Headers headers) {
-    final result = <String, String>{};
-    headers.forEach((key, values) {
-      if (values.isNotEmpty) result[key] = values.first;
-    });
-    return result;
-  }
-}
-
-class ErrorHelper {
-  static LucidApiClientResponse<T> handleError<T>(dynamic error) {
-    if (error is DioException) {
-      return _handleDioException<T>(error);
-    }
-    return LucidApiClientResponse.error('Erreur inattendue: $error');
+    dio.interceptors.add(ErrorHandlerInterceptor(onUnauthorized: onUnauthorized));
+    dio.interceptors.add(RetryInterceptor(dio: dio, maxAttempts: config.retryAttempts, retryDelay: config.retryDelay));
+    dio.interceptors.addAll(config.interceptors);
   }
 
-  static LucidApiClientResponse<T> _handleDioException<T>(DioException error) {
-    switch (error.type) {
-      case DioExceptionType.connectionTimeout:
-      case DioExceptionType.sendTimeout:
-      case DioExceptionType.receiveTimeout:
-        return LucidApiClientResponse.error('Délai d\'attente dépassé', statusCode: 408);
-      case DioExceptionType.badResponse:
-        final statusCode = error.response?.statusCode ?? 500;
-        final message = _getErrorMessage(error.response?.data) ?? 'Erreur serveur';
-        return LucidApiClientResponse.error(message, statusCode: statusCode);
-      case DioExceptionType.cancel:
-        return LucidApiClientResponse.error('Requête annulée');
-      case DioExceptionType.connectionError:
-        return LucidApiClientResponse.error('Erreur de connexion');
-      default:
-        return LucidApiClientResponse.error('Erreur inconnue: ${error.message}');
+  /// Définit (ou retire si `null`) le token d'authentification envoyé sur
+  /// chaque requête via l'en-tête `Authorization`.
+  void setAuthToken(String? token) {
+    if (token == null) {
+      dio.options.headers.remove('Authorization');
+    } else {
+      dio.options.headers['Authorization'] = 'Bearer $token';
     }
   }
 
-  static String? _getErrorMessage(dynamic responseData) {
-    if (responseData is LucidJsonMap) {
-      return "${responseData['message'] ?? responseData['error'] ?? responseData['detail']}";
-    }
-    return responseData?.toString();
-  }
-}
+  Future<LucidApiClientResponse<T>> get<T>(
+    String endpoint, {
+    LucidQueryParams? queryParameters,
+    LucidHttpHeaders? headers,
+    bool? useCache,
+    Duration? cacheTtl,
+  }) async {
+    final shouldCache = useCache ?? config.enableCache;
 
-class FormDataHelper {
-  static FormData createFormData(LucidDataList<LucidUploadFile> files, String fieldName, LucidJsonMap? additionalData) {
-    final formData = FormData();
-
-    for (final upload in files) {
-      formData.files.add(MapEntry(fieldName, MultipartFile.fromBytes(upload.file, filename: upload.name)));
+    if (!shouldCache) {
+      return GetRequestHandler(dio: dio, endpoint: endpoint, queryParameters: queryParameters, headers: headers).execute<T>();
     }
 
-    _addAdditionalData(formData, additionalData);
-    return formData;
+    final cacheKey = _cacheKeyHelper.generateCacheKey(LucidHttpMethod.get.value, endpoint, queryParameters);
+    final cached = await getCachedValue<T>(cacheKey);
+    if (cached != null) {
+      return LucidApiClientResponse.success(cached, fromCache: true);
+    }
+
+    final response = await GetRequestHandler(
+      dio: dio,
+      endpoint: endpoint,
+      queryParameters: queryParameters,
+      headers: headers,
+    ).execute<T>();
+
+    if (response.success && response.data != null) {
+      await cacheValue(cacheKey, response.data as T, ttl: cacheTtl ?? config.cacheTimeout);
+    }
+
+    return response;
   }
 
-  static FormData createSingleFileFormData(
-    String fieldName,
-    String fileName,
-    Uint8List file,
+  Future<LucidApiClientResponse<T>> post<T>(
+    String endpoint, {
+    dynamic data,
+    LucidQueryParams? queryParameters,
+    LucidHttpHeaders? headers,
+  }) {
+    return StandardRequestHandler(
+      dio: dio,
+      method: LucidHttpMethod.post,
+      endpoint: endpoint,
+      data: data,
+      queryParameters: queryParameters,
+      headers: headers,
+    ).execute<T>();
+  }
+
+  Future<LucidApiClientResponse<T>> put<T>(
+    String endpoint, {
+    dynamic data,
+    LucidQueryParams? queryParameters,
+    LucidHttpHeaders? headers,
+  }) {
+    return StandardRequestHandler(
+      dio: dio,
+      method: LucidHttpMethod.put,
+      endpoint: endpoint,
+      data: data,
+      queryParameters: queryParameters,
+      headers: headers,
+    ).execute<T>();
+  }
+
+  Future<LucidApiClientResponse<T>> patch<T>(
+    String endpoint, {
+    dynamic data,
+    LucidQueryParams? queryParameters,
+    LucidHttpHeaders? headers,
+  }) {
+    return StandardRequestHandler(
+      dio: dio,
+      method: LucidHttpMethod.patch,
+      endpoint: endpoint,
+      data: data,
+      queryParameters: queryParameters,
+      headers: headers,
+    ).execute<T>();
+  }
+
+  Future<LucidApiClientResponse<T>> delete<T>(
+    String endpoint, {
+    dynamic data,
+    LucidQueryParams? queryParameters,
+    LucidHttpHeaders? headers,
+  }) {
+    return StandardRequestHandler(
+      dio: dio,
+      method: LucidHttpMethod.delete,
+      endpoint: endpoint,
+      data: data,
+      queryParameters: queryParameters,
+      headers: headers,
+    ).execute<T>();
+  }
+
+  Future<LucidApiClientResponse<T>> uploadFile<T>(
+    String endpoint, {
+    required LucidDataList<LucidUploadFile> files,
+    String fieldName = 'file',
     LucidJsonMap? additionalData,
-  ) {
-    final formData = FormData();
-
-    formData.files.add(MapEntry(fieldName, MultipartFile.fromBytes(file, filename: fileName)));
-
-    _addAdditionalData(formData, additionalData);
-    return formData;
+    LucidHttpHeaders? headers,
+    LucidValueCallBack<double>? onSendProgress,
+  }) {
+    return FileUploadRequestHandler(
+      dio: dio,
+      endpoint: endpoint,
+      files: files,
+      fieldName: fieldName,
+      additionalData: additionalData,
+      headers: headers,
+      onSendProgress: onSendProgress,
+    ).execute<T>();
   }
 
-  static void _addAdditionalData(FormData formData, LucidJsonMap? additionalData) {
-    if (additionalData != null) {
-      additionalData.forEach((key, value) {
-        formData.fields.add(MapEntry(key, value.toString()));
-      });
-    }
-  }
+  /// Ferme le client sous-jacent. À appeler quand le client n'est plus utilisé.
+  void close({bool force = false}) => dio.close(force: force);
 }
-
-class LucidApiClient with LucidCacheMixin {}

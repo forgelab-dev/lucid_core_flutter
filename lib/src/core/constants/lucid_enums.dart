@@ -8,6 +8,18 @@ enum LucidCacheStorageType { memory, secure, preferences, hybrid }
 
 enum LucidAuthProvider { firebase, supabase, jwt }
 
+enum LucidHttpMethod {
+  get('GET'),
+  post('POST'),
+  put('PUT'),
+  patch('PATCH'),
+  delete('DELETE');
+
+  const LucidHttpMethod(this.value);
+
+  final String value;
+}
+
 enum LucidAuthState { initial, loading, authenticated, unauthenticated, error, requiresTwoFactor, requiresVerification }
 
 enum LucidRoundingMode { round, floor, ceil, truncate }

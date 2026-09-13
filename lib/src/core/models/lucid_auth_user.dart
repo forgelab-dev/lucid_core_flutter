@@ -29,9 +29,9 @@ class LucidAuthUser {
     return LucidAuthUser(
       id: (json['id'] ?? json['uid'] ?? '').toString(),
       email: (json['email'] ?? '').toString(),
-      name: (json['name'] ?? json['displayName']).toString(),
-      photoUrl: (json['photo_url'] ?? json['photoURL']).toString(),
-      phoneNumber: (json['phone_number'] ?? json['phoneNumber']).toString(),
+      name: json['name'] as String? ?? json['displayName'] as String?,
+      photoUrl: json['photo_url'] as String? ?? json['photoURL'] as String?,
+      phoneNumber: json['phone_number'] as String? ?? json['phoneNumber'] as String?,
       emailVerified: bool.parse("${json['email_verified'] ?? json['emailVerified'] ?? false}"),
       metadata: json['metadata'] as LucidJsonMap? ?? {},
       customClaims: json['custom_claims'] as LucidJsonMap? ?? json['customClaims'] as LucidJsonMap? ?? {},

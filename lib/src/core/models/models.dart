@@ -13,4 +13,5 @@ export 'lucid_cache_stats.dart';
 export 'lucid_environment_config.dart';
 export 'lucid_log_entry.dart';
 export 'lucid_logger_config.dart';
+export 'lucid_oauth_tokens.dart';
 export 'lucid_upload_file.dart';
