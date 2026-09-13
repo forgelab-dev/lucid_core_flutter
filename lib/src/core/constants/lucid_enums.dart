@@ -77,6 +77,12 @@ enum LucidErrorSeverity {
   final String icon;
 }
 
+enum LucidListMode { list, grid, carousel }
+
+enum LucidButtonVariant { primary, secondary, outlined, text }
+
+enum LucidNavMode { auto, appBar, bottomBar, sidebar, drawer, menu }
+
 enum LucidThemeMode {
   light,
   dark,
