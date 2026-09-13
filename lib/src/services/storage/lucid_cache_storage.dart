@@ -6,6 +6,8 @@ import 'package:crypto/crypto.dart';
 import '../../core/core.dart';
 import '../../functions/functions.dart';
 import 'file_store/lucid_file_store.dart';
+import 'lucid_cache_codec.dart';
+import 'lucid_secure_storage.dart';
 
 class LucidCacheStorage {
   LucidCacheStorage._({required this.config});
@@ -20,6 +22,7 @@ class LucidCacheStorage {
 
   static const LucidFileStore _fileStore = LucidFileStore();
   String? _cacheDirectoryPath;
+  LucidCacheCodec? _codec;
   bool _isInitialized = false;
 
   int _hitCount = 0;
@@ -35,6 +38,14 @@ class LucidCacheStorage {
     if (_isInitialized) return;
 
     try {
+      if (config.compressionEnabled || config.encryptionEnabled) {
+        _codec = await LucidCacheCodec.create(
+          compressionEnabled: config.compressionEnabled,
+          encryptionEnabled: config.encryptionEnabled,
+          keyStorage: config.encryptionEnabled ? LucidSecureStorage.getInstance() : null,
+        );
+      }
+
       if (config.persistToDisk) {
         await _initializeDiskStorage();
         await _loadFromDisk();
@@ -66,9 +77,10 @@ class LucidCacheStorage {
 
       for (final path in files) {
         try {
-          final content = await _fileStore.readFile(path);
-          if (content == null) continue;
+          final raw = await _fileStore.readFile(path);
+          if (raw == null) continue;
 
+          final content = _codec != null ? _codec!.decode(raw) : raw;
           final item = LucidCacheItem.fromJson(content);
 
           if (!item.isExpired) {
@@ -228,7 +240,9 @@ class LucidCacheStorage {
     if (_cacheDirectoryPath == null) return;
 
     try {
-      await _fileStore.writeFile('$_cacheDirectoryPath/${_hashKey(item.key)}.cache', item.toJson());
+      final payload = item.toJson();
+      final content = _codec != null ? _codec!.encode(payload) : payload;
+      await _fileStore.writeFile('$_cacheDirectoryPath/${_hashKey(item.key)}.cache', content);
     } catch (e) {
       logger.info('Erreur lors de la sauvegarde sur disque: $e');
     }

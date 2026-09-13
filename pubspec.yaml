@@ -49,6 +49,10 @@ dependencies:
   # ===== Sécurité & Authentification =====
   local_auth: ^3.0.2
   crypto: ^3.0.6
+  encrypt: ^5.0.3
+
+  # ===== Compression =====
+  archive: ^4.2.0
 
   # ===== Réseau & Connectivité =====
   connectivity_plus: ^7.3.1

@@ -6,7 +6,14 @@ class LucidCacheConfig {
   final Duration defaultTtl;
   final Duration cleanupInterval;
   final LucidEvictionPolicy evictionPolicy;
+
+  /// Compresse (gzip) les entrées avant de les écrire sur disque. Voir
+  /// [LucidCacheCodec].
   final bool compressionEnabled;
+
+  /// Chiffre (AES-256-GCM) les entrées avant de les écrire sur disque. La clé
+  /// est générée une fois puis persistée dans le stockage sécurisé de la
+  /// plateforme. Voir [LucidCacheCodec].
   final bool encryptionEnabled;
   final bool persistToDisk;
   final String cacheDirectory;

@@ -51,11 +51,11 @@ class LucidCacheItem {
     return {
       'key': key,
       'value': value,
-      'createdAt': createdAt,
-      'lastAccessedAt': lastAccessedAt,
-      'ttl': ttl,
+      'createdAt': createdAt.toIso8601String(),
+      'lastAccessedAt': lastAccessedAt.toIso8601String(),
+      'ttl': ttl?.inMilliseconds,
       'tags': tags,
-      'priority': priority,
+      'priority': priority.index,
       'metadata': metadata,
     };
   }
