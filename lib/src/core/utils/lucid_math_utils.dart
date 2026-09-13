@@ -1,6 +1,6 @@
 import 'dart:math' as math;
 
-import '../constants/constants.dart' show LucidRoundingMode;
+import '../constants/lucid_enums.dart' show LucidRoundingMode;
 
 class LucidMathUtils {
   LucidMathUtils._();
@@ -320,7 +320,7 @@ class LucidMathUtils {
   }
 
   static double lerp(double a, double b, double t) {
-    return a + (b - a) * t.clamp(0.0, 1.0);
+    return a + (b - a) * t;
   }
 
   static double inverseLerp(double a, double b, double value) {

@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 import '../../provider/provider.dart' show LucidThemeProvider;
 import '../models/models.dart' show LucidAppTheme;
 import '../themes/themes.dart' show LucidThemeNotifier;
+import '../utils/lucid_math_utils.dart' show LucidMathUtils;
 import 'lucid_enums.dart' show LucidScreenSize;
 
 extension LucidStringExtensions on String {
@@ -321,7 +322,9 @@ extension LucidBuildContextExtensions on BuildContext {
 
   TextTheme get textTheme => theme.textTheme;
 
-  bool get isDarkTheme => theme.brightness == Brightness.dark;
+  // Basé sur currentTheme (LucidThemeNotifier) plutôt que sur Theme.of(this),
+  // pour ne jamais diverger de LucidThemeHelper.isDarkMode/getCurrentTheme.
+  bool get isDarkTheme => currentTheme.brightness == Brightness.dark;
 
   bool get isLightTheme => !isDarkTheme;
 
@@ -513,10 +516,7 @@ extension LucidNumExtensions on num {
 
   bool get isInteger => this == toInt();
 
-  double roundToDecimals(int decimals) {
-    final mod = math.pow(10.0, decimals);
-    return (this * mod).round() / mod;
-  }
+  double roundToDecimals(int decimals) => LucidMathUtils.roundToDecimals(toDouble(), decimals);
 
   num get absolute => abs();
 
@@ -542,7 +542,7 @@ extension LucidNumExtensions on num {
 
   int get sign => compareTo(0);
 
-  double lerp(num target, double t) => this + (target - this) * t;
+  double lerp(num target, double t) => LucidMathUtils.lerp(toDouble(), target.toDouble(), t);
 
   double get toRadians => this * (math.pi / 180);
 

@@ -55,14 +55,19 @@ class LucidThemeHelper {
     await setThemeMode(newMode);
   }
 
+  /// Utilise toujours le notifieur global ([instance]), donc ne reflète pas
+  /// un `LucidThemeProvider(themeNotifier: ...)` personnalisé plus bas dans
+  /// l'arbre. À l'intérieur d'un widget, préférer `context.currentTheme`
+  /// (extension `LucidBuildContextExtensions`), qui lit le vrai notifieur du
+  /// `LucidThemeProvider` ambiant.
   static LucidAppTheme getCurrentTheme(BuildContext context) {
     final brightness = MediaQuery.platformBrightnessOf(context);
     return instance.getCurrentTheme(brightness);
   }
 
+  /// Voir la note de [getCurrentTheme] : préférer `context.isDarkTheme` à
+  /// l'intérieur d'un widget.
   static bool isDarkMode(BuildContext context) {
-    final brightness = MediaQuery.platformBrightnessOf(context);
-    final currentTheme = instance.getCurrentTheme(brightness);
-    return currentTheme.brightness == Brightness.dark;
+    return getCurrentTheme(context).brightness == Brightness.dark;
   }
 }
