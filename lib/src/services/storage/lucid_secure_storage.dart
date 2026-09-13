@@ -25,8 +25,7 @@ class LucidSecureStorage implements LucidAbstractStorageService {
   void _initializeStorage() {
     _secureStorage = FlutterSecureStorage(
       aOptions: AndroidOptions(
-        encryptedSharedPreferences: true,
-        sharedPreferencesName: _config.storageSecureStorageKey,
+        storageNamespace: _config.storageSecureStorageKey,
         preferencesKeyPrefix: _config.storagePrefixKey,
       ),
       iOptions: IOSOptions(groupId: _config.storageGroupName, accountName: _config.appName),
@@ -55,7 +54,7 @@ class LucidSecureStorage implements LucidAbstractStorageService {
   @override
   Future<void> delete(String key) async {
     try {
-      await _secureStorage.deleteAll();
+      await _secureStorage.delete(key: key);
     } catch (e) {
       throw StorageException.clearError(path: key);
     }
@@ -98,15 +97,15 @@ class LucidSecureStorage implements LucidAbstractStorageService {
   }
 
   Future<void> saveRefreshToken(String refreshToken) async {
-    await write(_config.storageTokenKey, refreshToken);
+    await write(_config.storageRefreshTokenKey, refreshToken);
   }
 
   Future<String?> getRefreshToken() async {
-    return await read(_config.storageTokenKey);
+    return await read(_config.storageRefreshTokenKey);
   }
 
   Future<void> clearAuthTokens() async {
     await delete(_config.storageTokenKey);
-    await delete(_config.storageTokenKey);
+    await delete(_config.storageRefreshTokenKey);
   }
 }

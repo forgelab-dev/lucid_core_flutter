@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/foundation.dart';
 
 import '../constants/constants.dart' show LucidJsonMap;
@@ -33,7 +31,6 @@ class LucidSystemInfoUtils {
       'logging_enabled': envConfig.enableLogging,
       'analytics_enabled': envConfig.enableAnalytics,
 
-      'dart_version': Platform.version,
       'is_debug_mode': kDebugMode,
       'is_profile_mode': kProfileMode,
       'is_release_mode': kReleaseMode,

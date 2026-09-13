@@ -1,12 +1,11 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:crypto/crypto.dart';
-import 'package:path_provider/path_provider.dart';
 
 import '../../core/core.dart';
 import '../../functions/functions.dart';
+import 'file_store/lucid_file_store.dart';
 
 class LucidCacheStorage {
   LucidCacheStorage._({required this.config});
@@ -19,7 +18,8 @@ class LucidCacheStorage {
   final LucidEntriesMap<LucidCacheItem> _memoryCache = {};
   final LucidEntriesMap<DateTime> _accessLog = {};
 
-  Directory? _cacheDirectory;
+  static const LucidFileStore _fileStore = LucidFileStore();
+  String? _cacheDirectoryPath;
   bool _isInitialized = false;
 
   int _hitCount = 0;
@@ -49,11 +49,9 @@ class LucidCacheStorage {
 
   Future<void> _initializeDiskStorage() async {
     try {
-      final appDir = await getApplicationDocumentsDirectory();
-      _cacheDirectory = Directory('${appDir.path}/${config.cacheDirectory}');
-
-      if (!await _cacheDirectory!.exists()) {
-        await _cacheDirectory!.create(recursive: true);
+      _cacheDirectoryPath = await _fileStore.resolveCacheDirectory(config.cacheDirectory);
+      if (_cacheDirectoryPath == null) {
+        logger.info('Cache disque non supporté sur cette plateforme, utilisation du cache mémoire uniquement.');
       }
     } catch (e) {
       throw CacheException('Impossible de créer le répertoire de cache: $e');
@@ -61,23 +59,25 @@ class LucidCacheStorage {
   }
 
   Future<void> _loadFromDisk() async {
-    if (_cacheDirectory == null) return;
+    if (_cacheDirectoryPath == null) return;
 
     try {
-      final files = _cacheDirectory!.listSync().whereType<File>().where((file) => file.path.endsWith('.cache'));
+      final files = await _fileStore.listFiles(_cacheDirectoryPath!, '.cache');
 
-      for (final file in files) {
+      for (final path in files) {
         try {
-          final content = await file.readAsString();
+          final content = await _fileStore.readFile(path);
+          if (content == null) continue;
+
           final item = LucidCacheItem.fromJson(content);
 
           if (!item.isExpired) {
             _memoryCache[item.key] = item;
           } else {
-            await file.delete();
+            await _fileStore.deleteFile(path);
           }
         } catch (e) {
-          await file.delete();
+          await _fileStore.deleteFile(path);
         }
       }
     } catch (e) {
@@ -225,11 +225,10 @@ class LucidCacheStorage {
   }
 
   Future<void> _saveToDisk(LucidCacheItem item) async {
-    if (_cacheDirectory == null) return;
+    if (_cacheDirectoryPath == null) return;
 
     try {
-      final file = File('${_cacheDirectory!.path}/${_hashKey(item.key)}.cache');
-      await file.writeAsString(item.toJson());
+      await _fileStore.writeFile('$_cacheDirectoryPath/${_hashKey(item.key)}.cache', item.toJson());
     } catch (e) {
       logger.info('Erreur lors de la sauvegarde sur disque: $e');
     }
@@ -386,11 +385,8 @@ class LucidCacheStorage {
     final removed = _memoryCache.remove(key) != null;
     _accessLog.remove(key);
 
-    if (config.persistToDisk && _cacheDirectory != null) {
-      final file = File('${_cacheDirectory!.path}/${_hashKey(key)}.cache');
-      if (await file.exists()) {
-        await file.delete();
-      }
+    if (config.persistToDisk && _cacheDirectoryPath != null) {
+      await _fileStore.deleteFile('$_cacheDirectoryPath/${_hashKey(key)}.cache');
     }
 
     return removed;
@@ -402,11 +398,10 @@ class LucidCacheStorage {
     _memoryCache.clear();
     _accessLog.clear();
 
-    if (config.persistToDisk && _cacheDirectory != null) {
-      final files = _cacheDirectory!.listSync().whereType<File>().where((file) => file.path.endsWith('.cache'));
-
-      for (final file in files) {
-        await file.delete();
+    if (config.persistToDisk && _cacheDirectoryPath != null) {
+      final files = await _fileStore.listFiles(_cacheDirectoryPath!, '.cache');
+      for (final path in files) {
+        await _fileStore.deleteFile(path);
       }
     }
   }
@@ -508,8 +503,10 @@ class LucidCacheStorage {
       'items': _memoryCache.values.map((item) => item.toMap()).toList(),
     };
 
-    final file = File(filePath);
-    await file.writeAsString(jsonEncode(exportData));
+    if (!_fileStore.isSupported) {
+      throw const CacheException('Export vers un fichier non supporté sur cette plateforme');
+    }
+    await _fileStore.writeFile(filePath, jsonEncode(exportData));
   }
 
   Future<void> importFromFile(String filePath, {bool clearExisting = false}) async {
@@ -519,13 +516,12 @@ class LucidCacheStorage {
       await clear();
     }
 
-    final file = File(filePath);
-    if (!await file.exists()) {
+    final content = await _fileStore.readFile(filePath);
+    if (content == null) {
       throw CacheException('Fichier d\'import non trouvé: $filePath');
     }
 
     try {
-      final content = await file.readAsString();
       final importData = jsonDecode(content) as LucidJsonMap;
 
       final items = importData['items'] as List;

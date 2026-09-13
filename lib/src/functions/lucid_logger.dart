@@ -1,10 +1,11 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../core/core.dart';
+import 'log_sink/lucid_log_file_sink.dart';
 
 class LucidLogger {
   static final LucidLogger _instance = LucidLogger._internal();
@@ -15,8 +16,9 @@ class LucidLogger {
 
   LucidLoggerConfig _config = LucidLoggerConfig();
   final LucidDataList<LucidLogEntry> _buffer = [];
+  final Dio _remoteClient = Dio();
   Timer? _flushTimer;
-  IOSink? _fileSink;
+  LucidLogFileSink? _fileSink;
   int _currentFileSize = 0;
 
   /// Initialise le logger avec une configuration
@@ -36,53 +38,19 @@ class LucidLogger {
   Future<void> _initializeFileLogging() async {
     if (_config.logFilePath == null) return;
 
-    final file = File(_config.logFilePath!);
-    if (await file.exists()) {
-      final stat = await file.stat();
-      _currentFileSize = stat.size;
+    _fileSink = LucidLogFileSink();
+    _currentFileSize = await _fileSink!.open(_config.logFilePath!);
 
-      if (_currentFileSize >= _config.maxSizeFile) {
-        await _rotateLogFile();
-      }
-    } else {
-      await file.create(recursive: true);
+    if (_currentFileSize >= _config.maxSizeFile) {
+      await _rotateLogFile();
     }
-
-    _fileSink = file.openWrite(mode: FileMode.append);
   }
 
   /// Rotation des fichiers de log
   Future<void> _rotateLogFile() async {
-    if (_config.logFilePath == null) return;
+    if (_config.logFilePath == null || _fileSink == null) return;
 
-    await _fileSink?.close();
-
-    final basePath = _config.logFilePath!;
-    final extension = basePath.split('.').last;
-    final nameWithoutExt = basePath.substring(0, basePath.lastIndexOf('.'));
-
-    // Décaler les fichiers existants
-    for (int i = _config.maxFile - 1; i > 0; i--) {
-      final oldFile = File('$nameWithoutExt.$i.$extension');
-      final newFile = File('$nameWithoutExt.${i + 1}.$extension');
-
-      if (await oldFile.exists()) {
-        if (i == _config.maxFile - 1) {
-          await oldFile.delete();
-        } else {
-          await oldFile.rename(newFile.path);
-        }
-      }
-    }
-
-    // Renommer le fichier principal
-    final currentFile = File(basePath);
-    if (await currentFile.exists()) {
-      await currentFile.rename('$nameWithoutExt.1.$extension');
-    }
-
-    // Créer un nouveau fichier
-    _fileSink = File(basePath).openWrite();
+    await _fileSink!.rotate(_config.logFilePath!, _config.maxFile);
     _currentFileSize = 0;
   }
 
@@ -200,7 +168,7 @@ class LucidLogger {
     if (_fileSink == null) return;
 
     final formatted = _formatLogEntry(entry, forConsole: false);
-    _fileSink!.writeln(formatted);
+    _fileSink!.writeLine(formatted);
 
     _currentFileSize += formatted.length + 1;
 
@@ -216,20 +184,11 @@ class LucidLogger {
     // Implémentation asynchrone pour éviter de bloquer
     Timer.run(() async {
       try {
-        final client = HttpClient();
-        final uri = Uri.parse(_config.remoteEndpoint!);
-        final request = await client.postUrl(uri);
-
-        request.headers.set('Content-Type', 'application/json');
-        _config.httpHeaders?.forEach((key, value) {
-          request.headers.set(key, value);
-        });
-
-        final body = jsonEncode(entry.toJson());
-        request.write(body);
-
-        await request.close();
-        client.close();
+        await _remoteClient.post<dynamic>(
+          _config.remoteEndpoint!,
+          data: entry.toJson(),
+          options: Options(headers: {'Content-Type': 'application/json', ...?_config.httpHeaders}),
+        );
       } catch (e) {
         // En cas d'erreur, on log localement
         debugPrint('Erreur envoi remote log: $e');
