@@ -28,11 +28,24 @@ class LucidButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final effectiveOnPressed = isLoading ? null : onPressed;
+    // Pendant le chargement, on garde `onPressed` non-null (no-op) pour
+    // conserver le fond actif : un bouton disabled griserait le fond et
+    // rendrait le spinner (couleur du fond actif) quasi invisible.
+    final effectiveOnPressed = isLoading ? () {} : onPressed;
 
+    // Micro-interaction : le label et le spinner se croisent en fondu + léger
+    // zoom (200 ms, charte « Or sur Nuit ») au lieu d'un simple swap.
     final content = AnimatedSwitcher(
-      duration: const Duration(milliseconds: 180),
-      transitionBuilder: (child, animation) => FadeTransition(opacity: animation, child: child),
+      duration: const Duration(milliseconds: 200),
+      switchInCurve: Curves.easeOutCubic,
+      switchOutCurve: Curves.easeInCubic,
+      transitionBuilder: (child, animation) => FadeTransition(
+        opacity: animation,
+        child: ScaleTransition(
+          scale: Tween(begin: 0.92, end: 1.0).animate(animation),
+          child: child,
+        ),
+      ),
       child: isLoading ? _buildSpinner(context) : _buildLabel(),
     );
 

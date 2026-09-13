@@ -121,6 +121,10 @@ class LucidNavigationManager extends StatelessWidget {
   }
 
   Widget _drawerScaffold(BuildContext context) {
+    final colors = context.colors;
+    final isDark = context.isDarkTheme;
+    final accent = colors.tertiary;
+
     return Scaffold(
       appBar: AppBar(title: appBarTitle, actions: actions),
       body: Row(
@@ -129,20 +133,34 @@ class LucidNavigationManager extends StatelessWidget {
           SizedBox(
             width: drawerWidth,
             child: Material(
-              color: context.colors.surface,
-              child: ListView(
-                padding: const EdgeInsets.symmetric(vertical: 8),
-                children: [
-                  for (int i = 0; i < destinations.length; i++)
-                    ListTile(
-                      leading: Icon(i == selectedIndex ? (destinations[i].selectedIcon ?? destinations[i].icon) : destinations[i].icon),
-                      title: Text(destinations[i].label),
-                      selected: i == selectedIndex,
-                      onTap: () => onDestinationSelected(i),
-                    ),
+              color: colors.surface,
+              // Liseré or : signature discrète de la charte « Or sur Nuit ».
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  border: Border(right: BorderSide(color: accent.withValues(alpha: 0.12), width: 1)),
+                ),
+                child: ListView(
+                  padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+                  children: [
+                    for (int i = 0; i < destinations.length; i++)
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 2),
+                        child: ListTile(
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                          leading: Icon(i == selectedIndex ? (destinations[i].selectedIcon ?? destinations[i].icon) : destinations[i].icon),
+                          title: Text(destinations[i].label),
+                          selected: i == selectedIndex,
+                          selectedTileColor: isDark
+                              ? accent.withValues(alpha: 0.12)
+                              : colors.primary.withValues(alpha: 0.08),
+                          selectedColor: isDark ? accent : colors.primary,
+                          onTap: () => onDestinationSelected(i),
+                        ),
+                      ),
                 ],
               ),
             ),
+          ),
           ),
           const VerticalDivider(width: 1),
           Expanded(child: _animatedBody()),

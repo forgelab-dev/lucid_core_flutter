@@ -39,9 +39,11 @@ class LucidListManager<T> extends StatefulWidget {
     this.onRefresh,
     this.onLoadMore,
     this.hasMore = false,
+    this.isLoading = false,
     this.isLoadingMore = false,
     this.loadMoreThreshold = 200,
     this.emptyBuilder,
+    this.loadingBuilder,
     this.loadingMoreBuilder,
     this.transitionDuration = const Duration(milliseconds: 250),
   });
@@ -76,6 +78,10 @@ class LucidListManager<T> extends StatefulWidget {
   /// Appelé quand le scroll approche de la fin, pour la pagination infinie.
   final Future<void> Function()? onLoadMore;
   final bool hasMore;
+
+  /// Si vrai, affiche [loadingBuilder] (ou un spinner par défaut) à la place
+  /// du contenu : état de chargement initial, avant la première donnée.
+  final bool isLoading;
   final bool isLoadingMore;
 
   /// Distance (en pixels) avant la fin du scroll à partir de laquelle
@@ -83,6 +89,7 @@ class LucidListManager<T> extends StatefulWidget {
   final double loadMoreThreshold;
 
   final WidgetBuilder? emptyBuilder;
+  final WidgetBuilder? loadingBuilder;
   final WidgetBuilder? loadingMoreBuilder;
 
   final Duration transitionDuration;
@@ -136,7 +143,7 @@ class _LucidListManagerState<T> extends State<LucidListManager<T>> {
   }
 
   void _handleScroll() {
-    if (widget.onLoadMore == null || !widget.hasMore || widget.isLoadingMore) return;
+    if (widget.onLoadMore == null || !widget.hasMore || widget.isLoadingMore || widget.isLoading) return;
     if (!_scrollController.hasClients) return;
 
     final remaining = _scrollController.position.maxScrollExtent - _scrollController.position.pixels;
@@ -158,11 +165,22 @@ class _LucidListManagerState<T> extends State<LucidListManager<T>> {
   Widget build(BuildContext context) {
     final content = AnimatedSwitcher(
       duration: widget.transitionDuration,
-      child: widget.items.isEmpty ? _buildEmpty(context) : _buildContent(context),
+      child: widget.isLoading
+          ? _buildLoading(context)
+          : widget.items.isEmpty
+              ? _buildEmpty(context)
+              : _buildContent(context),
     );
 
     if (widget.onRefresh == null) return content;
     return RefreshIndicator(onRefresh: widget.onRefresh!, child: content);
+  }
+
+  Widget _buildLoading(BuildContext context) {
+    return KeyedSubtree(
+      key: const ValueKey('loading'),
+      child: widget.loadingBuilder?.call(context) ?? const _LucidDefaultLoading(),
+    );
   }
 
   Widget _buildEmpty(BuildContext context) {
@@ -243,6 +261,24 @@ class _LucidListManagerState<T> extends State<LucidListManager<T>> {
       onPageChanged: widget.onPageChanged,
       itemCount: widget.items.length,
       itemBuilder: (context, index) => widget.itemBuilder(context, widget.items[index], index),
+    );
+  }
+}
+
+class _LucidDefaultLoading extends StatelessWidget {
+  const _LucidDefaultLoading();
+
+  @override
+  Widget build(BuildContext context) {
+    // Spinner centré, héritant de la couleur d'accent (or en dark) du thème.
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(32),
+        child: CircularProgressIndicator(
+          strokeWidth: 2.5,
+          color: Theme.of(context).colorScheme.primary,
+        ),
+      ),
     );
   }
 }

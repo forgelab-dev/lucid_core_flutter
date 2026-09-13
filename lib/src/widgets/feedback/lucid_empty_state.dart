@@ -21,30 +21,63 @@ class LucidEmptyState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = LucidL10n.of(context);
+    final colors = context.colors;
+    final isDark = context.isDarkTheme;
+    final accent = colors.tertiary;
+    // Dégradé de surface issu du thème (tokens gradientStart/gradientEnd) ;
+    // repli sur la teinte accent si le thème ne les définit pas.
+    final theme = context.currentTheme;
+    final gradientStart = theme.gradientStart ?? accent.withValues(alpha: 0.16);
+    final gradientEnd = theme.gradientEnd ?? accent.withValues(alpha: 0.05);
 
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(32),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(icon, size: 56, color: context.colors.onSurfaceVariant),
-            const SizedBox(height: 16),
-            Text(
-              title ?? l10n?.noResults ?? 'Aucun résultat',
-              style: context.textTheme.titleMedium,
-              textAlign: TextAlign.center,
-            ),
-            if (message != null) ...[
-              const SizedBox(height: 8),
+        // Entrée douce (fondu + léger zoom) à chaque apparition de l'état.
+        child: TweenAnimationBuilder<double>(
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeOutCubic,
+          tween: Tween(begin: 0, end: 1),
+          builder: (context, t, child) => Opacity(
+            opacity: t,
+            child: Transform.scale(scale: 0.94 + 0.06 * t, child: child),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // Pastille or (ou navy en clair) : l'accent de la charte
+              // « Or sur Nuit », réservé aux moments de respiration.
+              Container(
+                width: 88,
+                height: 88,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [gradientStart, gradientEnd],
+                  ),
+                  border: Border.all(color: accent.withValues(alpha: 0.18)),
+                ),
+                child: Icon(icon, size: 36, color: isDark ? accent : colors.primary),
+              ),
+              const SizedBox(height: 20),
               Text(
-                message!,
-                style: context.textTheme.bodyMedium?.copyWith(color: context.colors.onSurfaceVariant),
+                title ?? l10n?.noResults ?? 'Aucun résultat',
+                style: context.textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w600),
                 textAlign: TextAlign.center,
               ),
+              if (message != null) ...[
+                const SizedBox(height: 8),
+                Text(
+                  message!,
+                  style: context.textTheme.bodyMedium?.copyWith(color: colors.onSurfaceVariant, height: 1.5),
+                  textAlign: TextAlign.center,
+                ),
+              ],
+              if (action != null) ...[const SizedBox(height: 24), action!],
             ],
-            if (action != null) ...[const SizedBox(height: 24), action!],
-          ],
+          ),
         ),
       ),
     );

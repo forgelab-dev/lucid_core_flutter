@@ -30,8 +30,13 @@ class LucidAppTheme {
     this.elevatedButtonElevation = 1,
     this.outlinedButtonElevation = 0,
     this.textButtonElevation = 0,
-    this.borderRadius = 8.0,
-    this.cardBorderRadius = 12.0,
+    this.borderRadius = 16.0,
+    this.cardBorderRadius = 16.0,
+    this.fontFamily,
+    this.displayFontFamily,
+    this.gradientStart,
+    this.gradientEnd,
+    this.softShadow,
   });
 
   final String name;
@@ -43,6 +48,23 @@ class LucidAppTheme {
   final double appBarElevation, cardElevation, elevatedButtonElevation;
   final double outlinedButtonElevation, textButtonElevation;
   final double borderRadius, cardBorderRadius;
+
+  /// Police du corps (sans-serif premium) ; `null` = police système.
+  final String? fontFamily;
+
+  /// Police des titres (serif élégante, charte « Or sur Nuit ») ; `null` =
+  /// repli sur une serif système (Georgia / Times / serif). À remplacer par
+  /// une police embarquée (ex. 'Playfair Display') si le projet en bundle une.
+  final String? displayFontFamily;
+
+  /// Bornes du dégradé de surface (navy → bleu nuit) utilisé par les widgets
+  /// d'état (vide, erreur) comme fond d'icône.
+  final Color? gradientStart;
+  final Color? gradientEnd;
+
+  /// Couleur d'ombre douce (faible opacité, grand flou) pour cartes et
+  /// boutons. `null` = dérivée automatiquement selon la luminosité.
+  final Color? softShadow;
 
   ThemeData toThemeData() {
     final colorScheme = ColorScheme(
@@ -65,7 +87,7 @@ class LucidAppTheme {
       onTertiaryContainer: accent ?? secondary,
       errorContainer: error.withValues(alpha: 0.1),
       onErrorContainer: error,
-      outline: onSurface.withValues(alpha: 0.2),
+      outline: onSurface.withValues(alpha: 0.4),
       outlineVariant: onSurface.withValues(alpha: 0.1),
       surfaceContainerHighest: surface,
       onSurfaceVariant: onSurface.withValues(alpha: 0.8),
@@ -77,16 +99,46 @@ class LucidAppTheme {
       surfaceTint: primary.withValues(alpha: 0.05),
     );
 
+    final gold = accent ?? secondary;
+    final softShadowColor = softShadow ??
+        (brightness == Brightness.dark
+            ? Colors.black.withValues(alpha: 0.4)
+            : Colors.black.withValues(alpha: 0.12));
+
+    // Titres en serif élégante (charte « Or sur Nuit ») : appliquée aux rôles
+    // display/headline/titleLarge, remplaçable via [displayFontFamily].
+    final baseTextTheme =
+        brightness == Brightness.dark ? ThemeData.dark().textTheme : ThemeData.light().textTheme;
+
+    TextStyle serif(TextStyle? style) {
+      return (style ?? const TextStyle()).copyWith(
+        fontFamily: displayFontFamily ?? fontFamily,
+        fontFamilyFallback: const ['Georgia', 'Times New Roman', 'serif'],
+        letterSpacing: -0.2,
+      );
+    }
+
     return ThemeData(
       useMaterial3: true,
       colorScheme: colorScheme,
       brightness: brightness,
+      fontFamily: fontFamily,
       scaffoldBackgroundColor: scaffoldBackgroundColor ?? background,
       cardColor: cardColor ?? surface,
       dividerColor: divider ?? colorScheme.outline,
       disabledColor: disabled ?? colorScheme.onSurface.withValues(alpha: 0.38),
       hintColor: hint ?? colorScheme.onSurface.withValues(alpha: 0.6),
       shadowColor: colorScheme.shadow,
+
+      textTheme: baseTextTheme.copyWith(
+        displayLarge: serif(baseTextTheme.displayLarge),
+        displayMedium: serif(baseTextTheme.displayMedium),
+        displaySmall: serif(baseTextTheme.displaySmall),
+        headlineLarge: serif(baseTextTheme.headlineLarge),
+        headlineMedium: serif(baseTextTheme.headlineMedium),
+        headlineSmall: serif(baseTextTheme.headlineSmall),
+        titleLarge: serif(baseTextTheme.titleLarge),
+      ),
 
       appBarTheme: AppBarTheme(
         backgroundColor: surface,
@@ -95,7 +147,7 @@ class LucidAppTheme {
         shadowColor: colorScheme.shadow,
         surfaceTintColor: Colors.transparent,
         systemOverlayStyle: brightness == Brightness.dark ? SystemUiOverlayStyle.light : SystemUiOverlayStyle.dark,
-        titleTextStyle: TextStyle(color: onSurface, fontSize: 20, fontWeight: FontWeight.w500),
+        titleTextStyle: serif(const TextStyle()).copyWith(color: onSurface, fontSize: 20, fontWeight: FontWeight.w600),
       ),
 
       elevatedButtonTheme: ElevatedButtonThemeData(
@@ -103,9 +155,20 @@ class LucidAppTheme {
           backgroundColor: primary,
           foregroundColor: onPrimary,
           elevation: elevatedButtonElevation,
-          shadowColor: colorScheme.shadow,
+          shadowColor: brightness == Brightness.dark ? gold.withValues(alpha: 0.35) : softShadowColor,
+          surfaceTintColor: Colors.transparent,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(borderRadius)),
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+          textStyle: const TextStyle(fontWeight: FontWeight.w600, letterSpacing: 0.2),
+        ).copyWith(
+          elevation: WidgetStateProperty.resolveWith((states) {
+            if (states.contains(WidgetState.pressed)) {
+              return (elevatedButtonElevation - 1).clamp(0.0, double.infinity);
+            }
+            if (states.contains(WidgetState.hovered)) return elevatedButtonElevation + 2;
+            return elevatedButtonElevation;
+          }),
+          overlayColor: WidgetStatePropertyAll(onPrimary.withValues(alpha: 0.08)),
         ),
       ),
 
@@ -113,9 +176,10 @@ class LucidAppTheme {
         style: OutlinedButton.styleFrom(
           foregroundColor: primary,
           elevation: outlinedButtonElevation,
-          side: BorderSide(color: colorScheme.outline),
+          side: BorderSide(color: (brightness == Brightness.dark ? gold : primary).withValues(alpha: 0.4)),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(borderRadius)),
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+          textStyle: const TextStyle(fontWeight: FontWeight.w600),
         ),
       ),
 
@@ -125,6 +189,7 @@ class LucidAppTheme {
           elevation: textButtonElevation,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(borderRadius)),
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          textStyle: const TextStyle(fontWeight: FontWeight.w600),
         ),
       ),
 
@@ -133,10 +198,13 @@ class LucidAppTheme {
           backgroundColor: primary,
           foregroundColor: onPrimary,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(borderRadius)),
+          textStyle: const TextStyle(fontWeight: FontWeight.w600),
         ),
       ),
 
       inputDecorationTheme: InputDecorationTheme(
+        filled: true,
+        fillColor: onSurface.withValues(alpha: 0.04),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(borderRadius),
           borderSide: BorderSide(color: colorScheme.outline),
@@ -157,15 +225,16 @@ class LucidAppTheme {
           borderRadius: BorderRadius.circular(borderRadius),
           borderSide: BorderSide(color: error, width: 2),
         ),
-        filled: false,
-        fillColor: colorScheme.surfaceContainerHighest,
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        labelStyle: TextStyle(color: colorScheme.onSurfaceVariant),
+        prefixIconColor: colorScheme.onSurfaceVariant,
+        suffixIconColor: colorScheme.onSurfaceVariant,
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
       ),
 
       cardTheme: CardThemeData(
         color: surface,
         elevation: cardElevation,
-        shadowColor: colorScheme.shadow,
+        shadowColor: softShadowColor,
         surfaceTintColor: colorScheme.surfaceTint,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(cardBorderRadius)),
       ),
@@ -181,13 +250,72 @@ class LucidAppTheme {
       navigationBarTheme: NavigationBarThemeData(
         backgroundColor: surface,
         indicatorColor: colorScheme.primaryContainer,
+        elevation: 8,
+        shadowColor: softShadowColor,
+        iconTheme: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.selected)) return IconThemeData(color: primary);
+          return IconThemeData(color: colorScheme.onSurface.withValues(alpha: 0.6));
+        }),
         labelTextStyle: WidgetStateProperty.resolveWith((states) {
           if (states.contains(WidgetState.selected)) {
-            return TextStyle(color: primary, fontSize: 12);
+            return TextStyle(color: primary, fontSize: 12, fontWeight: FontWeight.w600);
           }
           return TextStyle(color: colorScheme.onSurface.withValues(alpha: 0.6), fontSize: 12);
         }),
       ),
+
+      navigationRailTheme: NavigationRailThemeData(
+        backgroundColor: surface,
+        indicatorColor: colorScheme.primaryContainer,
+        indicatorShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        selectedIconTheme: IconThemeData(color: primary),
+        selectedLabelTextStyle: TextStyle(color: primary, fontWeight: FontWeight.w600),
+        unselectedIconTheme: IconThemeData(color: colorScheme.onSurface.withValues(alpha: 0.6)),
+        unselectedLabelTextStyle: TextStyle(color: colorScheme.onSurface.withValues(alpha: 0.6)),
+        useIndicator: true,
+      ),
+
+      segmentedButtonTheme: SegmentedButtonThemeData(
+        style: ButtonStyle(
+          foregroundColor: WidgetStateProperty.resolveWith((states) {
+            if (states.contains(WidgetState.selected)) return onPrimary;
+            return colorScheme.onSurface.withValues(alpha: 0.6);
+          }),
+          backgroundColor: WidgetStateProperty.resolveWith((states) {
+            if (states.contains(WidgetState.selected)) return primary;
+            return Colors.transparent;
+          }),
+          side: WidgetStatePropertyAll(BorderSide(color: colorScheme.outline)),
+          shape: WidgetStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.circular(borderRadius))),
+          textStyle: const WidgetStatePropertyAll(TextStyle(fontWeight: FontWeight.w500)),
+        ),
+      ),
+
+      listTileTheme: ListTileThemeData(
+        iconColor: colorScheme.onSurfaceVariant,
+        textColor: colorScheme.onSurfaceVariant,
+        selectedColor: primary,
+        selectedTileColor: colorScheme.primaryContainer,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      ),
+
+      popupMenuTheme: PopupMenuThemeData(
+        color: surface,
+        elevation: 8,
+        shadowColor: colorScheme.shadow,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(cardBorderRadius)),
+        textStyle: TextStyle(color: colorScheme.onSurface),
+      ),
+
+      dividerTheme: DividerThemeData(color: colorScheme.outlineVariant, thickness: 1),
+
+      textSelectionTheme: TextSelectionThemeData(
+        cursorColor: primary,
+        selectionColor: primary.withValues(alpha: 0.2),
+        selectionHandleColor: primary,
+      ),
+
+      iconTheme: IconThemeData(color: colorScheme.onSurfaceVariant),
 
       floatingActionButtonTheme: FloatingActionButtonThemeData(
         backgroundColor: primary,
@@ -300,6 +428,11 @@ class LucidAppTheme {
     double? textButtonElevation,
     double? borderRadius,
     double? cardBorderRadius,
+    String? fontFamily,
+    String? displayFontFamily,
+    Color? gradientStart,
+    Color? gradientEnd,
+    Color? softShadow,
   }) {
     return LucidAppTheme(
       name: name ?? this.name,
@@ -329,6 +462,11 @@ class LucidAppTheme {
       textButtonElevation: textButtonElevation ?? this.textButtonElevation,
       borderRadius: borderRadius ?? this.borderRadius,
       cardBorderRadius: cardBorderRadius ?? this.cardBorderRadius,
+      fontFamily: fontFamily ?? this.fontFamily,
+      displayFontFamily: displayFontFamily ?? this.displayFontFamily,
+      gradientStart: gradientStart ?? this.gradientStart,
+      gradientEnd: gradientEnd ?? this.gradientEnd,
+      softShadow: softShadow ?? this.softShadow,
     );
   }
 
@@ -361,6 +499,11 @@ class LucidAppTheme {
       'textButtonElevation': textButtonElevation,
       'borderRadius': borderRadius,
       'cardBorderRadius': cardBorderRadius,
+      'fontFamily': fontFamily,
+      'displayFontFamily': displayFontFamily,
+      'gradientStart': gradientStart?.toARGB32(),
+      'gradientEnd': gradientEnd?.toARGB32(),
+      'softShadow': softShadow?.toARGB32(),
     };
   }
 
@@ -393,8 +536,13 @@ class LucidAppTheme {
       elevatedButtonElevation: (json['elevatedButtonElevation'] as num?)?.toDouble() ?? 1,
       outlinedButtonElevation: (json['outlinedButtonElevation'] as num?)?.toDouble() ?? 0,
       textButtonElevation: (json['textButtonElevation'] as num?)?.toDouble() ?? 0,
-      borderRadius: (json['borderRadius'] as num?)?.toDouble() ?? 8.0,
-      cardBorderRadius: (json['cardBorderRadius'] as num?)?.toDouble() ?? 12.0,
+      borderRadius: (json['borderRadius'] as num?)?.toDouble() ?? 16.0,
+      cardBorderRadius: (json['cardBorderRadius'] as num?)?.toDouble() ?? 16.0,
+      fontFamily: json['fontFamily'] as String?,
+      displayFontFamily: json['displayFontFamily'] as String?,
+      gradientStart: json['gradientStart'] != null ? Color(json['gradientStart'] as int) : null,
+      gradientEnd: json['gradientEnd'] != null ? Color(json['gradientEnd'] as int) : null,
+      softShadow: json['softShadow'] != null ? Color(json['softShadow'] as int) : null,
     );
   }
 

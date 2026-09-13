@@ -30,6 +30,8 @@ class LucidApp extends StatelessWidget {
     this.routes = const {},
     this.onGenerateRoute,
     this.builder,
+    this.locale,
+    this.themeAnimationDuration = const Duration(milliseconds: 250),
     this.debugShowCheckedModeBanner = false,
   });
 
@@ -51,6 +53,13 @@ class LucidApp extends StatelessWidget {
   final Map<String, WidgetBuilder> routes;
   final RouteFactory? onGenerateRoute;
   final TransitionBuilder? builder;
+
+  /// Locale forcée (par défaut : celle du système, via [LucidL10n]).
+  final Locale? locale;
+
+  /// Durée de l'animation de transition de thème (clair ↔ sombre).
+  final Duration themeAnimationDuration;
+
   final bool debugShowCheckedModeBanner;
 
   @override
@@ -67,8 +76,16 @@ class LucidApp extends StatelessWidget {
             theme: lightTheme ?? notifier.lightThemeData,
             darkTheme: darkTheme ?? notifier.darkThemeData,
             themeMode: _toFlutterThemeMode(notifier.themeMode),
-            localizationsDelegates: [...LucidL10n.localizationsDelegates, ...additionalLocalizationsDelegates],
-            supportedLocales: [...LucidL10n.supportedLocales, ...additionalSupportedLocales],
+            localizationsDelegates: [
+              ...LucidL10n.localizationsDelegates,
+              ...additionalLocalizationsDelegates,
+            ],
+            supportedLocales: [
+              ...LucidL10n.supportedLocales,
+              ...additionalSupportedLocales,
+            ],
+            locale: locale,
+            themeAnimationDuration: themeAnimationDuration,
             navigatorKey: navigatorKey,
             routes: routes,
             onGenerateRoute: onGenerateRoute,

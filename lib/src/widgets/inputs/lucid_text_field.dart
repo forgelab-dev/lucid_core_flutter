@@ -14,7 +14,10 @@ enum _LucidFieldKind { plain, email, password }
 /// validation déjà définie par `LucidStringExtensions`
 /// (`isValidEmail`/`isStrongPassword`) et les messages déjà traduits dans
 /// [LucidL10n], plutôt que de redéfinir des regex/textes à chaque formulaire.
-class LucidTextField extends StatelessWidget {
+///
+/// Le champ mot de passe affiche un toggle de visibilité (œil) — accessible
+/// via [LucidL10n.toggleVisibility] — sauf si un [suffixIcon] est fourni.
+class LucidTextField extends StatefulWidget {
   const LucidTextField({
     super.key,
     this.controller,
@@ -109,34 +112,69 @@ class LucidTextField extends StatelessWidget {
   final bool _requireStrongPassword;
 
   @override
+  State<LucidTextField> createState() => _LucidTextFieldState();
+}
+
+class _LucidTextFieldState extends State<LucidTextField> {
+  late bool _obscure;
+
+  @override
+  void initState() {
+    super.initState();
+    _obscure = widget.obscureText;
+  }
+
+  @override
+  void didUpdateWidget(covariant LucidTextField oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.obscureText != widget.obscureText) {
+      _obscure = widget.obscureText;
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     final l10n = LucidL10n.of(context);
+    final isPassword = widget._kind == _LucidFieldKind.password;
 
     return TextFormField(
-      controller: controller,
-      focusNode: focusNode,
-      enabled: enabled,
-      autofocus: autofocus,
-      obscureText: obscureText,
-      maxLines: obscureText ? 1 : maxLines,
-      keyboardType: keyboardType,
-      textInputAction: textInputAction,
-      inputFormatters: inputFormatters,
-      validator: validator ?? _defaultValidator(l10n),
-      onChanged: onChanged,
-      onFieldSubmitted: onSubmitted,
+      controller: widget.controller,
+      focusNode: widget.focusNode,
+      enabled: widget.enabled,
+      autofocus: widget.autofocus,
+      obscureText: _obscure,
+      maxLines: _obscure ? 1 : widget.maxLines,
+      keyboardType: widget.keyboardType,
+      textInputAction: widget.textInputAction,
+      inputFormatters: widget.inputFormatters,
+      validator: widget.validator ?? _defaultValidator(l10n),
+      onChanged: widget.onChanged,
+      onFieldSubmitted: widget.onSubmitted,
       decoration: InputDecoration(
-        labelText: label ?? _defaultLabel(l10n),
-        hintText: hint,
-        errorText: errorText,
-        prefixIcon: prefixIcon != null ? Icon(prefixIcon) : null,
-        suffixIcon: suffixIcon,
+        labelText: widget.label ?? _defaultLabel(l10n),
+        hintText: widget.hint,
+        errorText: widget.errorText,
+        prefixIcon: widget.prefixIcon != null ? Icon(widget.prefixIcon) : null,
+        suffixIcon: isPassword && widget.suffixIcon == null ? _buildVisibilityToggle(l10n) : widget.suffixIcon,
       ),
     );
   }
 
+  /// Toggle œil afficher/masquer, réservé au champ mot de passe quand aucun
+  /// [suffixIcon] personnalisé n'est fourni.
+  Widget _buildVisibilityToggle(LucidL10n? l10n) {
+    final isVisible = !_obscure;
+    return IconButton(
+      onPressed: widget.enabled ? () => setState(() => _obscure = !_obscure) : null,
+      isSelected: isVisible,
+      icon: const Icon(Icons.visibility_off_outlined),
+      selectedIcon: const Icon(Icons.visibility_outlined),
+      tooltip: l10n?.toggleVisibility ?? 'Basculer la visibilité',
+    );
+  }
+
   String? _defaultLabel(LucidL10n? l10n) {
-    switch (_kind) {
+    switch (widget._kind) {
       case _LucidFieldKind.email:
         return l10n?.email ?? 'Email';
       case _LucidFieldKind.password:
@@ -147,7 +185,7 @@ class LucidTextField extends StatelessWidget {
   }
 
   FormFieldValidator<String>? _defaultValidator(LucidL10n? l10n) {
-    switch (_kind) {
+    switch (widget._kind) {
       case _LucidFieldKind.email:
         return (value) {
           if (value == null || value.isEmpty) return null;
@@ -155,7 +193,7 @@ class LucidTextField extends StatelessWidget {
         };
       case _LucidFieldKind.password:
         return (value) {
-          if (value == null || value.isEmpty || !_requireStrongPassword) return null;
+          if (value == null || value.isEmpty || !widget._requireStrongPassword) return null;
           return value.isStrongPassword ? null : (l10n?.passwordTooWeak ?? 'Mot de passe trop faible');
         };
       case _LucidFieldKind.plain:

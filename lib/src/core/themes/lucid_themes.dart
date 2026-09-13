@@ -27,6 +27,11 @@ class LucidThemes {
     brightness: Brightness.light,
     accent: Color(0xFFD4A017),
     hint: Color(0xFF64748B),
+    borderRadius: 16,
+    cardBorderRadius: 16,
+    gradientStart: Color(0xFFF8FAFC),
+    gradientEnd: Color(0xFFEDF2F8),
+    softShadow: Color(0x1F000000),
   );
 
   static const LucidAppTheme defaultDark = LucidAppTheme(
@@ -47,6 +52,11 @@ class LucidThemes {
     hint: Color(0xFF94A3B8),
     scaffoldBackgroundColor: Color(0xFF020617),
     cardColor: Color(0xFF0F172A),
+    borderRadius: 16,
+    cardBorderRadius: 16,
+    gradientStart: Color(0xFF020617),
+    gradientEnd: Color(0xFF0B1B3A),
+    softShadow: Color(0x66000000),
   );
 
   static const LucidAppTheme oceanBlue = LucidAppTheme(
