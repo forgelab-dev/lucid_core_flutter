@@ -420,11 +420,7 @@ extension LucidListExtensions<T> on List<T> {
     return where((element) => seen.add(keySelector(element))).toList();
   }
 
-  List<T> take(int count) => sublist(0, math.min(count, length));
-
   List<T> takeLast(int count) => sublist(math.max(0, length - count));
-
-  List<T> skip(int count) => sublist(math.min(count, length));
 
   T? maxBy<K extends Comparable<K>>(K Function(T) keySelector) {
     if (isEmpty) return null;
@@ -481,7 +477,9 @@ extension LucidNumExtensions on num {
 
   String get formatted {
     final formatter = RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))');
-    return toString().replaceAllMapped(formatter, (match) => '${match[1]} ');
+    final parts = toString().split('.');
+    final integerPart = parts[0].replaceAllMapped(formatter, (match) => '${match[1]} ');
+    return parts.length > 1 ? '$integerPart.${parts[1]}' : integerPart;
   }
 
   String asCurrency({String symbol = "F CFA", int decimals = 2}) {
@@ -499,6 +497,10 @@ extension LucidNumExtensions on num {
 
   bool isBetween(num min, num max) => this >= min && this <= max;
 
+  // Note : num déclare déjà clamp(lowerLimit, upperLimit) — pas besoin (et pas
+  // possible) de le redéfinir ici, une extension ne peut jamais masquer un
+  // membre déjà déclaré par le type.
+
   bool get isEven => this % 2 == 0;
 
   bool get isOdd => !isEven;
@@ -515,8 +517,6 @@ extension LucidNumExtensions on num {
     final mod = math.pow(10.0, decimals);
     return (this * mod).round() / mod;
   }
-
-  num clamp(num min, num max) => math.min(math.max(this, min), max);
 
   num get absolute => abs();
 
@@ -712,8 +712,6 @@ extension LucidTextEditingControllerExtensions on TextEditingController {
   bool get isEmpty => text.isEmpty;
 
   bool get isNotEmpty => text.isNotEmpty;
-
-  void clear() => text = '';
 
   void selectAll() => selection = TextSelection(baseOffset: 0, extentOffset: text.length);
 

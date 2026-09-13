@@ -1,7 +1,7 @@
+import '../core/abstracts/abstracts.dart' show LucidAbstractConfigResolver;
 import '../core/constants/constants.dart' show LucidConstants;
-import '../core/helpers/lucid_config_resolver.dart' show LucidConfigResolver;
 
-mixin LucidAppConfigMixin on LucidConfigResolver {
+mixin LucidAppConfigMixin on LucidAbstractConfigResolver {
   String get appName => resolveConfig('appName', LucidConstants.defaultAppName);
 
   String get appUrl => resolveConfig('appUrl', LucidConstants.defaultAppUrl);
@@ -17,7 +17,7 @@ mixin LucidAppConfigMixin on LucidConfigResolver {
   Duration get appSplashScreenDuration => resolveConfig('appSplashScreenDuration', LucidConstants.defaultSplashScreenDuration);
 }
 
-mixin LucidNetworkConfigMixin on LucidConfigResolver {
+mixin LucidNetworkConfigMixin on LucidAbstractConfigResolver {
   String get networkApiUrl => resolveConfig('networkApiUrl', LucidConstants.defaultApiUrl);
 
   String get networkApiVersion => resolveConfig('networkApiVersion', LucidConstants.defaultApiVersion);
@@ -35,7 +35,7 @@ mixin LucidNetworkConfigMixin on LucidConfigResolver {
   Duration get networkRetryInterval => resolveConfig('networkRetryInterval', LucidConstants.defaultRetryInterval);
 }
 
-mixin LucidStorageConfigMixin on LucidConfigResolver {
+mixin LucidStorageConfigMixin on LucidAbstractConfigResolver {
   String get storagePrefixKey => resolveConfig('storagePrefixKey', LucidConstants.defaultPrefixKey);
 
   String get storageGroupName => resolveConfig('storageGroupName', LucidConstants.defaultGroupName);
@@ -57,7 +57,7 @@ mixin LucidStorageConfigMixin on LucidConfigResolver {
   String get storageAnalyticsConsentKey => resolveConfig('storageAnalyticsConsentKey', LucidConstants.defaultAnalyticsConsentKey);
 }
 
-mixin LucidSecurityConfigMixin on LucidConfigResolver {
+mixin LucidSecurityConfigMixin on LucidAbstractConfigResolver {
   int get securityMinPasswordLength => resolveConfig('securityMinPasswordLength', LucidConstants.defaultMinPasswordLength);
 
   int get securityMaxPasswordLength => resolveConfig('securityMaxPasswordLength', LucidConstants.defaultMaxPasswordLength);
@@ -71,7 +71,7 @@ mixin LucidSecurityConfigMixin on LucidConfigResolver {
   Duration get securityOtpTimeout => resolveConfig('securityOtpTimeout', LucidConstants.defaultOtpTimeout);
 }
 
-mixin LucidUIConfigMixin on LucidConfigResolver {
+mixin LucidUIConfigMixin on LucidAbstractConfigResolver {
   double get uiBorderRadius => resolveConfig('uiBorderRadius', LucidConstants.defaultBorderRadius);
 
   double get uiSmallBorderRadius => resolveConfig('uiSmallBorderRadius', LucidConstants.defaultSmallBorderRadius);
@@ -103,7 +103,7 @@ mixin LucidUIConfigMixin on LucidConfigResolver {
   Duration get uiSnackDuration => resolveConfig('uiSnackDuration', LucidConstants.defaultSnackbarDuration);
 }
 
-mixin LucidPaginationConfigMixin on LucidConfigResolver {
+mixin LucidPaginationConfigMixin on LucidAbstractConfigResolver {
   int get paginationPageSize => resolveConfig('paginationPageSize', LucidConstants.defaultPageSize);
 
   int get paginationCompactPageSize => resolveConfig('paginationCompactPageSize', LucidConstants.defaultCompactPageSize);
@@ -115,7 +115,7 @@ mixin LucidPaginationConfigMixin on LucidConfigResolver {
   int get paginationInitialPage => resolveConfig('paginationInitialPage', LucidConstants.defaultInitialPage);
 }
 
-mixin LucidDTConfigMixin on LucidConfigResolver {
+mixin LucidDTConfigMixin on LucidAbstractConfigResolver {
   String get dtDateFormat => resolveConfig('dtDateFormat', LucidConstants.defaultDateFormat);
 
   String get dtTimeFormat => resolveConfig('dtTimeFormat', LucidConstants.defaultTimeFormat);
@@ -127,7 +127,7 @@ mixin LucidDTConfigMixin on LucidConfigResolver {
   String get dtHumanReadableTimeFormat => resolveConfig('dtHumanReadableTimeFormat', LucidConstants.humanReadableTimeFormat);
 }
 
-mixin LucidMediaConfigMixin on LucidConfigResolver {
+mixin LucidMediaConfigMixin on LucidAbstractConfigResolver {
   String get mediaImageMimeTypes => resolveConfig('mediaImageMimeTypes', LucidConstants.defaultImageMimeTypes);
 
   String get mediaVideoMimeTypes => resolveConfig('mediaVideoMimeTypes', LucidConstants.defaultVideoMimeTypes);
@@ -143,7 +143,7 @@ mixin LucidMediaConfigMixin on LucidConfigResolver {
   double get mediaMaxImageUploadSize => resolveConfig('mediaMaxImageUploadSize', LucidConstants.defaultMaxImageUploadSize);
 }
 
-mixin LucidLocationConfigMixin on LucidConfigResolver {
+mixin LucidLocationConfigMixin on LucidAbstractConfigResolver {
   double get locationMapZoomLevel => resolveConfig('locationMapZoomLevel', LucidConstants.defaultMapZoomLevel);
 
   double get locationAccuracy => resolveConfig('locationAccuracy', LucidConstants.defaultLocationAccuracy);
@@ -153,7 +153,7 @@ mixin LucidLocationConfigMixin on LucidConfigResolver {
   Duration get locationMaxFetchDuration => resolveConfig('locationMaxFetchDuration', LucidConstants.defaultMaxLocationFetchDuration);
 }
 
-mixin LucidAnalyticsConfigMixin on LucidConfigResolver {
+mixin LucidAnalyticsConfigMixin on LucidAbstractConfigResolver {
   String get analyticsLogTag => resolveConfig('analyticsLogTag', LucidConstants.defaultLogTag);
 
   int get analyticsLogBufferSize => resolveConfig('analyticsLogBufferSize', LucidConstants.defaultLogBufferSize);

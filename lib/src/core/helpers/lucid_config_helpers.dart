@@ -13,10 +13,10 @@ import '../../mixins/mixins.dart'
         LucidSecurityConfigMixin,
         LucidStorageConfigMixin,
         LucidUIConfigMixin;
+import '../abstracts/abstracts.dart' show LucidAbstractConfigResolver;
 import '../constants/constants.dart';
-import 'lucid_config_resolver.dart';
 
-class LucidConfigHelpers extends LucidConfigResolver
+class LucidConfigHelpers extends LucidAbstractConfigResolver
     with
         LucidAppConfigMixin,
         LucidNetworkConfigMixin,

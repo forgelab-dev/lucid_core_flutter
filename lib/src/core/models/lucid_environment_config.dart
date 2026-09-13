@@ -78,10 +78,10 @@ class LucidEnvironmentConfig {
   }
 
   static LucidEnvironmentConfig get current {
-    if (kDebugMode) {
-      return LucidEnvironmentConfig.development();
-    } else if (_isStaging) {
+    if (_isStaging) {
       return LucidEnvironmentConfig.staging();
+    } else if (kDebugMode) {
+      return LucidEnvironmentConfig.development();
     } else {
       return LucidEnvironmentConfig.production();
     }

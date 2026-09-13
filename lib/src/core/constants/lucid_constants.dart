@@ -120,7 +120,7 @@ class LucidConstants {
   static const String defaultCurrencySymbol = "F CFA";
   static const String defaultLocale = "fr_BJ";
   static const String defaultFallbackImage = "";
-  static const String defaultCountryCode = "FR";
+  static const String defaultCountryCode = "BJ";
   static const String defaultCurrencyCode = "XOF";
   static const Duration defaultSplashScreenDuration = Duration(milliseconds: 2000);
 }
