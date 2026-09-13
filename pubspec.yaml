@@ -3,10 +3,10 @@ description: "Core des projets Flutter de LucidForge - Fournit des utilitaires, 
 version: 0.0.1
 
 # Liens du projet
-homepage: https://github.com/MikeCHOKKI/lucid_core
-repository: https://github.com/MikeCHOKKI/lucid_core
-issue_tracker: https://github.com/MikeCHOKKI/lucid_core/issues
-documentation: https://github.com/MikeCHOKKI/lucid_core/wiki
+homepage: https://github.com/forgelab-dev/lucid_core_flutter
+repository: https://github.com/forgelab-dev/lucid_core_flutter
+issue_tracker: https://github.com/forgelab-dev/lucid_core_flutter/issues
+documentation: https://github.com/forgelab-dev/lucid_core_flutter/wiki
 
 # Mots-clés pour la découverte
 topics:
