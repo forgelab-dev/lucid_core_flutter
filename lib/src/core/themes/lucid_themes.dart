@@ -6,38 +6,47 @@ import '../models/models.dart';
 class LucidThemes {
   LucidThemes._();
 
+  // Couleurs issues de la charte graphique LucidForge Africa
+  // (docs/LFA_Charte_Graphique.docx) :
+  // #020617 Navy — Primaire, #0F172A Navy — Texte, #334155 Navy — Texte secondaire,
+  // #D4A017 Or — Accent, #64748B Gris — Discret, #94A3B8 Gris clair — Discret (fond sombre),
+  // #F8FAFC Blanc cassé, #FFFFFF Blanc.
   static const LucidAppTheme defaultLight = LucidAppTheme(
-    name: 'Lucid Light',
+    name: 'LucidForge Light',
     mode: LucidThemeMode.light,
-    primary: Color(0xFF1976D2),
-    secondary: Color(0xFF03DAC6),
-    background: Color(0xFFFFFBFE),
+    primary: Color(0xFF020617),
+    secondary: Color(0xFFD4A017),
+    background: Color(0xFFF8FAFC),
     surface: Color(0xFFFFFFFF),
-    error: Color(0xFFBA1A1A),
+    error: Color(0xFFDC2626),
     onPrimary: Color(0xFFFFFFFF),
-    onSecondary: Color(0xFF000000),
-    onBackground: Color(0xFF1C1B1F),
-    onSurface: Color(0xFF1C1B1F),
+    onSecondary: Color(0xFF020617),
+    onBackground: Color(0xFF0F172A),
+    onSurface: Color(0xFF0F172A),
     onError: Color(0xFFFFFFFF),
     brightness: Brightness.light,
+    accent: Color(0xFFD4A017),
+    hint: Color(0xFF64748B),
   );
 
   static const LucidAppTheme defaultDark = LucidAppTheme(
-    name: 'Lucid Dark',
+    name: 'LucidForge Dark',
     mode: LucidThemeMode.dark,
-    primary: Color(0xFF90CAF9),
-    secondary: Color(0xFF03DAC6),
-    background: Color(0xFF121212),
-    surface: Color(0xFF1E1E1E),
-    error: Color(0xFFCF6679),
-    onPrimary: Color(0xFF000000),
-    onSecondary: Color(0xFF000000),
-    onBackground: Color(0xFFE1E2E1),
-    onSurface: Color(0xFFE1E2E1),
-    onError: Color(0xFF000000),
+    primary: Color(0xFFD4A017),
+    secondary: Color(0xFFD4A017),
+    background: Color(0xFF020617),
+    surface: Color(0xFF0F172A),
+    error: Color(0xFFEF4444),
+    onPrimary: Color(0xFF020617),
+    onSecondary: Color(0xFF020617),
+    onBackground: Color(0xFFF8FAFC),
+    onSurface: Color(0xFFF8FAFC),
+    onError: Color(0xFFFFFFFF),
     brightness: Brightness.dark,
-    scaffoldBackgroundColor: Color(0xFF121212),
-    cardColor: Color(0xFF1E1E1E),
+    accent: Color(0xFFD4A017),
+    hint: Color(0xFF94A3B8),
+    scaffoldBackgroundColor: Color(0xFF020617),
+    cardColor: Color(0xFF0F172A),
   );
 
   static const LucidAppTheme oceanBlue = LucidAppTheme(
