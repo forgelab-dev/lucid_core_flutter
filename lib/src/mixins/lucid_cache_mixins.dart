@@ -4,30 +4,38 @@ import '../services/manager/manager.dart';
 mixin LucidCacheMixin {
   LucidStorageManager get _cache => LucidCacheHelper.manager;
 
-  Future<void> cacheValue<T>(String key, T value, {Duration? ttl}) async {
-    final prefixedKey = '${runtimeType.toString().toLowerCase()}_$key';
-    await _cache.put(prefixedKey, value, ttl: ttl);
+  String get _classTag => runtimeType.toString().toLowerCase();
+
+  Future<void> cacheValue<T>(String key, T value, {Duration? ttl, LucidDataList<String> tags = const []}) async {
+    final prefixedKey = '${_classTag}_$key';
+    await _cache.put(prefixedKey, value, ttl: ttl, tags: {_classTag, ...tags}.toList());
   }
 
   Future<T?> getCachedValue<T>(String key, {T? defaultValue}) async {
-    final prefixedKey = '${runtimeType.toString().toLowerCase()}_$key';
+    final prefixedKey = '${_classTag}_$key';
     return await _cache.get<T>(prefixedKey, defaultValue: defaultValue);
   }
 
-  Future<T> cacheOrGetValue<T>(String key, Future<T> Function() factory, {Duration? ttl}) async {
-    final prefixedKey = '${runtimeType.toString().toLowerCase()}_$key';
-    return await _cache.getOrPut<T>(prefixedKey, factory, ttl: ttl);
+  Future<T> cacheOrGetValue<T>(
+    String key,
+    Future<T> Function() factory, {
+    Duration? ttl,
+    LucidDataList<String> tags = const [],
+  }) async {
+    final prefixedKey = '${_classTag}_$key';
+    return await _cache.getOrPut<T>(prefixedKey, factory, ttl: ttl, tags: {_classTag, ...tags}.toList());
   }
 
   Future<bool> removeCachedValue(String key) async {
-    final prefixedKey = '${runtimeType.toString().toLowerCase()}_$key';
+    final prefixedKey = '${_classTag}_$key';
     return await _cache.delete(prefixedKey);
   }
 
+  /// Supprime toutes les valeurs mises en cache par cette classe (identifiées
+  /// par leur tag [_classTag], ajouté automatiquement par [cacheValue] et
+  /// [cacheOrGetValue]).
   Future<void> clearClassCache() async {
-    // Implémentation simplifiée - dans la vraie version, il faudrait
-    // une méthode pour lister et supprimer par préfixe
-    await _cache.deleteByTag(runtimeType.toString().toLowerCase());
+    await _cache.deleteByTag(_classTag);
   }
 }
 
@@ -37,7 +45,7 @@ mixin LucidServiceCacheMixin on LucidCacheMixin {
   List<String> get defaultServiceTags => [runtimeType.toString().toLowerCase(), 'service'];
 
   Future<void> cacheServiceResponse<T>(String endpoint, T response) async {
-    await cacheValue('response_${endpoint.hashCode}', response, ttl: defaultServiceTtl);
+    await cacheValue('response_${endpoint.hashCode}', response, ttl: defaultServiceTtl, tags: defaultServiceTags);
   }
 
   Future<T?> getCachedServiceResponse<T>(String endpoint) async {
