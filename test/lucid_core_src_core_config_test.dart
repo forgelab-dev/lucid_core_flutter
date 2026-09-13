@@ -401,11 +401,11 @@ void main() {
             .set('nullProperty', null)
             .build();
 
-        expect(config.getOverride<LucidData<String>>('listProperty'), equals(complexList));
+        expect(config.getOverride<LucidDataList<String>>('listProperty'), equals(complexList));
         expect(config.getOverride<LucidJsonMap>('mapProperty'), equals(complexMap));
         expect(config.getOverride<dynamic>('nullProperty'), isNull);
 
-        logger.info('✅ Liste: ${config.getOverride<LucidData<String>>('listProperty')}');
+        logger.info('✅ Liste: ${config.getOverride<LucidDataList<String>>('listProperty')}');
         logger.info('✅ Map: ${config.getOverride<LucidJsonMap>('mapProperty')}');
         logger.info('✅ Null: ${config.getOverride<dynamic>('nullProperty')}');
       });

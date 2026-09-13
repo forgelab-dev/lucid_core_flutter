@@ -14,8 +14,9 @@ import '../../mixins/mixins.dart'
         LucidStorageConfigMixin,
         LucidUIConfigMixin;
 import '../constants/constants.dart';
+import 'lucid_config_resolver.dart';
 
-class LucidConfigHelpers
+class LucidConfigHelpers extends LucidConfigResolver
     with
         LucidAppConfigMixin,
         LucidNetworkConfigMixin,
@@ -33,6 +34,12 @@ class LucidConfigHelpers
   factory LucidConfigHelpers() => _instance;
 
   LucidConfigHelpers._internal();
+
+  @override
+  dynamic noSuchMethod(Invocation invocation) {
+    if (invocation.isGetter) return null;
+    return super.noSuchMethod(invocation);
+  }
 }
 
 class LucidGlobalConfig {
@@ -66,6 +73,11 @@ class LucidOverrideConfig extends LucidConfigHelpers {
 
   void removeOverride(String key) {
     _overrides.remove(key);
+  }
+
+  @override
+  T resolveConfig<T>(String key, T defaultValue) {
+    return getOverride<T>(key) ?? defaultValue;
   }
 
   void clearOverrides() {
