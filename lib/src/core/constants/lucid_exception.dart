@@ -16,61 +16,70 @@ class AuthenticationException extends LucidAbstractException {
 
   final bool requiresReauth;
 
-  factory AuthenticationException.invalidCredentials() => const AuthenticationException(
-    'Identifiants invalides',
-    code: LucidErrorCodes.invalidCredentials,
-    severity: LucidErrorSeverity.warning,
-  );
+  factory AuthenticationException.invalidCredentials() =>
+      const AuthenticationException(
+        'Identifiants invalides',
+        code: LucidErrorCodes.invalidCredentials,
+        severity: LucidErrorSeverity.warning,
+      );
 
-  factory AuthenticationException.tokenExpired() => const AuthenticationException(
-    'Jeton d\'authentification expiré',
-    code: LucidErrorCodes.tokenExpired,
-    severity: LucidErrorSeverity.warning,
-    requiresReauth: true,
-  );
+  factory AuthenticationException.tokenExpired() =>
+      const AuthenticationException(
+        'Jeton d\'authentification expiré',
+        code: LucidErrorCodes.tokenExpired,
+        severity: LucidErrorSeverity.warning,
+        requiresReauth: true,
+      );
 
-  factory AuthenticationException.sessionExpired() => const AuthenticationException(
-    'Session expirée, veuillez vous reconnecter',
-    code: LucidErrorCodes.sessionExpired,
-    severity: LucidErrorSeverity.warning,
-    requiresReauth: true,
-  );
+  factory AuthenticationException.sessionExpired() =>
+      const AuthenticationException(
+        'Session expirée, veuillez vous reconnecter',
+        code: LucidErrorCodes.sessionExpired,
+        severity: LucidErrorSeverity.warning,
+        requiresReauth: true,
+      );
 
-  factory AuthenticationException.unauthorized() => const AuthenticationException(
-    'Accès non autorisé',
-    code: LucidErrorCodes.unauthorized,
-    severity: LucidErrorSeverity.error,
-  );
+  factory AuthenticationException.unauthorized() =>
+      const AuthenticationException(
+        'Accès non autorisé',
+        code: LucidErrorCodes.unauthorized,
+        severity: LucidErrorSeverity.error,
+      );
 
-  factory AuthenticationException.accountLocked() => const AuthenticationException(
-    'Compte verrouillé après plusieurs tentatives',
-    code: LucidErrorCodes.accountLocked,
-    severity: LucidErrorSeverity.error,
-  );
+  factory AuthenticationException.accountLocked() =>
+      const AuthenticationException(
+        'Compte verrouillé après plusieurs tentatives',
+        code: LucidErrorCodes.accountLocked,
+        severity: LucidErrorSeverity.error,
+      );
 
-  factory AuthenticationException.userSuspended() => const AuthenticationException(
-    'Compte utilisateur suspendu',
-    code: LucidErrorCodes.userSuspended,
-    severity: LucidErrorSeverity.error,
-  );
+  factory AuthenticationException.userSuspended() =>
+      const AuthenticationException(
+        'Compte utilisateur suspendu',
+        code: LucidErrorCodes.userSuspended,
+        severity: LucidErrorSeverity.error,
+      );
 
-  factory AuthenticationException.otpVerificationFailed() => const AuthenticationException(
-    'Échec de la vérification OTP',
-    code: LucidErrorCodes.otpVerificationFailed,
-    severity: LucidErrorSeverity.warning,
-  );
+  factory AuthenticationException.otpVerificationFailed() =>
+      const AuthenticationException(
+        'Échec de la vérification OTP',
+        code: LucidErrorCodes.otpVerificationFailed,
+        severity: LucidErrorSeverity.warning,
+      );
 
-  factory AuthenticationException.twoFactorRequired() => const AuthenticationException(
-    'Authentification à deux facteurs requise',
-    code: LucidErrorCodes.twoFactorRequired,
-    severity: LucidErrorSeverity.info,
-  );
+  factory AuthenticationException.twoFactorRequired() =>
+      const AuthenticationException(
+        'Authentification à deux facteurs requise',
+        code: LucidErrorCodes.twoFactorRequired,
+        severity: LucidErrorSeverity.info,
+      );
 
-  factory AuthenticationException.permissionDenied() => const AuthenticationException(
-    'Permission refusée pour cette opération',
-    code: LucidErrorCodes.permissionDenied,
-    severity: LucidErrorSeverity.warning,
-  );
+  factory AuthenticationException.permissionDenied() =>
+      const AuthenticationException(
+        'Permission refusée pour cette opération',
+        code: LucidErrorCodes.permissionDenied,
+        severity: LucidErrorSeverity.warning,
+      );
 
   @override
   AuthenticationException copyWith({
@@ -117,7 +126,10 @@ class BusinessException extends LucidAbstractException {
 
   final String? operation;
 
-  factory BusinessException.operationNotAllowed({String? operation, String? resource}) => BusinessException(
+  factory BusinessException.operationNotAllowed({
+    String? operation,
+    String? resource,
+  }) => BusinessException(
     'Opération non autorisée${operation != null ? ': $operation' : ''}${resource != null ? ' sur $resource' : ''}',
     code: LucidErrorCodes.operationNotAllowed,
     severity: LucidErrorSeverity.warning,
@@ -131,35 +143,46 @@ class BusinessException extends LucidAbstractException {
     severity: LucidErrorSeverity.error,
   );
 
-  factory BusinessException.userLimitReached({int? currentCount, int? maxLimit}) => BusinessException(
+  factory BusinessException.userLimitReached({
+    int? currentCount,
+    int? maxLimit,
+  }) => BusinessException(
     'Limite d\'utilisateurs atteinte${currentCount != null && maxLimit != null ? ' ($currentCount/$maxLimit)' : ''}',
     code: LucidErrorCodes.userLimitReached,
     severity: LucidErrorSeverity.warning,
-    context: {if (currentCount != null) 'currentCount': currentCount, if (maxLimit != null) 'maxLimit': maxLimit},
+    context: {'currentCount': ?currentCount, 'maxLimit': ?maxLimit},
   );
 
-  factory BusinessException.contentBlocked({String? reason}) => BusinessException(
-    'Contenu bloqué${reason != null ? ': $reason' : ''}',
-    code: LucidErrorCodes.contentBlocked,
-    severity: LucidErrorSeverity.warning,
-    context: reason != null ? {'reason': reason} : null,
-  );
+  factory BusinessException.contentBlocked({String? reason}) =>
+      BusinessException(
+        'Contenu bloqué${reason != null ? ': $reason' : ''}',
+        code: LucidErrorCodes.contentBlocked,
+        severity: LucidErrorSeverity.warning,
+        context: reason != null ? {'reason': reason} : null,
+      );
 
-  factory BusinessException.ageRestriction({int? requiredAge, int? userAge}) => BusinessException(
+  factory BusinessException.ageRestriction({
+    int? requiredAge,
+    int? userAge,
+  }) => BusinessException(
     'Restriction d\'âge${requiredAge != null ? ': $requiredAge ans requis' : ''}${userAge != null && requiredAge != null ? ' (utilisateur: $userAge ans)' : ''}',
     code: LucidErrorCodes.ageRestriction,
     severity: LucidErrorSeverity.warning,
-    context: {if (requiredAge != null) 'requiredAge': requiredAge, if (userAge != null) 'userAge': userAge},
+    context: {'requiredAge': ?requiredAge, 'userAge': ?userAge},
   );
 
-  factory BusinessException.licenseInvalid({String? licenseKey}) => BusinessException(
-    'Licence invalide${licenseKey != null ? ': $licenseKey' : ''}',
-    code: LucidErrorCodes.licenseInvalid,
-    severity: LucidErrorSeverity.error,
-    context: licenseKey != null ? {'licenseKey': licenseKey} : null,
-  );
+  factory BusinessException.licenseInvalid({String? licenseKey}) =>
+      BusinessException(
+        'Licence invalide${licenseKey != null ? ': $licenseKey' : ''}',
+        code: LucidErrorCodes.licenseInvalid,
+        severity: LucidErrorSeverity.error,
+        context: licenseKey != null ? {'licenseKey': licenseKey} : null,
+      );
 
-  factory BusinessException.dataNotFound({String? resource, String? id}) => BusinessException(
+  factory BusinessException.dataNotFound({
+    String? resource,
+    String? id,
+  }) => BusinessException(
     'Données non trouvées${resource != null ? ' ($resource)' : ''}${id != null ? ' ID: $id' : ''}',
     code: LucidErrorCodes.dataNotFound,
     severity: LucidErrorSeverity.warning,
@@ -167,7 +190,10 @@ class BusinessException extends LucidAbstractException {
     context: id != null ? {'id': id} : null,
   );
 
-  factory BusinessException.resourceConflict({String? resource, String? conflictReason}) => BusinessException(
+  factory BusinessException.resourceConflict({
+    String? resource,
+    String? conflictReason,
+  }) => BusinessException(
     'Conflit de ressource${resource != null ? ' ($resource)' : ''}${conflictReason != null ? ': $conflictReason' : ''}',
     code: LucidErrorCodes.resourceConflict,
     severity: LucidErrorSeverity.warning,
@@ -175,29 +201,39 @@ class BusinessException extends LucidAbstractException {
     context: conflictReason != null ? {'conflictReason': conflictReason} : null,
   );
 
-  factory BusinessException.versionMismatch({String? expectedVersion, String? actualVersion}) => BusinessException(
+  factory BusinessException.versionMismatch({
+    String? expectedVersion,
+    String? actualVersion,
+  }) => BusinessException(
     'Incompatibilité de version${expectedVersion != null && actualVersion != null ? ' (attendue: $expectedVersion, actuelle: $actualVersion)' : ''}',
     code: LucidErrorCodes.versionMismatch,
     severity: LucidErrorSeverity.error,
     context: {
-      if (expectedVersion != null) 'expectedVersion': expectedVersion,
-      if (actualVersion != null) 'actualVersion': actualVersion,
+      'expectedVersion': ?expectedVersion,
+      'actualVersion': ?actualVersion,
     },
   );
 
-  factory BusinessException.syncConflict({String? resource}) => BusinessException(
+  factory BusinessException.syncConflict({
+    String? resource,
+  }) => BusinessException(
     'Conflit de synchronisation${resource != null ? ' pour $resource' : ''}',
     code: LucidErrorCodes.syncConflict,
     severity: LucidErrorSeverity.warning,
     resource: resource,
   );
 
-  factory BusinessException.resourceExpired({String? resource, DateTime? expiredAt}) => BusinessException(
+  factory BusinessException.resourceExpired({
+    String? resource,
+    DateTime? expiredAt,
+  }) => BusinessException(
     'Ressource expirée${resource != null ? ' ($resource)' : ''}${expiredAt != null ? ' le ${expiredAt.toIso8601String()}' : ''}',
     code: LucidErrorCodes.resourceExpired,
     severity: LucidErrorSeverity.warning,
     resource: resource,
-    context: expiredAt != null ? {'expiredAt': expiredAt.toIso8601String()} : null,
+    context: expiredAt != null
+        ? {'expiredAt': expiredAt.toIso8601String()}
+        : null,
   );
 
   @override
@@ -254,13 +290,14 @@ class CacheException extends LucidAbstractException {
     key: key,
   );
 
-  factory CacheException.expired(String key, {DateTime? expirationTime}) => CacheException(
-    'Cache expiré pour la clé: $key',
-    code: 'CACHE_EXPIRED',
-    severity: LucidErrorSeverity.info,
-    key: key,
-    expirationTime: expirationTime,
-  );
+  factory CacheException.expired(String key, {DateTime? expirationTime}) =>
+      CacheException(
+        'Cache expiré pour la clé: $key',
+        code: 'CACHE_EXPIRED',
+        severity: LucidErrorSeverity.info,
+        key: key,
+        expirationTime: expirationTime,
+      );
 
   factory CacheException.writeError(String key) => CacheException(
     'Erreur d\'écriture dans le cache pour: $key',
@@ -302,7 +339,10 @@ class CacheException extends LucidAbstractException {
   @override
   LucidJsonMap toMap() {
     final map = super.toMap();
-    map.addAll({'key': key, 'expirationTime': expirationTime?.toIso8601String()});
+    map.addAll({
+      'key': key,
+      'expirationTime': expirationTime?.toIso8601String(),
+    });
     return map;
   }
 }
@@ -344,12 +384,13 @@ class LocationException extends LucidAbstractException {
     severity: LucidErrorSeverity.error,
   );
 
-  factory LocationException.geocodingFailed({String? address}) => LocationException(
-    'Échec du géocodage${address != null ? ' pour: $address' : ''}',
-    code: LucidErrorCodes.geocodingFailed,
-    severity: LucidErrorSeverity.warning,
-    context: address != null ? {'address': address} : null,
-  );
+  factory LocationException.geocodingFailed({String? address}) =>
+      LocationException(
+        'Échec du géocodage${address != null ? ' pour: $address' : ''}',
+        code: LucidErrorCodes.geocodingFailed,
+        severity: LucidErrorSeverity.warning,
+        context: address != null ? {'address': address} : null,
+      );
 
   @override
   LocationException copyWith({
@@ -379,7 +420,11 @@ class LocationException extends LucidAbstractException {
   @override
   LucidJsonMap toMap() {
     final map = super.toMap();
-    map.addAll({'latitude': latitude, 'longitude': longitude, 'accuracy': accuracy});
+    map.addAll({
+      'latitude': latitude,
+      'longitude': longitude,
+      'accuracy': accuracy,
+    });
     return map;
   }
 }
@@ -410,7 +455,10 @@ class MediaException extends LucidAbstractException {
     fileName: fileName,
   );
 
-  factory MediaException.invalidImageFormat({String? fileName, String? mimeType}) => MediaException(
+  factory MediaException.invalidImageFormat({
+    String? fileName,
+    String? mimeType,
+  }) => MediaException(
     'Format d\'image invalide${fileName != null ? ' pour $fileName' : ''}',
     code: LucidErrorCodes.invalidImageFormat,
     severity: LucidErrorSeverity.warning,
@@ -418,7 +466,11 @@ class MediaException extends LucidAbstractException {
     mimeType: mimeType,
   );
 
-  factory MediaException.fileTooLarge({String? fileName, int? fileSize, int? maxSize}) => MediaException(
+  factory MediaException.fileTooLarge({
+    String? fileName,
+    int? fileSize,
+    int? maxSize,
+  }) => MediaException(
     'Fichier trop volumineux${fileName != null ? ' ($fileName)' : ''}${fileSize != null && maxSize != null ? ': ${fileSize}B > ${maxSize}B' : ''}',
     code: LucidErrorCodes.fileTooLarge,
     severity: LucidErrorSeverity.warning,
@@ -427,7 +479,9 @@ class MediaException extends LucidAbstractException {
     context: maxSize != null ? {'maxSize': maxSize} : null,
   );
 
-  factory MediaException.videoProcessingError({String? fileName}) => MediaException(
+  factory MediaException.videoProcessingError({
+    String? fileName,
+  }) => MediaException(
     'Erreur de traitement vidéo${fileName != null ? ' pour $fileName' : ''}',
     code: LucidErrorCodes.videoProcessingError,
     severity: LucidErrorSeverity.error,
@@ -468,7 +522,11 @@ class MediaException extends LucidAbstractException {
   @override
   LucidJsonMap toMap() {
     final map = super.toMap();
-    map.addAll({'fileName': fileName, 'fileSize': fileSize, 'mimeType': mimeType});
+    map.addAll({
+      'fileName': fileName,
+      'fileSize': fileSize,
+      'mimeType': mimeType,
+    });
     return map;
   }
 }
@@ -525,13 +583,16 @@ class NetworkException extends LucidAbstractException {
     severity: LucidErrorSeverity.warning,
   );
 
-  factory NetworkException.serverError(int statusCode, {String? url}) => NetworkException(
-    'Erreur serveur: $statusCode',
-    code: 'SERVER_ERROR_$statusCode',
-    severity: statusCode >= 500 ? LucidErrorSeverity.error : LucidErrorSeverity.warning,
-    statusCode: statusCode,
-    url: url,
-  );
+  factory NetworkException.serverError(int statusCode, {String? url}) =>
+      NetworkException(
+        'Erreur serveur: $statusCode',
+        code: 'SERVER_ERROR_$statusCode',
+        severity: statusCode >= 500
+            ? LucidErrorSeverity.error
+            : LucidErrorSeverity.warning,
+        statusCode: statusCode,
+        url: url,
+      );
 
   factory NetworkException.badGateway() => const NetworkException(
     'Passerelle défaillante',
@@ -601,14 +662,18 @@ class PaymentException extends LucidAbstractException {
 
   final String? currency;
 
-  factory PaymentException.paymentFailed({String? transactionId}) => PaymentException(
-    'Échec du paiement',
-    code: LucidErrorCodes.paymentFailed,
-    severity: LucidErrorSeverity.error,
-    transactionId: transactionId,
-  );
+  factory PaymentException.paymentFailed({String? transactionId}) =>
+      PaymentException(
+        'Échec du paiement',
+        code: LucidErrorCodes.paymentFailed,
+        severity: LucidErrorSeverity.error,
+        transactionId: transactionId,
+      );
 
-  factory PaymentException.insufficientFunds({double? amount, String? currency}) => PaymentException(
+  factory PaymentException.insufficientFunds({
+    double? amount,
+    String? currency,
+  }) => PaymentException(
     'Fonds insuffisants${amount != null && currency != null ? ' pour $amount $currency' : ''}',
     code: LucidErrorCodes.insufficientFunds,
     severity: LucidErrorSeverity.warning,
@@ -622,7 +687,10 @@ class PaymentException extends LucidAbstractException {
     severity: LucidErrorSeverity.warning,
   );
 
-  factory PaymentException.transactionLimitExceeded({double? amount, String? currency}) => PaymentException(
+  factory PaymentException.transactionLimitExceeded({
+    double? amount,
+    String? currency,
+  }) => PaymentException(
     'Limite de transaction dépassée${amount != null && currency != null ? ' ($amount $currency)' : ''}',
     code: LucidErrorCodes.transactionLimitExceeded,
     severity: LucidErrorSeverity.warning,
@@ -664,7 +732,11 @@ class PaymentException extends LucidAbstractException {
   @override
   LucidJsonMap toMap() {
     final map = super.toMap();
-    map.addAll({'transactionId': transactionId, 'amount': amount, 'currency': currency});
+    map.addAll({
+      'transactionId': transactionId,
+      'amount': amount,
+      'currency': currency,
+    });
     return map;
   }
 }
@@ -792,13 +864,14 @@ class ValidationException extends LucidAbstractException {
     severity: LucidErrorSeverity.warning,
   );
 
-  factory ValidationException.invalidFormat(String field, {dynamic value}) => ValidationException(
-    'Format invalide pour le champ $field',
-    code: LucidErrorCodes.invalidFormat,
-    field: field,
-    value: value,
-    severity: LucidErrorSeverity.warning,
-  );
+  factory ValidationException.invalidFormat(String field, {dynamic value}) =>
+      ValidationException(
+        'Format invalide pour le champ $field',
+        code: LucidErrorCodes.invalidFormat,
+        field: field,
+        value: value,
+        severity: LucidErrorSeverity.warning,
+      );
 
   factory ValidationException.invalidEmail(String email) => ValidationException(
     'Adresse email invalide: $email',
@@ -822,31 +895,37 @@ class ValidationException extends LucidAbstractException {
     severity: LucidErrorSeverity.warning,
   );
 
-  factory ValidationException.outOfRange(String field, {dynamic value, dynamic min, dynamic max}) =>
+  factory ValidationException.outOfRange(
+    String field, {
+    dynamic value,
+    dynamic min,
+    dynamic max,
+  }) => ValidationException(
+    'Valeur hors limites pour $field${min != null && max != null ? ' (min: $min, max: $max)' : ''}',
+    code: LucidErrorCodes.outOfRange,
+    field: field,
+    value: value,
+    severity: LucidErrorSeverity.warning,
+    context: {'min': ?min, 'max': ?max},
+  );
+
+  factory ValidationException.invalidPhoneNumber(String phoneNumber) =>
       ValidationException(
-        'Valeur hors limites pour $field${min != null && max != null ? ' (min: $min, max: $max)' : ''}',
-        code: LucidErrorCodes.outOfRange,
-        field: field,
-        value: value,
+        'Numéro de téléphone invalide: $phoneNumber',
+        code: LucidErrorCodes.invalidPhoneNumber,
+        field: 'phone',
+        value: phoneNumber,
         severity: LucidErrorSeverity.warning,
-        context: {if (min != null) 'min': min, if (max != null) 'max': max},
       );
 
-  factory ValidationException.invalidPhoneNumber(String phoneNumber) => ValidationException(
-    'Numéro de téléphone invalide: $phoneNumber',
-    code: LucidErrorCodes.invalidPhoneNumber,
-    field: 'phone',
-    value: phoneNumber,
-    severity: LucidErrorSeverity.warning,
-  );
-
-  factory ValidationException.unsupportedFileType(String fileType) => ValidationException(
-    'Type de fichier non supporté: $fileType',
-    code: LucidErrorCodes.unsupportedFileType,
-    field: 'file',
-    value: fileType,
-    severity: LucidErrorSeverity.warning,
-  );
+  factory ValidationException.unsupportedFileType(String fileType) =>
+      ValidationException(
+        'Type de fichier non supporté: $fileType',
+        code: LucidErrorCodes.unsupportedFileType,
+        field: 'file',
+        value: fileType,
+        severity: LucidErrorSeverity.warning,
+      );
 
   @override
   ValidationException copyWith({
