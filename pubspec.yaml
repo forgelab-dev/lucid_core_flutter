@@ -1,6 +1,6 @@
 name: lucid_core_flutter
 description: "Socle Flutter de LucidForge Africa : client API, authentification Firebase/Supabase, stockage chiffré, thème et widgets réutilisables."
-version: 0.0.1
+version: 0.1.0
 
 # Liens du projet (affichés sur pub.dev)
 homepage: https://github.com/forgelab-dev/lucid_core_flutter
