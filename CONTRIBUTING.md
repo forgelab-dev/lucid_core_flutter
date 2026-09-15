@@ -44,6 +44,17 @@ flutter analyze
 4. La CI (analyse + tests) doit passer.
 5. Un mainteneur relit et fusionne.
 
+## Versions et releases
+
+Les versions sont gérées automatiquement par [release-please](https://github.com/googleapis/release-please) (workflow `.github/workflows/release.yml`) :
+
+1. À chaque merge sur `master`, le workflow ouvre ou met à jour une PR « publier la version X.Y.Z ». Elle incrémente `version` dans `pubspec.yaml` et complète `CHANGELOG.md` à partir des messages de commit.
+2. Merger cette PR crée le tag `vX.Y.Z` et la release GitHub correspondante.
+
+Le type de commit détermine la version (avant la 1.0.0) : `feat` → mineure, `fix` / `perf` → patch, `!` ou `BREAKING CHANGE` → mineure. Les commits `docs`, `style`, `test`, `chore`, `ci` et `build` ne déclenchent pas de release.
+
+Ne jamais modifier la version ni le CHANGELOG à la main, ni créer de tag manuellement.
+
 ## Structure du projet
 
 - `lib/src/core/` — abstracts, constantes, helpers, modèles, thèmes, utilitaires

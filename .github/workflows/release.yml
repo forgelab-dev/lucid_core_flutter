@@ -1,0 +1,22 @@
+name: Release
+
+# À chaque merge sur master, release-please ouvre (ou met à jour) une PR de release
+# à partir des Conventional Commits. Merger cette PR crée le tag vX.Y.Z et la release GitHub.
+on:
+  push:
+    branches: [master]
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+jobs:
+  release-please:
+    name: Release Please
+    runs-on: ubuntu-latest
+    steps:
+      - uses: googleapis/release-please-action@v4
+        with:
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json

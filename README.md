@@ -15,10 +15,10 @@ dependencies:
   lucid_core_flutter:
     git:
       url: git@github.com:forgelab-dev/lucid_core_flutter.git
-      ref: master
+      ref: v0.0.1
 ```
 
-Pour figer une version, remplacer `master` par un tag (ex. `v0.0.1`) ou un hash de commit.
+Toujours cibler un tag de release plutôt que `master`, pour que la mise à jour du package reste un choix explicite. Les versions disponibles sont listées dans les [releases](https://github.com/forgelab-dev/lucid_core_flutter/releases).
 
 Pour commencer avec le développement Flutter, consultez la [documentation en ligne](https://docs.flutter.dev), qui propose des tutoriels, des exemples, des guides sur le développement mobile et une référence complète de l'API.
 
