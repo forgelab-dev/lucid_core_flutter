@@ -1,3 +1,16 @@
+# Changelog
+
+## [0.1.0](https://github.com/forgelab-dev/lucid_core_flutter/compare/v0.0.1...v0.1.0) (2026-09-15)
+
+
+### ⚠ BREAKING CHANGES
+
+* le package est désormais distribué sous licence Apache 2.0.
+
+### Fonctionnalités
+
+* passer le package en open source sous licence Apache 2.0 et préparer pub.dev ([3e9b1cc](https://github.com/forgelab-dev/lucid_core_flutter/commit/3e9b1cc7af2a5ca0bac7ad13d73256d79b9d3f75))
+
 ## 0.0.1
 
 * Client API HTTP (`LucidApiClient`) : GET/POST/PUT/PATCH/DELETE, upload multipart, cache-first sur les GET (via `LucidStorageManager`), retry automatique sur erreurs transitoires, mapping des erreurs vers la taxonomie `LucidAbstractException`.
