@@ -1,0 +1,43 @@
+name: Publish
+
+# Publie sur pub.dev à chaque tag de release vX.Y.Z (créé par release-please).
+# pub.dev n'accepte la publication automatisée que depuis un push de tag, authentifié par OIDC.
+# Désactivé tant que la variable de dépôt PUB_DEV_AUTOMATED_PUBLISHING n'est pas à "true"
+# (la toute première version doit être publiée à la main avec `flutter pub publish`).
+on:
+  push:
+    tags: ['v[0-9]+.[0-9]+.[0-9]+*']
+
+jobs:
+  publish:
+    name: Publier sur pub.dev
+    if: vars.PUB_DEV_AUTOMATED_PUBLISHING == 'true'
+    runs-on: ubuntu-latest
+    environment: pub.dev
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configurer le jeton OIDC pub.dev
+        uses: dart-lang/setup-dart@v1
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Analyze
+        run: flutter analyze
+
+      - name: Test
+        run: flutter test
+
+      - name: Publish
+        run: flutter pub publish --force

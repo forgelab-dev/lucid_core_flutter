@@ -1,13 +1,21 @@
 name: lucid_core_flutter
-description: "Core des projets Flutter de LucidForge - Fournit des utilitaires, widgets et services communs pour tous les projets LucidForge."
+description: "Socle Flutter de LucidForge Africa : client API, authentification Firebase/Supabase, stockage chiffré, thème et widgets réutilisables."
 version: 0.0.1
 
-# Package propriétaire : jamais publié sur pub.dev, consommé via Git
-publish_to: none
-
-# Liens du projet
+# Liens du projet (affichés sur pub.dev)
+homepage: https://github.com/forgelab-dev/lucid_core_flutter
 repository: https://github.com/forgelab-dev/lucid_core_flutter
 issue_tracker: https://github.com/forgelab-dev/lucid_core_flutter/issues
+funding:
+  - https://github.com/sponsors/forgelab-dev
+
+# Mots-clés pour la découverte sur pub.dev (5 maximum)
+topics:
+  - ui
+  - widgets
+  - networking
+  - authentication
+  - storage
 
 # Environnement requis
 environment:

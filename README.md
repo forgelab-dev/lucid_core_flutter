@@ -1,24 +1,32 @@
 # lucid_core_flutter
 
-Core des projets Flutter de LucidForge Africa — Fournit des utilitaires, widgets et services communs pour tous les projets LucidForge.
+[![pub.dev](https://img.shields.io/pub/v/lucid_core_flutter.svg)](https://pub.dev/packages/lucid_core_flutter)
+[![License: Apache 2.0](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
+[![CI](https://github.com/forgelab-dev/lucid_core_flutter/actions/workflows/ci.yml/badge.svg)](https://github.com/forgelab-dev/lucid_core_flutter/actions/workflows/ci.yml)
 
-> **Package propriétaire.** Il n'est pas publié sur pub.dev et son usage est réservé aux projets LucidForge Africa (voir [License](#license)).
+Socle Flutter de LucidForge Africa : client API, authentification, stockage chiffré, thème et widgets réutilisables. Développé par [ForgeLab](https://github.com/forgelab-dev), le laboratoire open source de LucidForge Africa.
 
 ## Getting Started
 
-Ce package est le socle commun des applications Flutter de LucidForge Africa. Il centralise les services, utilitaires et widgets réutilisables afin de garantir une cohérence technique et visuelle sur l'ensemble des projets.
+Ce package est le socle commun des applications Flutter de LucidForge Africa, dont l'application mobile de [ForgeNet](https://github.com/forgelab-dev/lfa-forgenet). Il centralise les services, utilitaires et widgets réutilisables afin de garantir une cohérence technique et visuelle sur l'ensemble des projets.
 
-Le dépôt étant privé, le package s'ajoute comme dépendance Git. La machine qui exécute `flutter pub get` (poste de dev ou CI) doit disposer d'un accès SSH à l'organisation `forgelab-dev`.
+Depuis pub.dev :
+
+```bash
+flutter pub add lucid_core_flutter
+```
+
+Ou, pour suivre une version précise du dépôt :
 
 ```yaml
 dependencies:
   lucid_core_flutter:
     git:
-      url: git@github.com:forgelab-dev/lucid_core_flutter.git
+      url: https://github.com/forgelab-dev/lucid_core_flutter.git
       ref: v0.0.1
 ```
 
-Toujours cibler un tag de release plutôt que `master`, pour que la mise à jour du package reste un choix explicite. Les versions disponibles sont listées dans les [releases](https://github.com/forgelab-dev/lucid_core_flutter/releases).
+Les versions disponibles sont listées dans les [releases](https://github.com/forgelab-dev/lucid_core_flutter/releases) et le [CHANGELOG](CHANGELOG.md).
 
 Pour commencer avec le développement Flutter, consultez la [documentation en ligne](https://docs.flutter.dev), qui propose des tutoriels, des exemples, des guides sur le développement mobile et une référence complète de l'API.
 
@@ -34,12 +42,18 @@ Pour commencer avec le développement Flutter, consultez la [documentation en li
 
 ## API Reference
 
-Chaque API publique est documentée par des doc comments (`///`) dans le code source. Pour générer la référence HTML en local :
+Chaque API publique est documentée par des doc comments (`///`). La référence est générée automatiquement sur [pub.dev](https://pub.dev/documentation/lucid_core_flutter/latest/), ou en local avec :
 
 ```bash
 dart doc
 ```
 
+## Contribuer
+
+Les contributions sont les bienvenues : voir [CONTRIBUTING.md](CONTRIBUTING.md).
+
 ## License
 
-Copyright (c) 2025 LucidForge Africa. Tous droits réservés. Voir le fichier [LICENSE](LICENSE) pour plus de détails.
+Distribué sous [licence Apache 2.0](LICENSE). Copyright 2025-2026 LucidForge Africa.
+
+La licence couvre le code, pas la marque : les noms « LucidForge Africa » et « ForgeLab » ainsi que leurs logos ne peuvent pas être utilisés pour présenter un produit dérivé comme officiel sans autorisation écrite.

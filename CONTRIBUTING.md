@@ -38,7 +38,7 @@ flutter analyze
 
 ## Processus de contribution
 
-1. Créer une branche depuis `master` : `feat/ma-fonctionnalite`, `fix/correction`, `refactor/...` (dépôt privé : les contributions viennent des membres de l'organisation `forgelab-dev`, pas de fork).
+1. Forker le dépôt (contributeurs externes) ou créer une branche depuis `master` (membres de l'organisation `forgelab-dev`) : `feat/ma-fonctionnalite`, `fix/correction`, `refactor/...`.
 2. Commiter avec [Conventional Commits](https://www.conventionalcommits.org/) en français : `feat(scope): description`.
 3. Pousser la branche et ouvrir une Pull Request vers `master`.
 4. La CI (analyse + tests) doit passer.
@@ -50,6 +50,7 @@ Les versions sont gérées automatiquement par [release-please](https://github.c
 
 1. À chaque merge sur `master`, le workflow ouvre ou met à jour une PR « publier la version X.Y.Z ». Elle incrémente `version` dans `pubspec.yaml` et complète `CHANGELOG.md` à partir des messages de commit.
 2. Merger cette PR crée le tag `vX.Y.Z` et la release GitHub correspondante.
+3. Le tag déclenche le workflow `.github/workflows/publish.yml`, qui publie la version sur [pub.dev](https://pub.dev/packages/lucid_core_flutter) après analyse et tests.
 
 Le type de commit détermine la version (avant la 1.0.0) : `feat` → mineure, `fix` / `perf` → patch, `!` ou `BREAKING CHANGE` → mineure. Les commits `docs`, `style`, `test`, `chore`, `ci` et `build` ne déclenchent pas de release.
 
