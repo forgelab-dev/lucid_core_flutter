@@ -1,19 +1,24 @@
 # lucid_core_flutter
 
-[![pub.dev](https://img.shields.io/badge/pub.dev-lucid_core_flutter-blue)](https://pub.dev/packages/lucid_core_flutter)
-
 Core des projets Flutter de LucidForge Africa — Fournit des utilitaires, widgets et services communs pour tous les projets LucidForge.
+
+> **Package propriétaire.** Il n'est pas publié sur pub.dev et son usage est réservé aux projets LucidForge Africa (voir [License](#license)).
 
 ## Getting Started
 
 Ce package est le socle commun des applications Flutter de LucidForge Africa. Il centralise les services, utilitaires et widgets réutilisables afin de garantir une cohérence technique et visuelle sur l'ensemble des projets.
 
-Pour l'ajouter à votre projet :
+Le dépôt étant privé, le package s'ajoute comme dépendance Git. La machine qui exécute `flutter pub get` (poste de dev ou CI) doit disposer d'un accès SSH à l'organisation `forgelab-dev`.
 
 ```yaml
 dependencies:
-  lucid_core_flutter: ^0.0.1
+  lucid_core_flutter:
+    git:
+      url: git@github.com:forgelab-dev/lucid_core_flutter.git
+      ref: master
 ```
+
+Pour figer une version, remplacer `master` par un tag (ex. `v0.0.1`) ou un hash de commit.
 
 Pour commencer avec le développement Flutter, consultez la [documentation en ligne](https://docs.flutter.dev), qui propose des tutoriels, des exemples, des guides sur le développement mobile et une référence complète de l'API.
 
@@ -29,8 +34,12 @@ Pour commencer avec le développement Flutter, consultez la [documentation en li
 
 ## API Reference
 
-La référence complète de l'API est disponible dans la [documentation du package](https://github.com/forgelab-dev/lucid_core_flutter/wiki).
+Chaque API publique est documentée par des doc comments (`///`) dans le code source. Pour générer la référence HTML en local :
+
+```bash
+dart doc
+```
 
 ## License
 
-Copyright (c) 2024 LucidForge Africa. Tous droits réservés. Voir le fichier [LICENSE](LICENSE) pour plus de détails.
+Copyright (c) 2025 LucidForge Africa. Tous droits réservés. Voir le fichier [LICENSE](LICENSE) pour plus de détails.

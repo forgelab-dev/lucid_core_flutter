@@ -38,7 +38,7 @@ flutter analyze
 
 ## Processus de contribution
 
-1. Forker le dépôt et créer une branche : `feat/ma-fonctionnalite`, `fix/correction`, `refactor/...`.
+1. Créer une branche depuis `master` : `feat/ma-fonctionnalite`, `fix/correction`, `refactor/...` (dépôt privé : les contributions viennent des membres de l'organisation `forgelab-dev`, pas de fork).
 2. Commiter avec [Conventional Commits](https://www.conventionalcommits.org/) en français : `feat(scope): description`.
 3. Pousser la branche et ouvrir une Pull Request vers `master`.
 4. La CI (analyse + tests) doit passer.

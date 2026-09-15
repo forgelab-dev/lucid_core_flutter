@@ -2,19 +2,12 @@ name: lucid_core_flutter
 description: "Core des projets Flutter de LucidForge - Fournit des utilitaires, widgets et services communs pour tous les projets LucidForge."
 version: 0.0.1
 
+# Package propriétaire : jamais publié sur pub.dev, consommé via Git
+publish_to: none
+
 # Liens du projet
-homepage: https://github.com/forgelab-dev/lucid_core_flutter
 repository: https://github.com/forgelab-dev/lucid_core_flutter
 issue_tracker: https://github.com/forgelab-dev/lucid_core_flutter/issues
-documentation: https://github.com/forgelab-dev/lucid_core_flutter/wiki
-
-# Mots-clés pour la découverte
-topics:
-  - flutter
-  - dart
-  - utilities
-  - core
-  - lucidforge
 
 # Environnement requis
 environment:
