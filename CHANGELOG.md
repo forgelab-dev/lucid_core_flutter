@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.2.0](https://github.com/forgelab-dev/lucid_core_flutter/compare/v0.1.0...v0.2.0) (2026-09-19)
+
+
+### Fonctionnalités
+
+* **example:** application de démonstration de LucidApiClient ([268604d](https://github.com/forgelab-dev/lucid_core_flutter/commit/268604da2451bb005f5293b8cc6fb9b0b097a21b))
+* **example:** démontrer LucidApiClient sur une API simulée ([f07f930](https://github.com/forgelab-dev/lucid_core_flutter/commit/f07f930037d1ce80472509d785fc00a7cb60151c))
+
 ## [0.1.0](https://github.com/forgelab-dev/lucid_core_flutter/compare/v0.0.1...v0.1.0) (2026-09-15)
 
 
