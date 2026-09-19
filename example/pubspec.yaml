@@ -1,0 +1,30 @@
+name: lucid_core_flutter_example
+description: "Démonstration de lucid_core_flutter : LucidApiClient branché sur une API simulée."
+version: 1.0.0+1
+
+# Application de démonstration : elle ne doit jamais être publiée sur pub.dev.
+publish_to: 'none'
+
+environment:
+  sdk: ^3.8.1
+  flutter: ">=3.3.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Le package démontré, résolu depuis la racine du dépôt plutôt que depuis
+  # pub.dev : l'exemple valide toujours le code de la branche courante.
+  lucid_core_flutter:
+    path: ../
+
+  # Exposé pour écrire l'adaptateur HTTP simulé (HttpClientAdapter, ResponseBody).
+  dio: ^5.7.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
