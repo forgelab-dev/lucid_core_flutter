@@ -37,7 +37,7 @@ Pour commencer avec le développement Flutter, consultez la [documentation en li
 - **Stockage & persistance** : stockage sécurisé (`LucidSecureStorage`), cache chiffré (AES-256-GCM) et compressé (gzip) sur disque (`LucidCacheStorage`), préférences partagées.
 - **Configuration** : résolveur de configuration unifié (`LucidAbstractConfigResolver`) avec overrides dynamiques, environnement (dev/staging/prod) et constantes par défaut.
 - **Thème** : thèmes clair/sombre alignés sur la charte graphique LucidForge Africa (navy `#020617`, or `#D4A017`).
-- **Widgets** : `LucidApp`, `LucidListManager`, `LucidNavigationManager`, `LucidButton`, `LucidTextField`, `LucidEmptyState`, `LucidErrorState` — tous branchés sur le thème et la localisation.
+- **Widgets** : `LucidApp`, `LucidListManager`, `LucidNavigationManager`, `LucidButton`, `LucidCard`, `LucidTextField`, `LucidEmptyState`, `LucidErrorState` — tous branchés sur le thème et la localisation.
 - **Internationalisation** : localisation française (`LucidL10n`) et extensions utilitaires (`String`, `num`, `BuildContext`, etc.).
 
 ## API Reference
