@@ -1,5 +1,6 @@
 export 'app/lucid_app.dart';
 export 'buttons/lucid_button.dart';
+export 'cards/lucid_card.dart';
 export 'feedback/lucid_empty_state.dart';
 export 'feedback/lucid_error_state.dart';
 export 'inputs/lucid_text_field.dart';
