@@ -362,6 +362,21 @@ extension LucidBuildContextExtensions on BuildContext {
     return LucidScreenSize.extraLarge;
   }
 
+  void hideKeyboard() => FocusScope.of(this).unfocus();
+
+  void showKeyboard(FocusNode focusNode) => FocusScope.of(this).requestFocus(focusNode);
+}
+
+/// Navigation par [Navigator] : `push`, `pop`… sur [BuildContext].
+///
+/// Séparée de [LucidBuildContextExtensions] parce que go_router déclare aussi
+/// `context.push` et `context.pop` : une application qui l'utilise masque
+/// seulement celle-ci et garde les autres raccourcis (thème, écran, clavier).
+///
+/// ```dart
+/// import 'package:lucid_core_flutter/lucid_core_flutter.dart' hide LucidNavigationExtensions;
+/// ```
+extension LucidNavigationExtensions on BuildContext {
   NavigatorState get navigator => Navigator.of(this);
 
   Future<T?> push<T>(Widget page) => navigator.push<T>(MaterialPageRoute(builder: (_) => page));
@@ -375,10 +390,6 @@ extension LucidBuildContextExtensions on BuildContext {
   void pop<T>([T? result]) => navigator.pop<T>(result);
 
   bool get canPop => navigator.canPop();
-
-  void hideKeyboard() => FocusScope.of(this).unfocus();
-
-  void showKeyboard(FocusNode focusNode) => FocusScope.of(this).requestFocus(focusNode);
 }
 
 extension LucidListExtensions<T> on List<T> {
