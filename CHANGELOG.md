@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.3.0](https://github.com/forgelab-dev/lucid_core_flutter/compare/v0.2.0...v0.3.0) (2026-11-07)
+
+
+### Fonctionnalités
+
+* **widgets:** ajouter LucidCard, carte statique ou interactive ([5909453](https://github.com/forgelab-dev/lucid_core_flutter/commit/5909453ade81b2123d3a641e38e30e80f09206df))
+* **widgets:** ajouter LucidCard, carte statique ou interactive ([0c3f976](https://github.com/forgelab-dev/lucid_core_flutter/commit/0c3f976d0128055a9f893444c566f1ef269729dd)), closes [#7](https://github.com/forgelab-dev/lucid_core_flutter/issues/7)
+
 ## [0.2.0](https://github.com/forgelab-dev/lucid_core_flutter/compare/v0.1.0...v0.2.0) (2026-09-19)
 
 
