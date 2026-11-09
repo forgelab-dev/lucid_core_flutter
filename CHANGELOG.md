@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.3.1](https://github.com/forgelab-dev/lucid_core_flutter/compare/v0.3.0...v0.3.1) (2026-11-09)
+
+
+### Corrections
+
+* **android:** compiler contre l'API 36 ([b2c899f](https://github.com/forgelab-dev/lucid_core_flutter/commit/b2c899f090c587a62bcf3ace50d1827954e72241))
+* **android:** compiler contre l'API 36 ([5a3d4fa](https://github.com/forgelab-dev/lucid_core_flutter/commit/5a3d4fa068b68510a745254c0bbbd952417368cf))
+
 ## [0.3.0](https://github.com/forgelab-dev/lucid_core_flutter/compare/v0.2.0...v0.3.0) (2026-11-07)
 
 
