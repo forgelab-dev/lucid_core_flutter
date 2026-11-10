@@ -8,10 +8,16 @@ import '../helpers/helpers.dart';
 import '../models/models.dart';
 import 'lucid_themes.dart';
 
-class LucidThemeNotifier extends ChangeNotifier {
+/// Thème de l'application (clair, sombre ou celui du système) et ses préférences.
+///
+/// Suit le passage clair/sombre du téléphone comme un [WidgetsBindingObserver] :
+/// il ne prend pas la place du rappel `onPlatformBrightnessChanged`, dont Flutter
+/// se sert pour prévenir tous les autres widgets (et mettre à jour `MediaQuery`).
+class LucidThemeNotifier extends ChangeNotifier with WidgetsBindingObserver {
   LucidThemeNotifier() {
     _loadSavedTheme();
-    _setupSystemThemeListener();
+    _lastSystemBrightness = WidgetsBinding.instance.platformDispatcher.platformBrightness;
+    WidgetsBinding.instance.addObserver(this);
   }
 
   LucidThemeMode _themeMode = LucidThemeMode.system;
@@ -73,9 +79,7 @@ class LucidThemeNotifier extends ChangeNotifier {
     try {
       _themeMode = mode;
       await _saveThemeToCache();
-      if (mode == LucidThemeMode.system) {
-        _setupSystemThemeListener();
-      }
+      if (mode == LucidThemeMode.system) _syncSystemBrightness();
       logger.warn('Mode de thème changé vers: ${mode.displayName}');
     } catch (e) {
       _setError = 'Erreur lors du changement de mode de thème: $e';
@@ -149,7 +153,7 @@ class LucidThemeNotifier extends ChangeNotifier {
       _customTheme = null;
 
       await _saveThemeToCache();
-      _setupSystemThemeListener();
+      _syncSystemBrightness();
       logger.warn('Thèmes réinitialisés aux valeurs par défaut');
     } catch (e) {
       _setError = 'Erreur lors de la réinitialisation: $e';
@@ -163,41 +167,19 @@ class LucidThemeNotifier extends ChangeNotifier {
   // SYSTÈME THEME LISTENER
   // ===========================================================================
 
-  void _setupSystemThemeListener() {
-    _cleanupSystemThemeListener();
-    if (_themeMode != LucidThemeMode.system) return;
+  @override
+  void didChangePlatformBrightness() => _checkSystemBrightnessChange();
 
-    try {
-      _lastSystemBrightness = WidgetsBinding.instance.platformDispatcher.platformBrightness;
-
-      WidgetsBinding.instance.platformDispatcher.onPlatformBrightnessChanged = _checkSystemBrightnessChange;
-
-      logger.warn('Listener du thème système configuré');
-    } catch (e) {
-      logger.warn('Erreur lors de la configuration du listener système: $e', tag: 'THEME_ERROR');
-    }
+  /// Le téléphone a pu changer de luminosité pendant un mode clair ou sombre forcé.
+  void _syncSystemBrightness() {
+    _lastSystemBrightness = WidgetsBinding.instance.platformDispatcher.platformBrightness;
   }
 
   void _checkSystemBrightnessChange() {
-    try {
-      final currentBrightness = WidgetsBinding.instance.platformDispatcher.platformBrightness;
-
-      if (_lastSystemBrightness != currentBrightness) {
-        _lastSystemBrightness = currentBrightness;
-
-        if (_themeMode == LucidThemeMode.system) {
-          logger.warn('Changement de luminosité système détecté: ${currentBrightness.name}');
-          notifyListeners();
-        }
-      }
-    } catch (e) {
-      logger.warn('Erreur lors de la vérification de la luminosité: $e', tag: 'THEME_ERROR');
-    }
-  }
-
-  void _cleanupSystemThemeListener() {
-    // Plus besoin de Stream ni Timer.
-    WidgetsBinding.instance.platformDispatcher.onPlatformBrightnessChanged = null;
+    final currentBrightness = WidgetsBinding.instance.platformDispatcher.platformBrightness;
+    if (_lastSystemBrightness == currentBrightness) return;
+    _lastSystemBrightness = currentBrightness;
+    if (_themeMode == LucidThemeMode.system) notifyListeners();
   }
 
   void checkSystemBrightness() => _checkSystemBrightnessChange();
@@ -273,7 +255,7 @@ class LucidThemeNotifier extends ChangeNotifier {
 
   @override
   void dispose() {
-    _cleanupSystemThemeListener();
+    WidgetsBinding.instance.removeObserver(this);
     logger.warn('LucidThemeNotifier dispose');
     super.dispose();
   }
