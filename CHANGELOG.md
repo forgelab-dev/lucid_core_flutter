@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.7.1](https://github.com/forgelab-dev/lucid_core_flutter/compare/v0.7.0...v0.7.1) (2026-11-10)
+
+
+### Corrections
+
+* **feedback:** hachurer la partie prévue de la jauge ([6056fc9](https://github.com/forgelab-dev/lucid_core_flutter/commit/6056fc99cc09de495960ac10cd470ddd286fc718))
+* **feedback:** hachurer la partie prévue de la jauge ([4da3a83](https://github.com/forgelab-dev/lucid_core_flutter/commit/4da3a83c2c74b5b1a47103d0be42660116f917fe))
+
 ## [0.7.0](https://github.com/forgelab-dev/lucid_core_flutter/compare/v0.6.0...v0.7.0) (2026-11-10)
 
 
