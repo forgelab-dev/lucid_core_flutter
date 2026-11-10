@@ -21,8 +21,8 @@ enum LucidMeterLevel { normal, warning, over }
 ///
 /// La couleur dit le niveau : [color] tant qu'on reste sous [warningAt] du
 /// maximum, [warningColor] ensuite, [overColor] au-delà du maximum. La partie
-/// prévue suit son propre niveau : une prévision de dépassement se voit avant
-/// le dépassement.
+/// prévue est hachurée, dans la couleur de son propre niveau : une prévision de
+/// dépassement se voit avant le dépassement, sans se confondre avec le fond.
 ///
 /// Dans une [LucidPrivacyScope] en mode masqué, le lecteur d'écran lit la part
 /// atteinte (« 75 % ») au lieu de [semanticValue], qui contient souvent des
@@ -110,19 +110,18 @@ class LucidMeter extends StatelessWidget {
     final radius = BorderRadius.circular(height / 2);
     final animate = !MediaQuery.disableAnimationsOf(context);
 
-    Widget segment(Key key, double fraction, Color fill) =>
+    Widget animated(Key key, double fraction, Widget child) =>
         TweenAnimationBuilder<double>(
           tween: Tween(end: fraction),
           duration: animate ? const Duration(milliseconds: 280) : Duration.zero,
           curve: Curves.easeOutCubic,
-          builder: (context, widthFactor, _) => FractionallySizedBox(
+          child: child,
+          builder: (context, widthFactor, child) => FractionallySizedBox(
             key: key,
             alignment: AlignmentDirectional.centerStart,
             widthFactor: widthFactor,
             heightFactor: 1,
-            child: DecoratedBox(
-              decoration: BoxDecoration(color: fill, borderRadius: radius),
-            ),
+            child: child,
           ),
         );
 
@@ -143,18 +142,29 @@ class LucidMeter extends StatelessWidget {
             fit: StackFit.expand,
             children: [
               if (showProjected)
-                segment(
+                animated(
                   projectedKey,
                   projectedFraction,
-                  _colorFor(
-                    levelOf(ahead, max, warningAt: warningAt),
-                    colors,
-                  ).withValues(alpha: 0.32),
+                  _ProjectedSegment(
+                    color: _colorFor(
+                      levelOf(ahead, max, warningAt: warningAt),
+                      colors,
+                    ),
+                    radius: radius,
+                  ),
                 ),
-              segment(
+              animated(
                 valueKey,
                 valueFraction,
-                _colorFor(levelOf(value, max, warningAt: warningAt), colors),
+                DecoratedBox(
+                  decoration: BoxDecoration(
+                    color: _colorFor(
+                      levelOf(value, max, warningAt: warningAt),
+                      colors,
+                    ),
+                    borderRadius: radius,
+                  ),
+                ),
               ),
             ],
           ),
@@ -169,4 +179,53 @@ class LucidMeter extends StatelessWidget {
     final locale = Localizations.maybeLocaleOf(context)?.toLanguageTag();
     return NumberFormat.percentPattern(locale).format(value / max);
   }
+}
+
+/// La partie prévue : un voile léger de la couleur du niveau, barré de
+/// hachures. Un aplat translucide se mélangeait au fond de la jauge (un rouge
+/// sur bleu nuit devenait mauve) et se lisait comme le fond lui-même.
+class _ProjectedSegment extends StatelessWidget {
+  const _ProjectedSegment({required this.color, required this.radius});
+
+  final Color color;
+  final BorderRadius radius;
+
+  /// Opacité du voile sous les hachures.
+  static const double veil = 0.18;
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: radius,
+      child: DecoratedBox(
+        decoration: BoxDecoration(color: color.withValues(alpha: veil)),
+        child: CustomPaint(painter: _HatchPainter(color)),
+      ),
+    );
+  }
+}
+
+class _HatchPainter extends CustomPainter {
+  const _HatchPainter(this.color);
+
+  final Color color;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = color.withValues(alpha: 0.7)
+      ..strokeWidth = 2;
+    const gap = 6.0;
+    // Des traits à 45°, de la gauche du segment jusqu'au-delà de sa droite.
+    for (var x = -size.height; x < size.width; x += gap) {
+      canvas.drawLine(
+        Offset(x, size.height),
+        Offset(x + size.height, 0),
+        paint,
+      );
+    }
+  }
+
+  @override
+  bool shouldRepaint(_HatchPainter old) => old.color != color;
 }
