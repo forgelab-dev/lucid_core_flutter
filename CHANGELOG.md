@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.5.0](https://github.com/forgelab-dev/lucid_core_flutter/compare/v0.4.0...v0.5.0) (2026-11-10)
+
+
+### Fonctionnalités
+
+* **list:** LucidSwipeActions pour agir en glissant une ligne ([bc57dff](https://github.com/forgelab-dev/lucid_core_flutter/commit/bc57dfffb5b1101fde2d1f07a0bb1c1e623c06f5))
+* **list:** LucidSwipeActions pour agir en glissant une ligne ([30b1fc1](https://github.com/forgelab-dev/lucid_core_flutter/commit/30b1fc1c7e7333211ed1f847d0648346722b028a))
+
 ## [0.4.0](https://github.com/forgelab-dev/lucid_core_flutter/compare/v0.3.1...v0.4.0) (2026-11-10)
 
 
