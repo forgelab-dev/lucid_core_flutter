@@ -23,7 +23,9 @@ class LucidTextField extends StatefulWidget {
     this.controller,
     this.label,
     this.hint,
+    this.helperText,
     this.errorText,
+    this.textCapitalization = TextCapitalization.none,
     this.obscureText = false,
     this.enabled = true,
     this.autofocus = false,
@@ -46,6 +48,8 @@ class LucidTextField extends StatefulWidget {
     super.key,
     this.controller,
     this.label,
+    this.helperText,
+    this.errorText,
     this.enabled = true,
     this.autofocus = false,
     this.textInputAction,
@@ -54,7 +58,7 @@ class LucidTextField extends StatefulWidget {
     this.onChanged,
     this.onSubmitted,
   }) : hint = null,
-       errorText = null,
+       textCapitalization = TextCapitalization.none,
        obscureText = false,
        maxLines = 1,
        keyboardType = TextInputType.emailAddress,
@@ -71,6 +75,8 @@ class LucidTextField extends StatefulWidget {
     super.key,
     this.controller,
     this.label,
+    this.helperText,
+    this.errorText,
     this.enabled = true,
     this.autofocus = false,
     this.textInputAction,
@@ -80,7 +86,7 @@ class LucidTextField extends StatefulWidget {
     this.onSubmitted,
     bool requireStrong = true,
   }) : hint = null,
-       errorText = null,
+       textCapitalization = TextCapitalization.none,
        obscureText = true,
        maxLines = 1,
        keyboardType = null,
@@ -93,7 +99,18 @@ class LucidTextField extends StatefulWidget {
   final TextEditingController? controller;
   final String? label;
   final String? hint;
+
+  /// Aide affichée sous le champ (format attendu, conseil…), remplacée par
+  /// l'erreur quand il y en a une.
+  final String? helperText;
+
+  /// Erreur imposée de l'extérieur (réponse du serveur, par exemple), en plus
+  /// de celle du [validator].
   final String? errorText;
+
+  /// Majuscule automatique du clavier (phrases, mots…) ; jamais pour les
+  /// champs email et mot de passe.
+  final TextCapitalization textCapitalization;
   final bool obscureText;
   final bool enabled;
   final bool autofocus;
@@ -146,6 +163,7 @@ class _LucidTextFieldState extends State<LucidTextField> {
       maxLines: _obscure ? 1 : widget.maxLines,
       keyboardType: widget.keyboardType,
       textInputAction: widget.textInputAction,
+      textCapitalization: widget.textCapitalization,
       inputFormatters: widget.inputFormatters,
       validator: widget.validator ?? _defaultValidator(l10n),
       onChanged: widget.onChanged,
@@ -153,6 +171,7 @@ class _LucidTextFieldState extends State<LucidTextField> {
       decoration: InputDecoration(
         labelText: widget.label ?? _defaultLabel(l10n),
         hintText: widget.hint,
+        helperText: widget.helperText,
         errorText: widget.errorText,
         prefixIcon: widget.prefixIcon != null ? Icon(widget.prefixIcon) : null,
         suffixIcon: isPassword && widget.suffixIcon == null ? _buildVisibilityToggle(l10n) : widget.suffixIcon,
