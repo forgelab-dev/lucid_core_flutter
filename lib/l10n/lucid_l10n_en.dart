@@ -1244,4 +1244,13 @@ class LucidL10nEn extends LucidL10n {
   String optionUnavailable(String option) {
     return '$option unavailable';
   }
+
+  @override
+  String get hideValues => 'Hide amounts';
+
+  @override
+  String get showValues => 'Show amounts';
+
+  @override
+  String get hiddenValue => 'Hidden amount';
 }

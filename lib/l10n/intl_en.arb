@@ -2393,5 +2393,23 @@
         "type": "String"
       }
     }
+  },
+  "hideValues": "Hide amounts",
+  "@hideValues": {
+    "description": "Translation for \"hideValues\"",
+    "context": "privacy",
+    "type": "text"
+  },
+  "showValues": "Show amounts",
+  "@showValues": {
+    "description": "Translation for \"showValues\"",
+    "context": "privacy",
+    "type": "text"
+  },
+  "hiddenValue": "Hidden amount",
+  "@hiddenValue": {
+    "description": "Translation for \"hiddenValue\"",
+    "context": "privacy",
+    "type": "text"
   }
 }

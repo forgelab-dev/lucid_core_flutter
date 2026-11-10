@@ -2393,5 +2393,23 @@
         "type": "String"
       }
     }
+  },
+  "hideValues": "Masquer les montants",
+  "@hideValues": {
+    "description": "Translation for \"hideValues\"",
+    "context": "privacy",
+    "type": "text"
+  },
+  "showValues": "Afficher les montants",
+  "@showValues": {
+    "description": "Translation for \"showValues\"",
+    "context": "privacy",
+    "type": "text"
+  },
+  "hiddenValue": "Montant masqué",
+  "@hiddenValue": {
+    "description": "Translation for \"hiddenValue\"",
+    "context": "privacy",
+    "type": "text"
   }
 }
