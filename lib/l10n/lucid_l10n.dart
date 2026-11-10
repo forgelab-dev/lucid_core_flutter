@@ -2430,6 +2430,24 @@ abstract class LucidL10n {
   /// In fr, this message translates to:
   /// **'{option} indisponible'**
   String optionUnavailable(String option);
+
+  /// Translation for "hideValues"
+  ///
+  /// In fr, this message translates to:
+  /// **'Masquer les montants'**
+  String get hideValues;
+
+  /// Translation for "showValues"
+  ///
+  /// In fr, this message translates to:
+  /// **'Afficher les montants'**
+  String get showValues;
+
+  /// Translation for "hiddenValue"
+  ///
+  /// In fr, this message translates to:
+  /// **'Montant masqué'**
+  String get hiddenValue;
 }
 
 class _LucidL10nDelegate extends LocalizationsDelegate<LucidL10n> {
