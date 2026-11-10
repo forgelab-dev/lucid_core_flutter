@@ -14,12 +14,18 @@ import '../../provider/provider.dart';
 /// }
 /// ```
 ///
+/// Avec un routeur déclaratif (go_router…), utiliser [LucidApp.router] :
+///
+/// ```dart
+/// runApp(LucidApp.router(title: 'Mon app', routerConfig: monRouteur));
+/// ```
+///
 /// Reste indépendant : un projet qui préfère câbler son propre `MaterialApp`
 /// peut ignorer ce widget et utiliser directement [LucidThemeProvider].
 class LucidApp extends StatelessWidget {
   const LucidApp({
     super.key,
-    required this.home,
+    required Widget this.home,
     this.title = '',
     this.themeNotifier,
     this.lightTheme,
@@ -33,9 +39,34 @@ class LucidApp extends StatelessWidget {
     this.locale,
     this.themeAnimationDuration = const Duration(milliseconds: 250),
     this.debugShowCheckedModeBanner = false,
-  });
+  }) : routerConfig = null;
 
-  final Widget home;
+  /// Application pilotée par un routeur ([RouterConfig] de go_router, par
+  /// exemple) : même thème et mêmes traductions, `MaterialApp.router` dessous.
+  /// La navigation (pages, clé, routes) appartient alors au routeur.
+  const LucidApp.router({
+    super.key,
+    required RouterConfig<Object> this.routerConfig,
+    this.title = '',
+    this.themeNotifier,
+    this.lightTheme,
+    this.darkTheme,
+    this.additionalLocalizationsDelegates = const [],
+    this.additionalSupportedLocales = const [],
+    this.builder,
+    this.locale,
+    this.themeAnimationDuration = const Duration(milliseconds: 250),
+    this.debugShowCheckedModeBanner = false,
+  }) : home = null,
+       navigatorKey = null,
+       routes = const {},
+       onGenerateRoute = null;
+
+  /// Écran d'accueil ; `null` avec [LucidApp.router].
+  final Widget? home;
+
+  /// Configuration du routeur ; `null` avec le constructeur par défaut.
+  final RouterConfig<Object>? routerConfig;
   final String title;
 
   /// Notifieur de thème à utiliser ; par défaut, [LucidThemeHelper.instance]
@@ -70,20 +101,37 @@ class LucidApp extends StatelessWidget {
         builder: (context) {
           final notifier = LucidThemeProvider.of(context);
 
+          final theme = lightTheme ?? notifier.lightThemeData;
+          final dark = darkTheme ?? notifier.darkThemeData;
+          final themeMode = _toFlutterThemeMode(notifier.themeMode);
+          final delegates = [...LucidL10n.localizationsDelegates, ...additionalLocalizationsDelegates];
+          final locales = [...LucidL10n.supportedLocales, ...additionalSupportedLocales];
+
+          final router = routerConfig;
+          if (router != null) {
+            return MaterialApp.router(
+              title: title,
+              debugShowCheckedModeBanner: debugShowCheckedModeBanner,
+              theme: theme,
+              darkTheme: dark,
+              themeMode: themeMode,
+              localizationsDelegates: delegates,
+              supportedLocales: locales,
+              locale: locale,
+              themeAnimationDuration: themeAnimationDuration,
+              routerConfig: router,
+              builder: builder,
+            );
+          }
+
           return MaterialApp(
             title: title,
             debugShowCheckedModeBanner: debugShowCheckedModeBanner,
-            theme: lightTheme ?? notifier.lightThemeData,
-            darkTheme: darkTheme ?? notifier.darkThemeData,
-            themeMode: _toFlutterThemeMode(notifier.themeMode),
-            localizationsDelegates: [
-              ...LucidL10n.localizationsDelegates,
-              ...additionalLocalizationsDelegates,
-            ],
-            supportedLocales: [
-              ...LucidL10n.supportedLocales,
-              ...additionalSupportedLocales,
-            ],
+            theme: theme,
+            darkTheme: dark,
+            themeMode: themeMode,
+            localizationsDelegates: delegates,
+            supportedLocales: locales,
             locale: locale,
             themeAnimationDuration: themeAnimationDuration,
             navigatorKey: navigatorKey,
