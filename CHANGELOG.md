@@ -1,5 +1,23 @@
 # Changelog
 
+## [0.4.0](https://github.com/forgelab-dev/lucid_core_flutter/compare/v0.3.1...v0.4.0) (2026-11-10)
+
+
+### Fonctionnalités
+
+* **app:** LucidApp.router pour les apps à routeur déclaratif ([a135a1d](https://github.com/forgelab-dev/lucid_core_flutter/commit/a135a1ddeeed5f1d1048e43f9150bcce1cee621e))
+* **app:** LucidApp.router pour les apps à routeur déclaratif ([3652ada](https://github.com/forgelab-dev/lucid_core_flutter/commit/3652ada7b13a68b6c8991eb85fe3e9d12394af13))
+* **inputs:** aide, majuscules et erreur sur LucidTextField ([cacca8c](https://github.com/forgelab-dev/lucid_core_flutter/commit/cacca8ceafa8da384b7c7723fd87a2520875db38))
+* **inputs:** aide, majuscules et erreur sur LucidTextField ([171dcfd](https://github.com/forgelab-dev/lucid_core_flutter/commit/171dcfd7ed095e7e5c67451096bc80d406d7e221))
+
+
+### Corrections
+
+* **navigation:** séparer push/pop pour cohabiter avec go_router ([8df015b](https://github.com/forgelab-dev/lucid_core_flutter/commit/8df015bbfb92ad635c02d521be8f6d5a95b48ff8))
+* **navigation:** séparer push/pop pour cohabiter avec go_router ([10dd16a](https://github.com/forgelab-dev/lucid_core_flutter/commit/10dd16ae19e403b3c1dc0aca064b26bec5d99248))
+* **theme:** ne plus confisquer le passage clair/sombre de Flutter ([87111ab](https://github.com/forgelab-dev/lucid_core_flutter/commit/87111abc5f35c08276710c54d690971c2c7c442f))
+* **theme:** ne plus confisquer le passage clair/sombre de Flutter ([5fa360c](https://github.com/forgelab-dev/lucid_core_flutter/commit/5fa360c016dacacd1afcb7967643d332560c3276))
+
 ## [0.3.1](https://github.com/forgelab-dev/lucid_core_flutter/compare/v0.3.0...v0.3.1) (2026-11-09)
 
 
