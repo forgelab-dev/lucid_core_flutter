@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.7.0](https://github.com/forgelab-dev/lucid_core_flutter/compare/v0.6.0...v0.7.0) (2026-11-10)
+
+
+### Fonctionnalités
+
+* **feedback:** une jauge pour suivre une valeur sur un maximum ([a52e939](https://github.com/forgelab-dev/lucid_core_flutter/commit/a52e939cf69d733b25bba12f873e662816ee843b))
+* **feedback:** une jauge pour suivre une valeur sur un maximum ([2a57f72](https://github.com/forgelab-dev/lucid_core_flutter/commit/2a57f72acce9b51131541f308c8353c07b194e68))
+
 ## [0.6.0](https://github.com/forgelab-dev/lucid_core_flutter/compare/v0.5.0...v0.6.0) (2026-11-10)
 
 
