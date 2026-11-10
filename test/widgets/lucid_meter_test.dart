@@ -78,7 +78,7 @@ void main() {
       expect(_widthFactor(tester, LucidMeter.projectedKey), 1);
       expect(
         _colorOf(tester, LucidMeter.projectedKey),
-        _error.withValues(alpha: 0.32),
+        _error.withValues(alpha: 0.18),
       );
     });
 
