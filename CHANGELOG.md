@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.6.0](https://github.com/forgelab-dev/lucid_core_flutter/compare/v0.5.0...v0.6.0) (2026-11-10)
+
+
+### Fonctionnalités
+
+* **feedback:** LucidSnack, un message court en pastille ([2a6fa11](https://github.com/forgelab-dev/lucid_core_flutter/commit/2a6fa1149c324e0e73f2e794d8548afe74990cdb))
+* **feedback:** masquer les montants d'un œil ([646738d](https://github.com/forgelab-dev/lucid_core_flutter/commit/646738ddd491303e220bea6018a78da68ec446bf))
+* **feedback:** masquer les montants d'un œil ([354b567](https://github.com/forgelab-dev/lucid_core_flutter/commit/354b5672c560f2364ed67a7df2ae6e076b1fe339))
+
 ## [0.5.0](https://github.com/forgelab-dev/lucid_core_flutter/compare/v0.4.0...v0.5.0) (2026-11-10)
 
 
