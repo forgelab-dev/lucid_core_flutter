@@ -2411,5 +2411,154 @@
     "description": "Translation for \"hiddenValue\"",
     "context": "privacy",
     "type": "text"
+  },
+  "recurrenceEveryWeek": "Chaque semaine",
+  "@recurrenceEveryWeek": {
+    "description": "Récurrence : Chaque semaine",
+    "context": "recurrence"
+  },
+  "recurrenceEveryNWeeks": "Toutes les {count} semaines",
+  "@recurrenceEveryNWeeks": {
+    "description": "Récurrence : Toutes les {count} semaines",
+    "context": "recurrence",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "recurrenceEveryMonth": "Chaque mois",
+  "@recurrenceEveryMonth": {
+    "description": "Récurrence : Chaque mois",
+    "context": "recurrence"
+  },
+  "recurrenceEveryNMonths": "Tous les {count} mois",
+  "@recurrenceEveryNMonths": {
+    "description": "Récurrence : Tous les {count} mois",
+    "context": "recurrence",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "recurrenceEveryYear": "Chaque année",
+  "@recurrenceEveryYear": {
+    "description": "Récurrence : Chaque année",
+    "context": "recurrence"
+  },
+  "recurrenceEveryNYears": "Tous les {count} ans",
+  "@recurrenceEveryNYears": {
+    "description": "Récurrence : Tous les {count} ans",
+    "context": "recurrence",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "recurrenceOnWeekday": "Chaque {weekday}",
+  "@recurrenceOnWeekday": {
+    "description": "Récurrence : Chaque {weekday}",
+    "context": "recurrence",
+    "placeholders": {
+      "weekday": {
+        "type": "String"
+      }
+    }
+  },
+  "recurrenceOnWeekdayEveryN": "Un {weekday} sur {count}",
+  "@recurrenceOnWeekdayEveryN": {
+    "description": "Récurrence : Un {weekday} sur {count}",
+    "context": "recurrence",
+    "placeholders": {
+      "weekday": {
+        "type": "String"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "recurrenceOnMonthDay": "Le {day} de chaque mois",
+  "@recurrenceOnMonthDay": {
+    "description": "Récurrence : Le {day} de chaque mois",
+    "context": "recurrence",
+    "placeholders": {
+      "day": {
+        "type": "String"
+      }
+    }
+  },
+  "recurrenceOnMonthDayEveryN": "Le {day}, tous les {count} mois",
+  "@recurrenceOnMonthDayEveryN": {
+    "description": "Récurrence : Le {day}, tous les {count} mois",
+    "context": "recurrence",
+    "placeholders": {
+      "day": {
+        "type": "String"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "recurrenceMonthEndNote": "Les mois plus courts : le dernier jour.",
+  "@recurrenceMonthEndNote": {
+    "description": "Récurrence : Les mois plus courts : le dernier jour.",
+    "context": "recurrence"
+  },
+  "recurrenceOnYearDay": "Chaque année, le {date}",
+  "@recurrenceOnYearDay": {
+    "description": "Récurrence : Chaque année, le {date}",
+    "context": "recurrence",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "recurrenceOnYearDayEveryN": "Le {date}, tous les {count} ans",
+  "@recurrenceOnYearDayEveryN": {
+    "description": "Récurrence : Le {date}, tous les {count} ans",
+    "context": "recurrence",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "recurrenceStartsOn": "Dès le {date}",
+  "@recurrenceStartsOn": {
+    "description": "Récurrence : Dès le {date}",
+    "context": "recurrence",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "recurrenceNoEnd": "Sans fin",
+  "@recurrenceNoEnd": {
+    "description": "Récurrence : Sans fin",
+    "context": "recurrence"
+  },
+  "recurrenceUntil": "Jusqu’au {date}",
+  "@recurrenceUntil": {
+    "description": "Récurrence : Jusqu’au {date}",
+    "context": "recurrence",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "recurrenceSetEnd": "Choisir une fin",
+  "@recurrenceSetEnd": {
+    "description": "Récurrence : Choisir une fin",
+    "context": "recurrence"
   }
 }

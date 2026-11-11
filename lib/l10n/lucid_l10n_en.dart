@@ -1253,4 +1253,77 @@ class LucidL10nEn extends LucidL10n {
 
   @override
   String get hiddenValue => 'Hidden amount';
+
+  @override
+  String get recurrenceEveryWeek => 'Every week';
+
+  @override
+  String recurrenceEveryNWeeks(int count) {
+    return 'Every $count weeks';
+  }
+
+  @override
+  String get recurrenceEveryMonth => 'Every month';
+
+  @override
+  String recurrenceEveryNMonths(int count) {
+    return 'Every $count months';
+  }
+
+  @override
+  String get recurrenceEveryYear => 'Every year';
+
+  @override
+  String recurrenceEveryNYears(int count) {
+    return 'Every $count years';
+  }
+
+  @override
+  String recurrenceOnWeekday(String weekday) {
+    return 'Every $weekday';
+  }
+
+  @override
+  String recurrenceOnWeekdayEveryN(String weekday, int count) {
+    return 'Every $count weeks on $weekday';
+  }
+
+  @override
+  String recurrenceOnMonthDay(String day) {
+    return 'On day $day of every month';
+  }
+
+  @override
+  String recurrenceOnMonthDayEveryN(String day, int count) {
+    return 'On day $day, every $count months';
+  }
+
+  @override
+  String get recurrenceMonthEndNote => 'In shorter months: the last day.';
+
+  @override
+  String recurrenceOnYearDay(String date) {
+    return 'Every year on $date';
+  }
+
+  @override
+  String recurrenceOnYearDayEveryN(String date, int count) {
+    return 'On $date, every $count years';
+  }
+
+  @override
+  String recurrenceStartsOn(String date) {
+    return 'From $date';
+  }
+
+  @override
+  String get recurrenceNoEnd => 'No end';
+
+  @override
+  String recurrenceUntil(String date) {
+    return 'Until $date';
+  }
+
+  @override
+  String get recurrenceSetEnd => 'Set an end';
 }

@@ -1256,4 +1256,78 @@ class LucidL10nFr extends LucidL10n {
 
   @override
   String get hiddenValue => 'Montant masqué';
+
+  @override
+  String get recurrenceEveryWeek => 'Chaque semaine';
+
+  @override
+  String recurrenceEveryNWeeks(int count) {
+    return 'Toutes les $count semaines';
+  }
+
+  @override
+  String get recurrenceEveryMonth => 'Chaque mois';
+
+  @override
+  String recurrenceEveryNMonths(int count) {
+    return 'Tous les $count mois';
+  }
+
+  @override
+  String get recurrenceEveryYear => 'Chaque année';
+
+  @override
+  String recurrenceEveryNYears(int count) {
+    return 'Tous les $count ans';
+  }
+
+  @override
+  String recurrenceOnWeekday(String weekday) {
+    return 'Chaque $weekday';
+  }
+
+  @override
+  String recurrenceOnWeekdayEveryN(String weekday, int count) {
+    return 'Un $weekday sur $count';
+  }
+
+  @override
+  String recurrenceOnMonthDay(String day) {
+    return 'Le $day de chaque mois';
+  }
+
+  @override
+  String recurrenceOnMonthDayEveryN(String day, int count) {
+    return 'Le $day, tous les $count mois';
+  }
+
+  @override
+  String get recurrenceMonthEndNote =>
+      'Les mois plus courts : le dernier jour.';
+
+  @override
+  String recurrenceOnYearDay(String date) {
+    return 'Chaque année, le $date';
+  }
+
+  @override
+  String recurrenceOnYearDayEveryN(String date, int count) {
+    return 'Le $date, tous les $count ans';
+  }
+
+  @override
+  String recurrenceStartsOn(String date) {
+    return 'Dès le $date';
+  }
+
+  @override
+  String get recurrenceNoEnd => 'Sans fin';
+
+  @override
+  String recurrenceUntil(String date) {
+    return 'Jusqu’au $date';
+  }
+
+  @override
+  String get recurrenceSetEnd => 'Choisir une fin';
 }
