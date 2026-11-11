@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.8.0](https://github.com/forgelab-dev/lucid_core_flutter/compare/v0.7.1...v0.8.0) (2026-11-11)
+
+
+### Fonctionnalités
+
+* **core:** une règle de récurrence par dates ([aa28447](https://github.com/forgelab-dev/lucid_core_flutter/commit/aa28447d310c7c212c29e5ab9fcdfd627ca301c0))
+* **inputs:** pouvoir masquer le jour de départ d'une récurrence ([53afbaa](https://github.com/forgelab-dev/lucid_core_flutter/commit/53afbaae3de66dbba05a2e91ea9a8ba47a2eb2c2))
+* **inputs:** un champ pour choisir comment une chose revient ([e480e17](https://github.com/forgelab-dev/lucid_core_flutter/commit/e480e177e35350395c0325ce96073f4d5f49de91))
+* une règle de récurrence et son champ de saisie ([0ba5735](https://github.com/forgelab-dev/lucid_core_flutter/commit/0ba5735d14ed68362d8a52ab8e40fad4712922c2))
+
 ## [0.7.1](https://github.com/forgelab-dev/lucid_core_flutter/compare/v0.7.0...v0.7.1) (2026-11-10)
 
 
