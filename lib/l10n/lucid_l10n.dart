@@ -2448,6 +2448,108 @@ abstract class LucidL10n {
   /// In fr, this message translates to:
   /// **'Montant masqué'**
   String get hiddenValue;
+
+  /// Récurrence : Chaque semaine
+  ///
+  /// In fr, this message translates to:
+  /// **'Chaque semaine'**
+  String get recurrenceEveryWeek;
+
+  /// Récurrence : Toutes les {count} semaines
+  ///
+  /// In fr, this message translates to:
+  /// **'Toutes les {count} semaines'**
+  String recurrenceEveryNWeeks(int count);
+
+  /// Récurrence : Chaque mois
+  ///
+  /// In fr, this message translates to:
+  /// **'Chaque mois'**
+  String get recurrenceEveryMonth;
+
+  /// Récurrence : Tous les {count} mois
+  ///
+  /// In fr, this message translates to:
+  /// **'Tous les {count} mois'**
+  String recurrenceEveryNMonths(int count);
+
+  /// Récurrence : Chaque année
+  ///
+  /// In fr, this message translates to:
+  /// **'Chaque année'**
+  String get recurrenceEveryYear;
+
+  /// Récurrence : Tous les {count} ans
+  ///
+  /// In fr, this message translates to:
+  /// **'Tous les {count} ans'**
+  String recurrenceEveryNYears(int count);
+
+  /// Récurrence : Chaque {weekday}
+  ///
+  /// In fr, this message translates to:
+  /// **'Chaque {weekday}'**
+  String recurrenceOnWeekday(String weekday);
+
+  /// Récurrence : Un {weekday} sur {count}
+  ///
+  /// In fr, this message translates to:
+  /// **'Un {weekday} sur {count}'**
+  String recurrenceOnWeekdayEveryN(String weekday, int count);
+
+  /// Récurrence : Le {day} de chaque mois
+  ///
+  /// In fr, this message translates to:
+  /// **'Le {day} de chaque mois'**
+  String recurrenceOnMonthDay(String day);
+
+  /// Récurrence : Le {day}, tous les {count} mois
+  ///
+  /// In fr, this message translates to:
+  /// **'Le {day}, tous les {count} mois'**
+  String recurrenceOnMonthDayEveryN(String day, int count);
+
+  /// Récurrence : Les mois plus courts : le dernier jour.
+  ///
+  /// In fr, this message translates to:
+  /// **'Les mois plus courts : le dernier jour.'**
+  String get recurrenceMonthEndNote;
+
+  /// Récurrence : Chaque année, le {date}
+  ///
+  /// In fr, this message translates to:
+  /// **'Chaque année, le {date}'**
+  String recurrenceOnYearDay(String date);
+
+  /// Récurrence : Le {date}, tous les {count} ans
+  ///
+  /// In fr, this message translates to:
+  /// **'Le {date}, tous les {count} ans'**
+  String recurrenceOnYearDayEveryN(String date, int count);
+
+  /// Récurrence : Dès le {date}
+  ///
+  /// In fr, this message translates to:
+  /// **'Dès le {date}'**
+  String recurrenceStartsOn(String date);
+
+  /// Récurrence : Sans fin
+  ///
+  /// In fr, this message translates to:
+  /// **'Sans fin'**
+  String get recurrenceNoEnd;
+
+  /// Récurrence : Jusqu’au {date}
+  ///
+  /// In fr, this message translates to:
+  /// **'Jusqu’au {date}'**
+  String recurrenceUntil(String date);
+
+  /// Récurrence : Choisir une fin
+  ///
+  /// In fr, this message translates to:
+  /// **'Choisir une fin'**
+  String get recurrenceSetEnd;
 }
 
 class _LucidL10nDelegate extends LocalizationsDelegate<LucidL10n> {

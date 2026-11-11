@@ -2411,5 +2411,154 @@
     "description": "Translation for \"hiddenValue\"",
     "context": "privacy",
     "type": "text"
+  },
+  "recurrenceEveryWeek": "Every week",
+  "@recurrenceEveryWeek": {
+    "description": "Récurrence : Chaque semaine",
+    "context": "recurrence"
+  },
+  "recurrenceEveryNWeeks": "Every {count} weeks",
+  "@recurrenceEveryNWeeks": {
+    "description": "Récurrence : Toutes les {count} semaines",
+    "context": "recurrence",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "recurrenceEveryMonth": "Every month",
+  "@recurrenceEveryMonth": {
+    "description": "Récurrence : Chaque mois",
+    "context": "recurrence"
+  },
+  "recurrenceEveryNMonths": "Every {count} months",
+  "@recurrenceEveryNMonths": {
+    "description": "Récurrence : Tous les {count} mois",
+    "context": "recurrence",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "recurrenceEveryYear": "Every year",
+  "@recurrenceEveryYear": {
+    "description": "Récurrence : Chaque année",
+    "context": "recurrence"
+  },
+  "recurrenceEveryNYears": "Every {count} years",
+  "@recurrenceEveryNYears": {
+    "description": "Récurrence : Tous les {count} ans",
+    "context": "recurrence",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "recurrenceOnWeekday": "Every {weekday}",
+  "@recurrenceOnWeekday": {
+    "description": "Récurrence : Chaque {weekday}",
+    "context": "recurrence",
+    "placeholders": {
+      "weekday": {
+        "type": "String"
+      }
+    }
+  },
+  "recurrenceOnWeekdayEveryN": "Every {count} weeks on {weekday}",
+  "@recurrenceOnWeekdayEveryN": {
+    "description": "Récurrence : Un {weekday} sur {count}",
+    "context": "recurrence",
+    "placeholders": {
+      "weekday": {
+        "type": "String"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "recurrenceOnMonthDay": "On day {day} of every month",
+  "@recurrenceOnMonthDay": {
+    "description": "Récurrence : Le {day} de chaque mois",
+    "context": "recurrence",
+    "placeholders": {
+      "day": {
+        "type": "String"
+      }
+    }
+  },
+  "recurrenceOnMonthDayEveryN": "On day {day}, every {count} months",
+  "@recurrenceOnMonthDayEveryN": {
+    "description": "Récurrence : Le {day}, tous les {count} mois",
+    "context": "recurrence",
+    "placeholders": {
+      "day": {
+        "type": "String"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "recurrenceMonthEndNote": "In shorter months: the last day.",
+  "@recurrenceMonthEndNote": {
+    "description": "Récurrence : Les mois plus courts : le dernier jour.",
+    "context": "recurrence"
+  },
+  "recurrenceOnYearDay": "Every year on {date}",
+  "@recurrenceOnYearDay": {
+    "description": "Récurrence : Chaque année, le {date}",
+    "context": "recurrence",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "recurrenceOnYearDayEveryN": "On {date}, every {count} years",
+  "@recurrenceOnYearDayEveryN": {
+    "description": "Récurrence : Le {date}, tous les {count} ans",
+    "context": "recurrence",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "recurrenceStartsOn": "From {date}",
+  "@recurrenceStartsOn": {
+    "description": "Récurrence : Dès le {date}",
+    "context": "recurrence",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "recurrenceNoEnd": "No end",
+  "@recurrenceNoEnd": {
+    "description": "Récurrence : Sans fin",
+    "context": "recurrence"
+  },
+  "recurrenceUntil": "Until {date}",
+  "@recurrenceUntil": {
+    "description": "Récurrence : Jusqu’au {date}",
+    "context": "recurrence",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "recurrenceSetEnd": "Set an end",
+  "@recurrenceSetEnd": {
+    "description": "Récurrence : Choisir une fin",
+    "context": "recurrence"
   }
 }

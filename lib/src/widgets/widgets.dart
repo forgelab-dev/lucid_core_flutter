@@ -6,6 +6,7 @@ export 'feedback/lucid_error_state.dart';
 export 'feedback/lucid_meter.dart';
 export 'feedback/lucid_privacy.dart';
 export 'feedback/lucid_snack.dart';
+export 'inputs/lucid_recurrence_field.dart';
 export 'inputs/lucid_text_field.dart';
 export 'list/lucid_list_manager.dart';
 export 'list/lucid_swipe_actions.dart';
