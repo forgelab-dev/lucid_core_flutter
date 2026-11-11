@@ -15,4 +15,5 @@ export 'lucid_log_entry.dart';
 export 'lucid_logger_config.dart';
 export 'lucid_nav_destination.dart';
 export 'lucid_oauth_tokens.dart';
+export 'lucid_recurrence.dart';
 export 'lucid_upload_file.dart';
