@@ -10,9 +10,13 @@ class _Host extends StatefulWidget {
     required this.initial,
     this.choiceBuilder,
     this.withL10n = true,
+    this.showStart = true,
+    this.showUntil = true,
   });
 
   final LucidRecurrence initial;
+  final bool showStart;
+  final bool showUntil;
   final LucidChoiceBuilder? choiceBuilder;
   final bool withL10n;
 
@@ -35,6 +39,8 @@ class _HostState extends State<_Host> {
       body: LucidRecurrenceField(
         value: rule,
         choiceBuilder: widget.choiceBuilder,
+        showStart: widget.showStart,
+        showUntil: widget.showUntil,
         onChanged: (next) => setState(() => rule = next),
       ),
     ),
@@ -151,6 +157,27 @@ void main() {
   testWidgets('en français même sans LucidL10n déclaré', (tester) async {
     await tester.pumpWidget(_Host(initial: _fifth, withL10n: false));
     await tester.pumpAndSettle();
+    expect(find.text('Le 5 de chaque mois'), findsOneWidget);
+  });
+
+  testWidgets('le début et la fin peuvent être imposés par l’application', (
+    tester,
+  ) async {
+    await tester.pumpWidget(_Host(initial: _fifth, showStart: false));
+    await tester.pumpAndSettle();
+    expect(find.text('Dès le jeu. 5 nov.'), findsNothing);
+    expect(find.text('Sans fin'), findsOneWidget);
+
+    await tester.pumpWidget(
+      _Host(
+        key: const ValueKey('rien'),
+        initial: _fifth,
+        showStart: false,
+        showUntil: false,
+      ),
+    );
+    await tester.pumpAndSettle();
+    expect(find.text('Sans fin'), findsNothing);
     expect(find.text('Le 5 de chaque mois'), findsOneWidget);
   });
 }

@@ -48,6 +48,7 @@ class LucidRecurrenceField extends StatelessWidget {
     required this.value,
     required this.onChanged,
     this.frequencies = defaultFrequencies,
+    this.showStart = true,
     this.showUntil = true,
     this.firstDate,
     this.lastDate,
@@ -65,6 +66,10 @@ class LucidRecurrenceField extends StatelessWidget {
   final LucidRecurrence value;
   final ValueChanged<LucidRecurrence> onChanged;
   final List<LucidRecurrenceFrequency> frequencies;
+
+  /// Propose de changer le jour de départ. À masquer quand il est imposé, par
+  /// exemple par la date d'une opération qui devient la première échéance.
+  final bool showStart;
 
   /// Propose « Sans fin » ou une date de fin.
   final bool showUntil;
@@ -122,47 +127,50 @@ class LucidRecurrenceField extends StatelessWidget {
               style: theme.textTheme.bodySmall,
             ),
           ),
-        const SizedBox(height: 12),
-        Wrap(
-          spacing: 8,
-          runSpacing: 8,
-          children: [
-            build(
-              context,
-              LucidChoice(
-                label: l10n.recurrenceStartsOn(
-                  DateFormat.MMMEd(locale).format(value.start),
+        if (showStart || showUntil) ...[
+          const SizedBox(height: 12),
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: [
+              if (showStart)
+                build(
+                  context,
+                  LucidChoice(
+                    label: l10n.recurrenceStartsOn(
+                      DateFormat.MMMEd(locale).format(value.start),
+                    ),
+                    icon: Icons.event_outlined,
+                    selected: false,
+                    onTap: () => _pickStart(context),
+                  ),
                 ),
-                icon: Icons.event_outlined,
-                selected: false,
-                onTap: () => _pickStart(context),
-              ),
-            ),
-            if (showUntil) ...[
-              build(
-                context,
-                LucidChoice(
-                  label: l10n.recurrenceNoEnd,
-                  selected: until == null,
-                  onTap: () => onChanged(value.copyWith(clearUntil: true)),
+              if (showUntil) ...[
+                build(
+                  context,
+                  LucidChoice(
+                    label: l10n.recurrenceNoEnd,
+                    selected: until == null,
+                    onTap: () => onChanged(value.copyWith(clearUntil: true)),
+                  ),
                 ),
-              ),
-              build(
-                context,
-                LucidChoice(
-                  label: until == null
-                      ? l10n.recurrenceSetEnd
-                      : l10n.recurrenceUntil(
-                          DateFormat.yMMMd(locale).format(until),
-                        ),
-                  icon: Icons.event_busy_outlined,
-                  selected: until != null,
-                  onTap: () => _pickUntil(context),
+                build(
+                  context,
+                  LucidChoice(
+                    label: until == null
+                        ? l10n.recurrenceSetEnd
+                        : l10n.recurrenceUntil(
+                            DateFormat.yMMMd(locale).format(until),
+                          ),
+                    icon: Icons.event_busy_outlined,
+                    selected: until != null,
+                    onTap: () => _pickUntil(context),
+                  ),
                 ),
-              ),
+              ],
             ],
-          ],
-        ),
+          ),
+        ],
       ],
     );
   }
