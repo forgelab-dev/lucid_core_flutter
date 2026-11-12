@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.9.0](https://github.com/forgelab-dev/lucid_core_flutter/compare/v0.8.0...v0.9.0) (2026-11-12)
+
+
+### ⚠ BREAKING CHANGES
+
+* ThemeData, ColorScheme, TextTheme et les autres types Material de l'API viennent désormais de material_ui, distincts de ceux du SDK. Une application doit migrer ses imports en même temps (dart fix --apply --code=migrate_design_widgets) et passer à Flutter 3.47 au minimum. LucidL10n.localizationsDelegates, généré par gen-l10n, fournit encore les traductions Material du SDK : avec material_ui, utiliser [LucidL10n.delegate, ...GlobalMaterialLocalizations.delegates].
+
+### Refactorisation
+
+* passer de la bibliothèque Material du SDK à material_ui ([0dc2005](https://github.com/forgelab-dev/lucid_core_flutter/commit/0dc2005f64e6c40c2418d750d0c4bc3b16897346))
+
 ## [0.8.0](https://github.com/forgelab-dev/lucid_core_flutter/compare/v0.7.1...v0.8.0) (2026-11-11)
 
 
