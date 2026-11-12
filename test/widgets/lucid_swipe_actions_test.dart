@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/semantics.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lucid_core_flutter/lib.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// Une liste de lignes glissables : supprimer (vers la droite) retire la ligne,
 /// modifier (vers la gauche) la laisse en place.

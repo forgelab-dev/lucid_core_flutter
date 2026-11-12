@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// Direction visuelle : console d'atelier. Fond sombre, une seule couleur
 /// d'accent (l'orange de la forge), le reste en niveaux de gris froids.

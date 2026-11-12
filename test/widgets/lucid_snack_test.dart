@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lucid_core_flutter/lib.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// Un écran avec un bouton qui affiche le message.
 Widget _host(void Function(BuildContext) onPressed, {ThemeData? theme}) {

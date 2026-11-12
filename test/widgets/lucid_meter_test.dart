@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lucid_core_flutter/lib.dart';
+import 'package:material_ui/material_ui.dart';
 
 const _primary = Color(0xFF0A6A9E);
 const _error = Color(0xFFD14343);

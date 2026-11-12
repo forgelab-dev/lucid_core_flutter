@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// La carte à utiliser dans un projet LucidForge : une surface du thème,
 /// bordée d'un filet discret, aux coins de [CardThemeData.shape].

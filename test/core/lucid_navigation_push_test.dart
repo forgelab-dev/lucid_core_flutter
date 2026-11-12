@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lucid_core_flutter/lucid_core_flutter.dart';
+import 'package:material_ui/material_ui.dart';
 
 void main() {
   testWidgets('context.push et context.pop restent disponibles sans go_router', (tester) async {

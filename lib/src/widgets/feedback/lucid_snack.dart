@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// Le message court du bas d'écran : une pastille compacte, ajustée à son
 /// texte, au lieu du bandeau Material sur toute la largeur.

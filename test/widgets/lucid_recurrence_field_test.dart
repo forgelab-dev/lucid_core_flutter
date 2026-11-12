@@ -1,7 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lucid_core_flutter/lib.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// Un hôte en français, avec un état pour suivre les changements.
 class _Host extends StatefulWidget {

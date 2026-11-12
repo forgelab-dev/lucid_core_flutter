@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:material_ui/material_ui.dart';
 
 import '../../../l10n/l10n.dart' show LucidL10n;
 import '../../core/core.dart';

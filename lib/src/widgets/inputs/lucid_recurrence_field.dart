@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:material_ui/material_ui.dart';
 
 import '../../../l10n/l10n.dart' show LucidL10n, lookupLucidL10n;
 import '../../core/models/lucid_recurrence.dart';

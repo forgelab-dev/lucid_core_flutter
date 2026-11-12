@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
 import 'package:lucid_core_flutter/lucid_core_flutter.dart';
+import 'package:material_ui/material_ui.dart';
 
 import 'demo_theme.dart';
 import 'mock_api.dart';
