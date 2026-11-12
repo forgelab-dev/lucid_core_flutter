@@ -38,7 +38,7 @@ Pour commencer avec le développement Flutter, consultez la [documentation en li
 - **Configuration** : résolveur de configuration unifié (`LucidAbstractConfigResolver`) avec overrides dynamiques, environnement (dev/staging/prod) et constantes par défaut.
 - **Thème** : thèmes clair/sombre alignés sur la charte graphique LucidForge Africa (navy `#020617`, or `#D4A017`).
 - **Widgets** : `LucidApp`, `LucidListManager`, `LucidNavigationManager`, `LucidButton`, `LucidRetryButton`, `LucidCard`, `LucidTextField`, `LucidEmptyState`, `LucidErrorState` — tous branchés sur le thème et la localisation.
-- **Widgets métier paramétrables** : jauge de progression accessible (`LucidMeter`), montants masquables (`LucidPrivateText` et `LucidPrivacyToggle`), saisie d'une récurrence (`LucidRecurrenceField`), actions par glissement sur une ligne (`LucidSwipeActions`).
+- **Widgets métier paramétrables** : jauge de progression accessible (`LucidMeter`), séance par intervalles (`LucidIntervalController`) et anneau de décompte (`LucidCountdownRing`), montants masquables (`LucidPrivateText` et `LucidPrivacyToggle`), saisie d'une récurrence (`LucidRecurrenceField`), actions par glissement sur une ligne (`LucidSwipeActions`).
 - **Internationalisation** : localisation française (`LucidL10n`) et extensions utilitaires (`String`, `num`, `BuildContext`, etc.).
 
 ## API Reference
