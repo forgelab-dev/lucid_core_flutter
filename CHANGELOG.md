@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.10.0](https://github.com/forgelab-dev/lucid_core_flutter/compare/v0.9.0...v0.10.0) (2026-11-12)
+
+
+### Fonctionnalités
+
+* **core:** dérouler une séance par intervalles ([a3a3472](https://github.com/forgelab-dev/lucid_core_flutter/commit/a3a3472cfc61c6fd8b3a7322a6ce6ecba8000b7a))
+* **feedback:** un anneau de décompte avec son contenu au centre ([0fa6417](https://github.com/forgelab-dev/lucid_core_flutter/commit/0fa6417cd4f2ea79b379a226626cd260deccfe51))
+* séance par intervalles et anneau de décompte ([747971a](https://github.com/forgelab-dev/lucid_core_flutter/commit/747971a9ce83a192c5f784f499bb64faffd8a31a))
+
 ## [0.9.0](https://github.com/forgelab-dev/lucid_core_flutter/compare/v0.8.0...v0.9.0) (2026-11-12)
 
 
