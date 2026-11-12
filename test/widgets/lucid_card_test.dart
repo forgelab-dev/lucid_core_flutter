@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lucid_core_flutter/lib.dart';
+import 'package:material_ui/material_ui.dart';
 
 Widget _host(Widget child, {ThemeData? theme}) {
   return MaterialApp(

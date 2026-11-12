@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 // Comme une application go_router : on masque la navigation, pas le reste.
 import 'package:lucid_core_flutter/lucid_core_flutter.dart' hide LucidNavigationExtensions;
+import 'package:material_ui/material_ui.dart';
 
 /// Imite go_router, qui déclare aussi `push` et `pop` sur BuildContext.
 extension _RouterLike on BuildContext {

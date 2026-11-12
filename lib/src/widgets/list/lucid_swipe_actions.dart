@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/semantics.dart';
 import 'package:flutter/services.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// Une action déclenchée en glissant une ligne : son icône, son libellé et sa
 /// couleur s'affichent sous la ligne pendant le geste.

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 import '../../../l10n/l10n.dart' show LucidL10n;
 import '../../core/core.dart';
@@ -104,7 +104,13 @@ class LucidApp extends StatelessWidget {
           final theme = lightTheme ?? notifier.lightThemeData;
           final dark = darkTheme ?? notifier.darkThemeData;
           final themeMode = _toFlutterThemeMode(notifier.themeMode);
-          final delegates = [...LucidL10n.localizationsDelegates, ...additionalLocalizationsDelegates];
+          // Pas LucidL10n.localizationsDelegates : gen-l10n y met les traductions
+          // Material du SDK, d'un autre type que celles de material_ui.
+          final delegates = [
+            LucidL10n.delegate,
+            ...GlobalMaterialLocalizations.delegates,
+            ...additionalLocalizationsDelegates,
+          ];
           final locales = [...LucidL10n.supportedLocales, ...additionalSupportedLocales];
 
           final router = routerConfig;

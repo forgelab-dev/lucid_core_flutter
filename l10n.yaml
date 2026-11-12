@@ -2,3 +2,6 @@ arb-dir: lib/l10n
 template-arb-file: intl_fr.arb
 output-localization-file: lucid_l10n.dart
 output-class: LucidL10n
+# gen-l10n importe encore les traductions Material et Cupertino du SDK,
+# dépréciées depuis Flutter 3.50 ; LucidApp charge celles de material_ui.
+header: "// ignore_for_file: deprecated_member_use"

@@ -21,6 +21,8 @@ dependencies:
   # Exposé pour écrire l'adaptateur HTTP simulé (HttpClientAdapter, ResponseBody).
   dio: ^5.7.0
 
+  material_ui: ^1.11.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
