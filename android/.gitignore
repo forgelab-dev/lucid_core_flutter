@@ -7,3 +7,9 @@
 /build
 /captures
 .cxx
+
+# Enveloppe Gradle créée en ouvrant android/ dans Android Studio : un
+# plugin Flutter est construit par l'application hôte, pas seul.
+/gradle/
+/gradlew
+/gradlew.bat
