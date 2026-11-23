@@ -5,14 +5,14 @@
 list(APPEND FLUTTER_PLUGIN_LIST
   app_links
   connectivity_plus
-  firebase_auth
   firebase_core
+  firebase_auth
   flutter_secure_storage_windows
   local_auth_windows
-  lucid_core_flutter
   permission_handler_windows
-  share_plus
   url_launcher_windows
+  share_plus
+  lucid_core_flutter
 )
 
 list(APPEND FLUTTER_FFI_PLUGIN_LIST
