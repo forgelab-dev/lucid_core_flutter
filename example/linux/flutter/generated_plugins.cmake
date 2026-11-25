@@ -3,10 +3,10 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+  app_links_linux
   flutter_secure_storage_linux
-  gtk
-  lucid_core_flutter
   url_launcher_linux
+  lucid_core_flutter
 )
 
 list(APPEND FLUTTER_FFI_PLUGIN_LIST
